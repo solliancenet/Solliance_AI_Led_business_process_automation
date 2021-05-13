@@ -27,7 +27,7 @@ In this whiteboard design session, you will work in a group to automate the busi
 
 At the end of this whiteboard design session, you will be better able to architect a solution to automate and enrich an existing business process and provide further insight into data using Azure Cognitive Services.
 
-### Hands-on lab *(this will go in the readme and in the HOL document)*
+### Hands-on lab
 
 In hands-on lab, you will learn to train a Form Recognizer model to extract data from intake form documents. You will build an Azure Synapse Analytics pipeline to automate this business process that provides pertinent data to downstream systems. The data extracted is enriched with a skill to mask PII and made available through a cognitive search index. Semantic Search capabilities further augment this index with semantic relevance and language understanding to provide more insightful search results. You will integrate this search functionality into the hospital portal web application. During the document processing pipeline execution, the integration of Azure Synapse Analytics and Cognitive Services further demonstrates data enrichment by adding sentiment analysis. A serverless SQL pool table exposes the sentiment data to a Power BI report to visualize the ratio of positive-minded patients to neutral or negative-minded individuals.
 
