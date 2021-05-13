@@ -1,49 +1,57 @@
-# AI-led business process automation*
-*Please provide an introduction to the workshop. For example:*
+# AI-led business process automation
 
-Trey Research Inc. looks at the old way of doing things in retail and introduces innovative experiences that delight customers and drive sales. Their latest initiative focuses on intelligent vending machines that support commerce, engagement analytics, and intelligent promotions. 
+Trey Research Inc. is a prominent specialized healthcare group consisting of multiple participating physician offices throughout the United States.  During the intake process, a physician interviews patients to collect a brief health history and preliminary observations regarding their general mood toward healthcare services rendered in the past. This data helps identify potential candidates for various medicinal studies. Typically a patient with a more positive view of healthcare is more apt to participate in these critical studies. Furthermore, the health history provides insight into which studies may apply to the patient.
 
-Month, year (date last reviewed)
+Intake form documents are provided to Trey Research Inc. in PDF format and uploaded to an Azure storage account via an existing SFTP process. They currently employ dozens of interns to input this data manually into their system. Trey Research is looking to automate the business process of ingesting and processing this form data while adding flexible search functionality to their existing hospital portal. They have concerns regarding divulging PII in search results to less privileged users. They also need a high-level dashboard to keep them informed of the ratio of patients presenting with a positive versus negative outlook to their healthcare services.
+
+June 2021
 
 ## Target audience
-*Please list the target audience for this workshop. For example:*
--	Application developer
--	Infrastructure architect
--	Database administrator
--	AI developer
--	Data scientist
+
+- Application developer
+- AI developer
+- Data engineer
+- Data architect
 
 ## Abstracts
-*Please provide descriptions of the overall workshop, the whiteboard design session and hands on lab. For example:*
 
 ### Workshop
-In this workshop, you will look at the process of migrating an on-premises data warehouse to Azure SQL Data Warehouse. Throughout the whiteboard design session and hands-on lab, you will look at the planning process for data warehouse migration, identifying schema and data incompatibilities, efficiently migrating data from on-premises databases to the cloud, data distribution in Azure SQL Data Warehouse, migrating ETL jobs to Azure Data Factory, and supporting ad-hoc workloads in an Azure SQL Data Warehouse through Azure Analysis Services.
 
-At the end of this workshop, you will be better able to [deliver, demonstrate, solve, present, migrate, build, design, architect, construct, modify] ….
+In this workshop, you will learn to automate a business process end-to-end using a variety of Azure Cognitive Services. First, you will train a Form Recognizer model to extract data from intake form documents. You will build an Azure Synapse Analytics pipeline to exercise this model that provides data to downstream systems. You will create a Cognitive Search index and enrich this data with a skill to mask PII. Applying Semantic Search will augment this index to provide more insightful search results. You will integrate this search functionality into the hospital portal web application. In addition to search, you will learn how to leverage the integration of Cognitive Services with Azure Synapse Analytics by enriching processed data with sentiment analysis to be visualized through a Power BI report.
 
-### Whiteboard design session *(this will go in the readme and in the WDS document)*
-In this whiteboard design session, you will work in a group to look at the process of migrating an on-premises data warehouse to Azure SQL Data Warehouse. The design session will cover planning for a data warehouse migration, data and schema preparation, data loading, optimizing the data distribution, and building a solution to support ad-hoc queries.
+At the end of this workshop, you will be better able to architect and implement a business process automation solution that leverages Azure Cognitive Services.
 
-At the end of this whiteboard design session, you will be better able to [deliver, demonstrate, solve, present, migrate, build, design, architect, construct, modify] ….
+### Whiteboard design session
+
+In this whiteboard design session, you will work in a group to automate the business process of extracting data from intake form documents. You will leverage AI to process and enrich this data to meet the goals of Trey Research Inc. You will also evaluate Azure tools and services to design an optimal architecture that will fulfill their needs. Because PII may be present in the intake form, you will need to ensure raw data is secure from unauthorized access. You will guide Trey Research Inc. to include powerful search capabilities into their design, paying particular attention to not divulging PII data. You will also need to include provisions to support a high-level sentiment analysis report.
+
+At the end of this whiteboard design session, you will be better able to architect a solution to automate and enrich an existing business process and provide further insight into data using Azure Cognitive Services.
 
 ### Hands-on lab *(this will go in the readme and in the HOL document)*
-In this hands-on lab, you will migrate an existing on-premises enterprise data warehouse to the cloud. You will investigate the current data warehouse to identify any incompatibilities, you will export the data from the on-premises data warehouse and transfer it to Azure Blob Storage. Then you will load the data into the warehouse. Finally, you will integrate the warehouse by migrating ETL to Azure Data Factory and supporting ad-hoc access by implementing Azure Analysis Services.
 
-At the end of this hands-on lab, you will be better able to [deliver, demonstrate, solve, present, migrate, build, design, architect, construct, modify] ….
+In hands-on lab, you will learn to train a Form Recognizer model to extract data from intake form documents. You will build an Azure Synapse Analytics pipeline to automate this business process that provides pertinent data to downstream systems. The data extracted is enriched with a skill to mask PII and made available through a cognitive search index. Semantic Search capabilities further augment this index with semantic relevance and language understanding to provide more insightful search results. You will integrate this search functionality into the hospital portal web application. During the document processing pipeline execution, the integration of Azure Synapse Analytics and Cognitive Services further demonstrates data enrichment by adding sentiment analysis. A serverless SQL pool table exposes the sentiment data to a Power BI report to visualize the ratio of positive-minded patients to neutral or negative-minded individuals.
+
+At the end of this hands-on lab, you will be better able to implement a business process automation solution that leverages Azure Cognitive Services.
 
 ## Azure services and related products
-*Please list the services and products that are highlighted in the workshop. For example:*
--	Azure SQL Data Warehouse
--	Azure Data Factory
--	Azure Analysis Services
--	Azure Storage
 
-## Azure solutions
-*This is an internal reference and will be updated by project PM.*
+- App Service
+- Cognitive Services: Form Recognizer
+- Cognitive Services: Text Analytics - Sentiment Analysis
+- Cognitive Search and Semantic Search
+- Function App
+- Azure Data Lake Storage Gen2
+- Azure Synapse Analytics
+- Apache Spark in Azure Synapse Analytics
+- Cosmos DB
+- Power BI
+- Visual Studio Code
 
 ## Related references
-*This should be a list of and links to prereqs, architectural diagrams, supporting docs, or briefing decks related to the material.* 
-- [MCW](https://github.com/Microsoft/MCW)
+
+![The solution architecture diagram as described in the paragraph that follows.](Media/architecture.png "Solution architecture")
+
+Raw data is provided via SFTP process and is dropped in an ADLS Gen 2 storage account. An Azure Synapse Analytics pipeline initiates an Azure Functions activity that leverages a trained Form Recognizer model to extract data from the forms. The result of the data extraction is stored in an ADLS Gen 2 container. Another pipeline activity initiates a Synapse Notebook that leverages the Cognitive Services integration to enrich extracted data with sentiment analysis and stores the result in a Spark table. This table is exposed to a Power BI sentiment report via a serverless SQL Pool. A Cognitive Search indexer indexes the extracted data in storage (from the first activity) and enriches it by applying the PII skill and stores the result in an ADLS Gen 2-based knowledgestore. This search is then integrated into the hospital portal web application.
 
 ## Help & Support
 
