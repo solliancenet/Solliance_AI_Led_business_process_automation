@@ -1,8 +1,6 @@
 # AI-led business process automation
 
-Trey Research Inc. is a prominent specialized healthcare group consisting of multiple participating physician offices throughout the United States.  During the intake process, a physician interviews patients to collect brief health history and preliminary observations regarding their general mood toward healthcare services rendered in the past. This data helps identify potential candidates for various medicinal studies. Typically a patient with a more positive view of healthcare is more apt to participate in these critical studies. Furthermore, the health history provides insight into which studies may apply to the patient.
-
-Intake form documents are provided to Trey Research Inc. in PDF format and uploaded to an Azure storage account via an existing on-premises application. The process of scanning and digitizing the documents takes too much time and is delayed during day-to-day urgencies. Trey Research is looking to automate the business process of ingesting and processing this form data while adding flexible search functionality to their existing hospital portal. They want to make sure the data is easily discoverable, and no PII information shows up in search results to less privileged users. They also need a high-level dashboard to keep them informed of the ratio of patients presenting with a positive versus negative outlook to their healthcare services.
+Contoso Healthcare is a major hospital network consisting of multiple locations across the United States. Many critical business processes revolve around data acquisition via paper forms such as patient intake, patient satisfaction surveys, and employee safety reports. Image representations of completed forms get uploaded on a nightly basis through an Azure File Share. Upstream systems provide images of these forms to an Azure storage account on a nightly basis. Currently, the data from these form images are processed manually and entered into the system by employees. Contoso Healthcare is looking to automate the business process of ingesting and processing form data while adding an enhanced search functionality that leverages AI into their existing hospital portal. The content of some of the form fields is free-text; therefore, they also have concerns regarding divulging PII in search results to less privileged users. They also need a high-level dashboard to keep them informed of the ratio of patients presenting with a positive versus negative outlook to their healthcare services.
 
 June 2021
 
@@ -17,22 +15,21 @@ June 2021
 
 ### Workshop
 
-In this workshop, you will learn to automate a business process end-to-end using a variety of Azure Cognitive Services integrated with Azure Cognitive Search and Azure Synapse. First, you will train a Form Recognizer model to extract data from intake form documents. You will build an Azure Synapse Analytics pipeline to exercise this model that provides data to downstream systems. You will create a Cognitive Search index and enrich this data with a skill to mask PII. Applying Semantic Search will augment this index to provide more insightful search results through AI, specifically natural language understanding. You will integrate this search functionality into the hospital portal web application. In addition to search, you will learn how to leverage the integration of Cognitive Services with Azure Synapse Analytics by enriching processed data with sentiment analysis to be visualized through a Power BI report.
+In this workshop, you will learn to automate a business process end-to-end using a variety of Azure Cognitive Services integrated with Azure Cognitive Search and Azure Synapse. First, you will train a Form Recognizer model to extract data from form documents. You will build an Azure Synapse Analytics pipeline to exercise this model to extract data for a Cognitive Search index. The index enriches this data by applying a skill to mask PII in a new field. You will then add a Semantic Search layer that further augments this index to provide more insightful and contextual search results through AI, specifically through natural language understanding. You will integrate this search functionality into the hospital portal web application. In addition to search, you will learn how to leverage the integration of Cognitive Services with Azure Synapse Analytics by enriching processed data with sentiment analysis to be visualized through a Power BI report.
 
 At the end of this workshop, you will be better able to architect and implement a business process automation solution that leverages Azure Cognitive Services.
 
 ### Whiteboard design session
 
-In this whiteboard design session, you will work in a group to automate the business process of extracting data from intake form documents. You will leverage AI to process and enrich this data to meet the goals of Trey Research Inc. You will also evaluate Azure tools and services to design an optimal architecture that will fulfill their needs. You will incorporate Natural Language Processing to offer an AI-enabled search experience with semantic ranking and AI summarization. Because PII may be present in the intake form, you will need to ensure raw data is secure from unauthorized access. You will guide Trey Research Inc. to include powerful search capabilities into their design, paying particular attention to not divulging PII data. You will also need to include provisions to support a high-level sentiment analysis report. You will build an architecture from start to finish that will consist of AI-based data ingestion and discovery, AI incorporated data enrichment, and rich visual reporting through PowerBI.
+In this whiteboard design session, you will work in a group to automate the business process of extracting data from form documents. You will leverage AI to process and enrich this data to meet the goals of Contoso Healthcare. You will also evaluate Azure tools and services to design an optimal architecture that will fulfill their needs. You will incorporate Natural Language Processing to offer an AI-enabled search experience with semantic ranking and AI summarization. Because PII may be present in the data collected, you will need to ensure raw data is secure from unauthorized access. You will guide Contoso Healthcare to include powerful search capabilities into their design, paying particular attention to not divulging PII data. You will also need to include provisions to support a high-level sentiment analysis report. You will build an architecture from start to finish that will consist of AI-based data ingestion, AI incorporated data enrichment, AI-enabled contextual search, and rich visual reporting through Power BI.
 
 At the end of this whiteboard design session, you will be better able to architect a solution to automate and enrich an existing business process and provide further insight into data using Azure Cognitive Services.
 
 ### Hands-on lab
 
-In hands-on lab, you will learn to train a Form Recognizer model to extract data from intake documents. You will build an Azure Synapse Analytics pipeline to automate this business process that provides pertinent data to downstream systems. The data will be indexed with the help of Azure Cognitive Search and served through Semantic Search to incorporate semantic relevance and language understanding to search results. The data extracted will be enriched with a skill to mask PII. The search index, in combination with a CosmosDB database, will power the hospital portal.
-You will use CosmosDB as the backing database for the hospital portal and feed the entire data into a Synapse Analytics environment for further analysis.
+In hands-on lab, you will learn to train a Form Recognizer model to extract data from forms. You will build an Azure Synapse Analytics pipeline to automate that leverages this model via a Function App activity to extract data from images of forms. This data is then indexed with the help of Azure Cognitive Search and served with Semantic Search to incorporate semantic relevance and language understanding to search results. The data extracted will be enriched with a skill to mask PII data from less privileged users. The search index is then integrated as a feature in the hospital portal.
 
-During the document processing pipeline execution, the integration of Azure Synapse Analytics and Cognitive Services further demonstrates data enrichment by adding sentiment analysis. A serverless SQL pool table exposes the sentiment data to a Power BI report to visualize the ratio of positive-minded patients to neutral or negative-minded individuals.
+You will take advantage of the Azure Synapse Analytics integration with Cognitive Services to generate a Synapse Notebook that further enriches extracted patient responses with sentiment analysis and stores the result in a Spark table. This table is exposed to a Power BI sentiment report via a serverless SQL Pool. This notebook is then integrated into the existing Synapse pipeline.
 
 At the end of this hands-on lab, you will be better able to implement a business process automation solution that leverages Azure Cognitive Services.
 
@@ -46,7 +43,6 @@ At the end of this hands-on lab, you will be better able to implement a business
 - Azure Data Lake Storage Gen2
 - Azure Synapse Analytics
 - Apache Spark in Azure Synapse Analytics
-- Cosmos DB
 - Power BI
 - Visual Studio Code
 
@@ -54,11 +50,29 @@ At the end of this hands-on lab, you will be better able to implement a business
 
 ![The solution architecture diagram as described in the paragraph that follows.](Media/architecture.png "Solution architecture")
 
-Raw data is uploaded by an on-premises application to an ADLS Gen 2 storage account hourly. An Azure Synapse Analytics pipeline initiates an Azure Functions activity that leverages a trained Form Recognizer model to extract data from the forms. The result of the data extraction is stored in an ADLS Gen 2 container. Once the extraction is complete, the pipeline will copy parts of the data to an Azure Cognitive Search Index and other parts to a CosmosDB database to be used by the hospital portal.
+On a nightly basis, from image files are added to an Azure Files Share. An Azure Synapse Analytics pipeline initiates an Azure Functions activity that leverages a trained Form Recognizer model to extract data from the images. The result of the data extraction is stored in an ADLS Gen 2 container in JSON format. An Azure Cognitive Search indexer indexes the extracted data in storage and enriches it by applying the PII skill to mask unwanted patient identifiers. After enabling Semantic Search for the index, the search is integrated into the hospital portal web application.
 
-Once the data arrives at the Azure Cognitive Search Index, an indexer indexes the extracted data in storage and enriches it by applying the PII skill to mask unwanted patient identifiers. After enabling Semantic Search for the index, the search is integrated into the hospital portal web application.
+You will take advantage of the Azure Synapse Analytics integration with Cognitive Services to generate a Synapse Notebook that further enriches extracted patient responses with sentiment analysis and stores the result in a Spark table. This table is exposed to a Power BI sentiment report via a serverless SQL Pool. This notebook is then integrated into the existing Synapse pipeline.
 
-The Synapse Pipeline continues its processing with a Synapse Notebook that leverages the Cognitive Services integration to enrich extracted patient responses with sentiment analysis and stores the result in a Spark table. This table is exposed to a Power BI sentiment report via a serverless SQL Pool.
+example HOL exercise outline (links are not live):
+    - [Exercise 1: Extract Text and Structure from Documents with Forms Recognizer](#exercise-1-exercise-name)
+        - [Task 1: Prepare Custom Model to process documents](#task-1-task-name)
+        - [Task 2: Configure Azure Functions for document processing](#task-2-task-name)
+        - [Task 3: Setting up a Synapse Pipeline for data flow management](#task-2-task-name)
+    - [Exercise 2: Implementing Semantic Search for the web site](#exercise-2-exercise-name)
+        - [Task 1: Moving data to Azure Cognitive Search with Synapse](#task-1-task-name-1)
+        - [Task 2: Enabling Semantic Search for the Search Index](#task-2-task-name-1)
+        - [Task 3: Configure the web portal to use semantic ranking and AI summarization](#task-2-task-name)
+    - [Exercise 3: Data Enrichment with PII Masking Cognitive Skill ](#exercise-2-exercise-name)
+        - [Task 1: Configure PII Masking Skill and Indexer ](#task-1-task-name-1)
+        - [Task 2: Running the Indexer](#task-2-task-name-1)
+        - [Task 3: Configure the web portal to use enrichment data](#task-2-task-name)
+    - [Exercise 4: Building Customer Sentiment Reporting](#exercise-2-exercise-name)
+        - [Task 1: Moving data to a Synapse Spark Table](#task-1-task-name-1)
+        - [Task 2: Implementing Sentiment Analysis in Synapse](#task-2-task-name-1)
+        - [Task 3: Creating Sentiment Report](#task-2-task-name)
+    - [After the hands-on lab](#after-the-hands-on-lab)
+        - [Task 1: Delete resource group](#task-1-task-name-3)
 
 ## Help & Support
 
