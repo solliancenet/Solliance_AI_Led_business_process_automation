@@ -55,24 +55,25 @@ On a nightly basis, from image files are added to an Azure Files Share. An Azure
 You will take advantage of the Azure Synapse Analytics integration with Cognitive Services to generate a Synapse Notebook that further enriches extracted patient responses with sentiment analysis on the patient satisfaction survey responses and stores the result in a Spark table. This table is exposed to a Power BI sentiment report via a serverless SQL Pool. This notebook is then integrated into the existing Synapse pipeline.
 
 example HOL exercise outline (links are not live):
-    - [Exercise 1: Extract Text and Structure from Documents with Forms Recognizer](#exercise-1-exercise-name)
-        - [Task 1: Prepare Custom Model to process documents](#task-1-task-name)
-        - [Task 2: Configure Azure Functions for document processing](#task-2-task-name)
-        - [Task 3: Setting up a Synapse Pipeline for data flow management](#task-2-task-name)
-    - [Exercise 2: Implementing Semantic Search for the web site](#exercise-2-exercise-name)
-        - [Task 1: Moving data to Azure Cognitive Search with Synapse](#task-1-task-name-1)
-        - [Task 2: Enabling Semantic Search for the Search Index](#task-2-task-name-1)
-        - [Task 3: Configure the web portal to use semantic ranking and AI summarization](#task-2-task-name)
-    - [Exercise 3: Data Enrichment with PII Masking Cognitive Skill ](#exercise-2-exercise-name)
-        - [Task 1: Configure PII Masking Skill and Indexer ](#task-1-task-name-1)
-        - [Task 2: Running the Indexer](#task-2-task-name-1)
-        - [Task 3: Configure the web portal to use enrichment data](#task-2-task-name)
-    - [Exercise 4: Building Customer Sentiment Reporting](#exercise-2-exercise-name)
-        - [Task 1: Moving data to a Synapse Spark Table](#task-1-task-name-1)
-        - [Task 2: Implementing Sentiment Analysis in Synapse](#task-2-task-name-1)
-        - [Task 3: Creating Sentiment Report](#task-2-task-name)
-    - [After the hands-on lab](#after-the-hands-on-lab)
-        - [Task 1: Delete resource group](#task-1-task-name-3)
+
+1. Exercise 1: Extract Text and Structure from Documents with Forms Recognizer
+   1. Task 1: Prepare Custom Model to process documents
+   2. Task 2: Configure Azure Functions for document processing
+   3. Task 3: Setting up a Synapse Pipeline for data flow management
+2. Exercise 2: Implementing Semantic Search for the web site
+   1. Task 1: Moving data to Azure Cognitive Search with Synapse
+   2. Task 2: Enabling Semantic Search for the Search Index
+   3. Task 3: Configure the web portal to use semantic ranking and AI summarization
+3. Exercise 3: Data Enrichment with PII Masking Cognitive Skill
+   1. Task 1: Configure PII Masking Skill and Indexer
+   2. Task 2: Running the Indexer
+   3. Task 3: Configure the web portal to use enrichment data
+4. Exercise 4: Building Customer Sentiment Reporting
+   1. Task 1: Moving data to a Synapse Spark Table
+   2. Task 2: Implementing Sentiment Analysis in Synapse
+   3. Task 3: Creating Sentiment Report
+5. After the hands-on lab
+   1. Task 1: Delete resource group
 
 ## Help & Support
 
