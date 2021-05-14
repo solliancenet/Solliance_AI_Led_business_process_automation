@@ -27,7 +27,7 @@ At the end of this whiteboard design session, you will be better able to archite
 
 ### Hands-on lab
 
-In hands-on lab, you will learn to train a Form Recognizer model to extract data from forms. You will build an Azure Synapse Analytics pipeline to automate that leverages this model via a Function App activity to extract data from images of forms. This data is then indexed with the help of Azure Cognitive Search and served with Semantic Search to incorporate semantic relevance and language understanding to search results. The data extracted will be enriched with a skill to mask PII data from less privileged users. The search index is then integrated as a feature in the hospital portal.
+In this hands-on lab, you will learn to train a Form Recognizer model to extract data from scanned documents. You will build an Azure Synapse Analytics pipeline to automate a process that leverages this model via a Function App activity to extract data from images of forms. This data is then indexed with the help of Azure Cognitive Search and served with Semantic Search to incorporate semantic relevance and language understanding to search results. The data extracted will be enriched with a cognitive skill to mask PII data from less privileged users. The search index is then integrated as a feature in the hospital portal.
 
 You will take advantage of the Azure Synapse Analytics integration with Cognitive Services to generate a Synapse Notebook that further enriches extracted patient responses on patient satisfaction surveys with sentiment analysis and stores the result in a Spark table. This table is exposed to a Power BI sentiment report via a serverless SQL Pool. This notebook is then integrated into the existing Synapse pipeline.
 
@@ -50,30 +50,30 @@ At the end of this hands-on lab, you will be better able to implement a business
 
 ![The solution architecture diagram as described in the paragraph that follows.](Media/architecture.png "Solution architecture")
 
-On a nightly basis, from image files are added to an Azure Files Share. An Azure Synapse Analytics pipeline initiates an Azure Functions activity that leverages a trained Form Recognizer model to extract data from the images. The result of the data extraction is stored in an ADLS Gen 2 container in JSON format. An Azure Cognitive Search indexer indexes the extracted data in storage and enriches it by applying the PII skill to mask unwanted patient identifiers. After enabling Semantic Search for the index, the search is integrated into the hospital portal web application.
+On a nightly basis, scanned images of documents are added to an Azure Files Share. An Azure Synapse Analytics pipeline initiates an Azure Functions activity that leverages a trained Form Recognizer model to extract data from the images. The result of the data extraction is stored in an ADLS Gen 2 container in JSON format for future processing and sent to an Azure Cognitive Search index. The data in Azure Cognitive Search is then enriched by applying the PII skill to mask unwanted patient identifiers. After enabling Semantic Search for the index, the search is integrated into the hospital portal web application.
 
 You will take advantage of the Azure Synapse Analytics integration with Cognitive Services to generate a Synapse Notebook that further enriches extracted patient responses with sentiment analysis on the patient satisfaction survey responses and stores the result in a Spark table. This table is exposed to a Power BI sentiment report via a serverless SQL Pool. This notebook is then integrated into the existing Synapse pipeline.
 
-example HOL exercise outline (links are not live):
+Draft HOL exercise outline:
 
-1. Exercise 1: Extract Text and Structure from Documents with Forms Recognizer
-   1. Task 1: Prepare Custom Model to process documents
-   2. Task 2: Configure Azure Functions for document processing
-   3. Task 3: Setting up a Synapse Pipeline for data flow management
-2. Exercise 2: Implementing Semantic Search for the web site
-   1. Task 1: Moving data to Azure Cognitive Search with Synapse
-   2. Task 2: Enabling Semantic Search for the Search Index
-   3. Task 3: Configure the web portal to use semantic ranking and AI summarization
-3. Exercise 3: Data Enrichment with PII Masking Cognitive Skill
-   1. Task 1: Configure PII Masking Skill and Indexer
-   2. Task 2: Running the Indexer
-   3. Task 3: Configure the web portal to use enrichment data
-4. Exercise 4: Building Customer Sentiment Reporting
-   1. Task 1: Moving data to a Synapse Spark Table
-   2. Task 2: Implementing Sentiment Analysis in Synapse
-   3. Task 3: Creating Sentiment Report
-5. After the hands-on lab
-   1. Task 1: Delete resource group
+- Exercise 1: Extract Text and Structure from Documents with Forms Recognizer
+  - Task 1: Prepare Custom Model to process documents
+  - Task 2: Configure Azure Functions for document processing
+  - Task 3: Setting up a Synapse Pipeline for data flow management
+- Exercise 2: Implementing Semantic Search for the web site
+  - Task 1: Moving data to Azure Cognitive Search with Synapse
+  - Task 2: Enabling Semantic Search for the Search Index
+  - Task 3: Configure the web portal to use semantic ranking and AI summarization
+- Exercise 3: Data Enrichment with PII Masking Cognitive Skill
+  - Task 1: Configure PII Masking Skill and Indexer
+  - Task 2: Running the Indexer
+  - Task 3: Configure the web portal to use enrichment data
+- Exercise 4: Building Customer Sentiment Reporting
+  - Task 1: Moving data to a Synapse Spark Table
+  - Task 2: Implementing Sentiment Analysis in Synapse
+  - Task 3: Creating Sentiment Report
+- After the hands-on lab
+  - Task 1: Delete resource group
 
 ## Help & Support
 
