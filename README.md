@@ -74,8 +74,11 @@ At the end of this hands-on lab, you will be better able to implement a business
 Hospitals in the Contoso Healthcare network provide images of claim forms and visit audio recordings via an Azure File Share. The event grid propagates the blob creation event that triggers a Function App to perform document/audio processing. If required, the audio processing will also translate from the source language to English. Healthcare Text analytics is also applied to the transcribed text to surface medical terminology, dosage requirements, and diagnoses. The results of both claims form processing and visit audio processing is stored in Cosmos DB. The data obtained from claims processing is surfaced through a Power BI report, and the data from the visit audio recordings is surfaced through Cognitive search.
 
 ### Claims form
+
 [Claims Form PDF](Media/HealthClaimForm.pdf)
+
 [Claims Form DOCX](Media/HealthClaimForm.docx)
+
 ![Empty Claims Form Image.](Media/empty-claims-form.png "Empty claims form")
 
 
