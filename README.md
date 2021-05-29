@@ -40,17 +40,17 @@ At the end of this hands-on lab, you will be better able to implement a business
   - Task 1: Train Forms Recognizer with sample claims forms
   - Task 2: Configure Azure Function to perform document processing
   - Task 3: Setup Event Grid for data flow (triggers function)
-  - Task 4: Executing the claims form data pipeline (view JSON results)
-  - Task 5: Visualizing claim processing results in Power BI (over storage)
+  - Task 4: Executing the claims form data pipeline
+  - Task 5: Visualizing claim processing results in Power BI (Cosmos DB)
 - Exercise 2: Processing visit audio
   - Task 1: Configure Azure Function to perform audio transcription (identify language, speech-to-text)
   - Task 2: Configure Azure Function to perform text translation (translate to English if necessary)
+  - Task 3: Configure Azure Function to perform Healthcare Text Analytics on transcribed text
   - Task 3: Setup Event Grid for data flow (triggers function)
   - Task 4: Executing the audio processing data pipeline (view results)
-- Exercise 3: Cognitive Search on audio
-  - Task 1: Create the search index on audio transcription (translated)
-  - Task 2: Enhance audio transcription using healthcare text analytics
-  - Task 3: Configure the web portal to use the search index
+- Exercise 3: Cognitive Search on audio text transcriptions
+  - Task 1: Create the search index
+  - Task 2: Configure the web portal to use the search index
 - After the hands-on lab
   - Task 1: Delete resource group
 
@@ -64,6 +64,7 @@ At the end of this hands-on lab, you will be better able to implement a business
 - Cognitive Search
 - Function App
 - Azure Data Lake Storage Gen2
+- Azure File Share
 - Power BI
 - Visual Studio Code
 
