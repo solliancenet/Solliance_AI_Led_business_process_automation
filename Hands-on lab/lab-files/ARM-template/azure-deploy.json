@@ -15,7 +15,7 @@
     "variables": {
 		"githubBranchName": "main",
         "location": "[resourceGroup().location]",
-        "storageAccountName": "[concat('parts', uniqueString(resourceGroup().id))]",
+        "storageAccountName": "[concat('contoso', uniqueString(resourceGroup().id))]",
         
         "virtualMachineSize": "Standard_D2s_v3",
 
