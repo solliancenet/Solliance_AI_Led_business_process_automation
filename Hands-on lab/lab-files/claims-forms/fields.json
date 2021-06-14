@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.cognitiveservices.azure.com/formrecognizer/2021-03-01/fields.json",
+    "fields": [
+        {
+            "fieldKey": "PatientName",
+            "fieldType": "string",
+            "fieldFormat": "not-specified"
+        },
+        {
+            "fieldKey": "PatientBirthDate",
+            "fieldType": "date",
+            "fieldFormat": "mdy"
+        },
+        {
+            "fieldKey": "InsuredID",
+            "fieldType": "string",
+            "fieldFormat": "alphanumeric"
+        },
+        {
+            "fieldKey": "AmountDue",
+            "fieldType": "number",
+            "fieldFormat": "not-specified"
+        },
+        {
+            "fieldKey": "AmountPaid",
+            "fieldType": "number",
+            "fieldFormat": "not-specified"
+        },
+        {
+            "fieldKey": "TotalCharges",
+            "fieldType": "number",
+            "fieldFormat": "not-specified"
+        }
+    ],
+    "definitions": {}
+}
