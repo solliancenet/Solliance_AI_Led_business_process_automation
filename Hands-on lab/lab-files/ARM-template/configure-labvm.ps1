@@ -64,7 +64,7 @@ Rename-Item $item -NewName "MCW-$branchName"
 
 # Schedule Installs for first Logon
 $argument = "-File `"C:\MCW\MCW-$branchName\Hands-on lab\lab-files\ARM-template\labvm-logon-install.ps1`""
-$triggerAt = New-ScheduledTaskTrigger -AtLogOn -User demouser
+$triggerAt = New-ScheduledTaskTrigger -AtLogOn -User demo
 $action = New-ScheduledTaskAction -Execute "powershell" -Argument $argument 
 Register-ScheduledTask -TaskName "Install Lab Requirements" -Trigger $triggerAt -Action $action -User demo
 
