@@ -63,26 +63,14 @@ Rename-Item $item -NewName "MCW-$branchName"
 (New-Object System.Net.WebClient).DownloadFile('https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/e2d06b69-9e44-45e1-bdf5-b3b827fe06b2/MicrosoftEdgeEnterpriseX64.msi', 'C:\MicrosoftEdgeEnterpriseX64.msi')
 
 # Schedule Installs for first Logon
-$argument = "-File `"C:\MCW\MCW-$branchName\Hands-on lab\lab-files\ARM-template\webvm-logon-install.ps1`""
+$argument = "-File `"C:\MCW\MCW-$branchName\Hands-on lab\lab-files\ARM-template\labvm-logon-install.ps1`""
 $triggerAt = New-ScheduledTaskTrigger -AtLogOn -User demouser
 $action = New-ScheduledTaskAction -Execute "powershell" -Argument $argument 
-Register-ScheduledTask -TaskName "Install Lab Requirements" -Trigger $triggerAt -Action $action -User demouser
+Register-ScheduledTask -TaskName "Install Lab Requirements" -Trigger $triggerAt -Action $action -User demo
 
 # Install Git
 Wait-Install
 (New-Object System.Net.WebClient).DownloadFile('https://github.com/git-for-windows/git/releases/download/v2.32.0.windows.1/Git-2.32.0-64-bit.exe', 'Git-2.32.0-64-bit.exe')
 Start-Process -file 'C:\Git-2.32.0-64-bit.exe' -arg '/VERYSILENT /SUPPRESSMSGBOXES /LOG="C:\git_install.txt" /NORESTART /CLOSEAPPLICATIONS' -passthru | wait-process
-
-# Install VS Code
-Wait-Install
-(New-Object System.Net.WebClient).DownloadFile('https://go.microsoft.com/fwlink/?LinkID=623230', 'C:\vscode.exe')
-Start-Process -file 'C:\vscode.exe' -arg '/VERYSILENT /SUPPRESSMSGBOXES /LOG="C:\vscode_install.txt" /NORESTART /FORCECLOSEAPPLICATIONS /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"' -passthru | wait-process
-
-
-
-
-
-
-
 
 

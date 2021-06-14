@@ -19,18 +19,18 @@
         
         "virtualMachineSize": "Standard_D2s_v3",
 
-        "webVirtualMachineName": "WebVM",
-        "webNetworkSecurityGroupName": "[concat(variables('webVirtualMachineName'), '-nsg')]",
-        "webNetworkInterfaceName": "[concat(variables('webVirtualMachineName'), '-nic')]",
-        "webPublicIpAddressName": "[concat(variables('webVirtualMachineName'), '-ip')]",
+        "labVirtualMachineName": "LabVM",
+        "labNetworkSecurityGroupName": "[concat(variables('labVirtualMachineName'), '-nsg')]",
+        "labNetworkInterfaceName": "[concat(variables('labVirtualMachineName'), '-nic')]",
+        "labPublicIpAddressName": "[concat(variables('labVirtualMachineName'), '-ip')]",
 
         "virtualNetworkName": "[concat(resourceGroup().name, '-vnet')]",
         "addressPrefix": "176.16.0.0/16",
         "subnetName": "default",
         "subnetPrefix": "176.16.0.0/24",
 
-        "webCustomScriptFileName": "configure-webvm.ps1",
-        "webCustomScriptUri": "[concat('https://raw.githubusercontent.com/solliancenet/Solliance_AI_Led_business_process_automation/', variables('githubBranchName'),'/Hands-on%20lab/lab-files/ARM-template/', variables('webCustomScriptFileName'))]",
+        "labCustomScriptFileName": "configure-labvm.ps1",
+        "labCustomScriptUri": "[concat('https://raw.githubusercontent.com/solliancenet/Solliance_AI_Led_business_process_automation/', variables('githubBranchName'),'/Hands-on%20lab/lab-files/ARM-template/', variables('labCustomScriptFileName'))]",
 
         "hostingPlanName": "[concat(resourceGroup().name, '-asp-ln-fn')]",
 		"functionAppName": "[concat('contoso-func-', uniqueString(resourceGroup().id))]"
@@ -56,12 +56,12 @@
             }
         },
         {
-            "name": "[variables('webVirtualMachineName')]",
+            "name": "[variables('labVirtualMachineName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2019-03-01",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/networkInterfaces/', variables('webNetworkInterfaceName'))]"
+                "[concat('Microsoft.Network/networkInterfaces/', variables('labNetworkInterfaceName'))]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -84,12 +84,12 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('webNetworkInterfaceName'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('labNetworkInterfaceName'))]"
                         }
                     ]
                 },
                 "osProfile": {
-                    "computerName": "[variables('webVirtualMachineName')]",
+                    "computerName": "[variables('labVirtualMachineName')]",
                     "adminUsername": "demo",
                     "adminPassword": "[parameters('adminPassword')]",
                     "windowsConfiguration": {
@@ -100,7 +100,7 @@
             },
             "resources": [
                 {
-                    "name": "SetupWebVm",
+                    "name": "SetupLabVm",
                     "type": "extensions",
                     "apiVersion": "2019-03-01",
                     "location": "[variables('location')]",
@@ -111,16 +111,16 @@
                         "autoUpgradeMinorVersion": true,
                         "settings": {
                             "fileUris": [
-                                "[variables('webCustomScriptUri')]"
+                                "[variables('labCustomScriptUri')]"
                             ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('webCustomScriptFileName'), ' ')]"
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('labCustomScriptFileName'), ' ')]"
                         }
                     },
                     "dependsOn": [
-                        "[concat('Microsoft.Compute/virtualMachines/', variables('webVirtualMachineName'))]"
+                        "[concat('Microsoft.Compute/virtualMachines/', variables('labVirtualMachineName'))]"
                     ],
                     "tags": {
-                        "displayName": "SetupWebVm"
+                        "displayName": "SetupLabVm"
                     }
                 }
             ]
@@ -201,14 +201,14 @@
             }
         },
         {
-            "name": "[variables('webNetworkInterfaceName')]",
+            "name": "[variables('labNetworkInterfaceName')]",
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2019-04-01",
             "location": "[variables('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
-                "[concat('Microsoft.Network/publicIpAddresses/', variables('webPublicIpAddressName'))]",
-                "[concat('Microsoft.Network/networkSecurityGroups/', variables('webNetworkSecurityGroupName'))]"
+                "[concat('Microsoft.Network/publicIpAddresses/', variables('labPublicIpAddressName'))]",
+                "[concat('Microsoft.Network/networkSecurityGroups/', variables('labNetworkSecurityGroupName'))]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -220,18 +220,18 @@
                             },
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIpAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIpAddresses', variables('webPublicIpAddressName'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIpAddresses', variables('labPublicIpAddressName'))]"
                             }
                         }
                     }
                 ],
                 "networkSecurityGroup": {
-                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('webNetworkSecurityGroupName'))]"
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('labNetworkSecurityGroupName'))]"
                 }
             }
         },
         {
-            "name": "[variables('webPublicIpAddressName')]",
+            "name": "[variables('labPublicIpAddressName')]",
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2019-04-01",
             "location": "[variables('location')]",
@@ -243,7 +243,7 @@
             }
         },
         {
-            "name": "[variables('webNetworkSecurityGroupName')]",
+            "name": "[variables('labNetworkSecurityGroupName')]",
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2019-04-01",
             "location": "[variables('location')]",
