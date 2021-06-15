@@ -70,11 +70,11 @@ Register-ScheduledTask -TaskName "Install Lab Requirements" -Trigger $triggerAt 
 
 # Install Git
 Wait-Install
-(New-Object System.Net.WebClient).DownloadFile('https://github.com/git-for-windows/git/releases/download/v2.32.0.windows.1/Git-2.32.0-64-bit.exe', 'Git-2.32.0-64-bit.exe')
+(New-Object System.Net.WebClient).DownloadFile('https://github.com/git-for-windows/git/releases/download/v2.32.0.windows.1/Git-2.32.0-64-bit.exe', 'C:\Git-2.32.0-64-bit.exe')
 Start-Process -file 'C:\Git-2.32.0-64-bit.exe' -arg '/VERYSILENT /SUPPRESSMSGBOXES /LOG="C:\git_install.txt" /NORESTART /CLOSEAPPLICATIONS' -passthru | wait-process
 
 # Install PowerBI
 Wait-Install
-(New-Object System.Net.WebClient).DownloadFile('https://download.microsoft.com/download/8/8/0/880BCA75-79DD-466A-927D-1ABF1F5454B0/PBIDesktopSetup_x64.exe', 'PBIDesktopSetup_x64.exe')
+(New-Object System.Net.WebClient).DownloadFile('https://download.microsoft.com/download/8/8/0/880BCA75-79DD-466A-927D-1ABF1F5454B0/PBIDesktopSetup_x64.exe', 'C:\PBIDesktopSetup_x64.exe')
 Start-Process -file 'C:\PBIDesktopSetup_x64.exe' -arg '-q -norestart ACCEPT_EULA=1' -passthru | wait-process
 
