@@ -64,33 +64,31 @@ Directions: With all participants in the session, the facilitator/SME presents a
 
 Contoso Healthcare is a major hospital network consisting of multiple locations across the United States. One of Contoso Healthcare's most significant needs is to have the ability to process handwritten and electronically filled medical claims forms. Each hospital needs to provide filled forms to Contoso Healthcare's central offices in a standard fashion. Currently, claims forms are completed as both digital files and physical paper documents. Employees then review each document and enter data manually into the claims system. Contoso Healthcare is looking to automate the business process of obtaining claim forms, extracting claims form data to reduce overall form processing time, data-entry errors, and the loss of physical documents. Contoso can also then re-direct their employees to more impactful tasks and increase overall productivity.
 
-In addition to medical claims form processing, Contoso is looking to automate the process of transcribing, translating, and storing patient/doctor visit audio recordings. Currently, each hospital records audio files of patient/physician visits. This data is archived on-premises at each hospital and used strictly as an auditing tool should the details of any visit be questioned. When the results of a patient visit are challenged, the recording of the visit is retrieved and audibly reviewed by hospital employees. Unfortunately, this manual review process is not standard across the hospital network. As a result, each hospital has its own methods of dealing with patient audio file storage, retrieval, and review. A translation may also be needed in addition to patient audio transcription should the visit language is other than US English (en-US). Currently, multiple language interpreters need to be on-hand at each hospital for the manual audio review process.
+In addition to medical claims form processing, Contoso is looking to automate the process of transcribing, translating, and storing patient/doctor visit audio recordings. Currently, each hospital records audio files of patient/physician visits. This data is archived on-premises at each hospital and used strictly as an auditing tool should the details of any visit be questioned. When the results of a patient visit are challenged, the recording of the visit is retrieved and audibly reviewed by hospital employees. Unfortunately, this manual review process is not standard across the hospital network. As a result, each hospital has its own methods of dealing with patient audio file storage, retrieval, and review. A translation may also be needed in addition to patient audio transcription when the visit language is not US English (en-US). Currently, multiple language interpreters need to be on-hand at each hospital for the manual audio review process.
 
-Contoso Healthcare wants to implement useful reporting visualizations over the extracted claims processing data. Doctors are also interested in extracting key insights from the patient visit audio transcriptions, preferably via search functionality made available in their internal portal site.
+Contoso Healthcare wants to implement useful reporting visualizations over the extracted claims processing data, such as visualizing the . Doctors are also interested in extracting key insights from the patient visit audio transcriptions, preferably via search functionality made available in their internal portal site.
 
 ### Customer needs
 
-1. Claims forms need to be obtained from each hospital in the network in a consistent manner.
+1. Claims forms and patient visit audio files need to be obtained from each hospital in the network in a consistent manner.
 
 2. An automated process should extract data from claims forms submitted.
 
 3. A report needs to be created to provide a visualization on total charges versus the amount paid for a specified date range obtained from claims form processing.
 
-4. Patient visit audio recordings must be obtained from each hospital in the network in a consistent manner.
+4. Audio of the patient visit must be transcribed.
 
-5. Audio of the patient visit must be transcribed.
+5. If the patient visit audio is not in English. Transcribed text must be translated into English (en-US).
 
-6. If the patient visit audio is not in English. Transcribed text must be translated into English (en-US).
-
-7. Transcribed patient audio must be made searchable from the internal web portal.
+6. Transcribed patient audio must be made searchable from the internal web portal.
 
 ### Customer objections
 
 1. Claims forms are filled out either electronically or are handwritten. We have a concern that handwritten input will not be able to be processed.
 
-2. Patient visit audio may involve conversations in languages other than English. We need a solution that can identify and transcribe from multiple languages into English (en-US).
+2. Patient visit audio may involve conversations in languages other than English. We need a solution that can identify and translate from multiple languages into English (en-US).
 
-3. We want to extract insight into the audio transcriptions from the patient visit. We would like a way to extract key information in our searches, however, we don't have a data dictionary of medical terms. Is there a way to automatically index our transcripts to surface medical terminology?
+3. We want to extract insight from the audio transcriptions of patient visits through our internal portal searches. However, we don't have a data dictionary of medical terms. Is there a solution to analyze our audio transcripts to surface medical terminologies, such as dosages, medications, and diagnoses?
 
 ### Infographic for common scenarios
 
@@ -114,31 +112,53 @@ Timeframe: 60 minutes
 
 Directions:  With all participants at your table, answer the following questions and list the answers on a flip chart:
 
-1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
+1. Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
 
-2.  What customer business needs do you need to address with your solution?
+2. What customer business needs do you need to address with your solution?
 
 **Design**
 
 Directions: With all participants at your table, respond to the following questions on a flip chart:
 
-*Title*
+*File ingestion*
 
-1.  Number and insert questions here
+1. Each hospital must submit claims forms in a consistent manner. How do you suggest having each hospital provide claims forms for automated centralized processing?
 
-*Title*
+2. Each hospital must provide patient audio files in a consistent manner. How do you suggest each hospital provide audio files for automated centralized processing? Does this differ from the method you suggested for claims forms, if so, why?
 
-1.  Number and insert questions here
+3. Audio and claim form files need to be stored centrally. What type of structure do you recommend to organize these incoming files?
+
+*Form processing*
+
+1. What Azure service do you recommend to extract data from the claims forms?
+
+2. How do you recommend storing the data extracted from the claims forms?
+
+3. Once data from a claims form has been extracted, how do you ensure that it does not get processed multiple times? This could lead to inaccurate data.
+
+*Reporting*
+
+1. What Azure service do you recommend for the creation of reports that visualize data extracted from the claims forms? An example of such a visualization would be see the ratio of the total charges compared to the amount paid on the claim for a specific patient.
+
+*Audio Transcription and translation*
+
+*Transcription and translation*
+
+*Search indexing, enhancement, and implementation*
+
+*High-level architecture*
+
+1. Based on your answers to the questions above, diagram a high-level architecture for the initial vision of handling file ingestion, form processing, reporting, audio transcription/translation, as well as search indexing, enhancement, and implementation.
 
 **Prepare**
 
 Directions: With all participants at your table:
 
-1.  Identify any customer needs that are not addressed with the proposed solution.
+1. Identify any customer needs that are not addressed with the proposed solution.
 
-2.  Identify the benefits of your solution.
+2. Identify the benefits of your solution.
 
-3.  Determine how you will respond to the customer's objections.
+3. Determine how you will respond to the customer's objections.
 
 Prepare a 15-minute chalk-talk style presentation to the customer.
 
@@ -154,27 +174,27 @@ Timeframe: 30 minutes
 
 Directions:
 
-1.  Pair with another table.
+1. Pair with another table.
 
-2.  One table is the Microsoft team and the other table is the customer.
+2. One table is the Microsoft team and the other table is the customer.
 
-3.  The Microsoft team presents their proposed solution to the customer.
+3. The Microsoft team presents their proposed solution to the customer.
 
-4.  The customer makes one of the objections from the list of objections.
+4. The customer makes one of the objections from the list of objections.
 
-5.  The Microsoft team responds to the objection.
+5. The Microsoft team responds to the objection.
 
-6.  The customer team gives feedback to the Microsoft team.
+6. The customer team gives feedback to the Microsoft team.
 
-7.  Tables switch roles and repeat Steps 2-6.
+7. Tables switch roles and repeat Steps 2-6.
 
-##  Wrap-up 
+## Wrap-up
 
 Timeframe: 15 minutes
 
 Directions: Tables reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study.
 
-##  Additional references
+## Additional references
 
 |    |            |
 |----------|:-------------:|
