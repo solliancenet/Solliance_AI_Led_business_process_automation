@@ -18,6 +18,8 @@
         "storageAccountName": "[concat('contoso', uniqueString(resourceGroup().id))]",
         "formRecognizerName": "[concat('contoso-fr-', uniqueString(resourceGroup().id))]",
         "cosmosDBName": "[concat('contoso-cdb-', uniqueString(resourceGroup().id))]",
+        "speechServiceName": "[concat('contoso-speech-', uniqueString(resourceGroup().id))]",
+        "translationServiceName": "[concat('contoso-translate-', uniqueString(resourceGroup().id))]",
         
         "virtualMachineSize": "Standard_D2s_v3",
 
@@ -38,7 +40,40 @@
 		"functionAppName": "[concat('contoso-func-', uniqueString(resourceGroup().id))]"
     },
     "resources": [
-                {
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2017-04-18",
+            "name": "[variables('translationServiceName')]",
+            "location": "westus2",
+            "sku": {
+                "name": "S1"
+            },
+            "kind": "TextTranslation",
+            "identity": {
+                "type": "None",
+                "userAssignedIdentities": {}
+            },
+            "properties": {
+                "customSubDomainName": "[variables('translationServiceName')]",
+                "privateEndpointConnections": [],
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2017-04-18",
+            "name": "[variables('speechServiceName')]",
+            "location": "westus2",
+            "sku": {
+                "name": "S0"
+            },
+            "kind": "SpeechServices",
+            "properties": {
+                "privateEndpointConnections": [],
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        {
             "type": "Microsoft.DocumentDB/databaseAccounts",
             "apiVersion": "2021-04-15",
             "name": "[variables('cosmosDBName')]",
