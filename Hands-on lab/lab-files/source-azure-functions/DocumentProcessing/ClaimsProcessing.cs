@@ -34,13 +34,13 @@ namespace DocumentProcessing
 
                 string endpoint = System.Environment.GetEnvironmentVariable("FormsRecognizerEndpoint", EnvironmentVariableTarget.Process);
                 string apiKey = System.Environment.GetEnvironmentVariable("FormsRecognizerKey", EnvironmentVariableTarget.Process); 
-                string claimsDocumentStorageConnectionString = System.Environment.GetEnvironmentVariable("ClaimsDocumentStorageConnectionString", EnvironmentVariableTarget.Process);
+                string contosoStorageConnectionString = System.Environment.GetEnvironmentVariable("ContosoStorageConnectionString", EnvironmentVariableTarget.Process);
                 string cosmosEndpointUrl = System.Environment.GetEnvironmentVariable("CosmosDBEndpointUrl", EnvironmentVariableTarget.Process);
                 string cosmosPrimaryKey = System.Environment.GetEnvironmentVariable("CosmosDBPrimaryKey", EnvironmentVariableTarget.Process);
 
                 //Create a SAS Link to give Forms Recognizer read access to the document
-                BlobServiceClient blobServiceClient = new BlobServiceClient(claimsDocumentStorageConnectionString);
-                BlobContainerClient container = new BlobContainerClient(claimsDocumentStorageConnectionString, "claims");
+                BlobServiceClient blobServiceClient = new BlobServiceClient(contosoStorageConnectionString);
+                BlobContainerClient container = new BlobContainerClient(contosoStorageConnectionString, "claims");
                 string blobName = pdfUrl.Split('/').Last();
                 BlobClient blob = container.GetBlobClient(blobName);
                 BlobSasBuilder sasBuilder = new BlobSasBuilder()
@@ -69,8 +69,8 @@ namespace DocumentProcessing
 
                 //Insert documents into CosmosDB
                 var cosmosClient = new CosmosClient(cosmosEndpointUrl, cosmosPrimaryKey);
-                var cosmosDatabase = (await cosmosClient.CreateDatabaseIfNotExistsAsync("Claims")).Database;
-                var cosmosContainer = (await cosmosDatabase.CreateContainerIfNotExistsAsync("ProcessedDocuments", "/InsuredID")).Container;
+                var cosmosDatabase = (await cosmosClient.CreateDatabaseIfNotExistsAsync("Contoso")).Database;
+                var cosmosContainer = (await cosmosDatabase.CreateContainerIfNotExistsAsync("Claims", "/InsuredID")).Container;
 
                 Model.ClaimsDocument processedDocument = new Model.ClaimsDocument();
                 processedDocument.DocumentDate = new DateTime(int.Parse(blobName.Substring(0, 4)), 
