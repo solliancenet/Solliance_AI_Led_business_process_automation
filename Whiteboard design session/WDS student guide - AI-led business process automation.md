@@ -62,33 +62,35 @@ Directions: With all participants in the session, the facilitator/SME presents a
 
 ### Customer situation
 
-Contoso Healthcare is a major hospital network consisting of multiple locations across the United States. One of Contoso Healthcare's most significant needs is to have the ability to process handwritten and electronically filled medical claims forms. Currently, each hospital uploads image representations of completed forms via an Azure File Share. Employees then review each document and enter data manually into the claims system.
+Contoso Healthcare is a major hospital network consisting of multiple locations across the United States. One of Contoso Healthcare's most significant needs is to have the ability to process handwritten and electronically filled medical claims forms. Each hospital needs to provide filled forms to Contoso Healthcare's central offices in a standard fashion. Currently, claims forms are completed as both digital files and physical paper documents. Employees then review each document and enter data manually into the claims system. Contoso Healthcare is looking to automate the business process of obtaining claim forms, extracting claims form data to reduce overall form processing time, data-entry errors, and the loss of physical documents. Contoso can also then re-direct their employees to more impactful tasks and increase overall productivity.
 
-Contoso Healthcare is looking to automate the business process of extracting claims form data to reduce overall form processing time and data-entry errors. Contoso can also then re-direct their employees to more impactful tasks and increase overall productivity.
+In addition to medical claims form processing, Contoso is looking to automate the process of transcribing, translating, and storing patient/doctor visit audio recordings. Currently, each hospital records audio files of patient/physician visits. This data is archived on-premises at each hospital and used strictly as an auditing tool should the details of any visit be questioned. When the results of a patient visit are challenged, the recording of the visit is retrieved and audibly reviewed by hospital employees. Unfortunately, this manual review process is not standard across the hospital network. As a result, each hospital has its own methods of dealing with patient audio file storage, retrieval, and review. A translation may also be needed in addition to patient audio transcription should the visit language is other than US English (en-US). Currently, multiple language interpreters need to be on-hand at each hospital for the manual audio review process.
 
-In addition to medical claims form processing, Contoso is looking to automate the process of transcribing, translating, and storing patient/doctor visit audio recordings. Currently, each hospital uploads audio files via an Azure File Share, and this data is used strictly as an auditing tool should any clarity requests be made. If the clarity of a visit is requested, these recordings are retrieved and audibly reviewed by employees to interpret and obtain the details requested. Therefore, a key benefit to getting audio transcripts from these visits is the ability to surface valuable medical terms, dosage instructions, and diagnoses discussed. In addition to transcription and data extraction, the language of the patient visit audio should also be translated if required and stored in the system as the default of US English (en-us).
-
-From an end-user perspective, Contoso Healthcare wants to implement useful reporting visualizations over the extracted claims processing data. In addition, concerning the patient visit audio transcription and analysis, they wish to augment the search capabilities of their existing internal web portal to surface essential information such as medical terms, dosage instructions, and diagnoses discussed in patient visits.
+Contoso Healthcare wants to implement useful reporting visualizations over the extracted claims processing data. Doctors are also interested in extracting key insights from the patient visit audio transcriptions, preferably via search functionality made available in their internal portal site.
 
 ### Customer needs
 
-1. Claims forms are being provided as image files. Data needs to be extracted from form fields and stored.
+1. Claims forms need to be obtained from each hospital in the network in a consistent manner.
 
-2. A report needs to be created to provide a visualization on total charges versus the amount paid for a specified date range.
+2. An automated process should extract data from claims forms submitted.
 
-3. Patient visit audio recordings must be transcribed.
+3. A report needs to be created to provide a visualization on total charges versus the amount paid for a specified date range obtained from claims form processing.
 
-4. If the patient visit audio is not in English. Transcribed text must be translated into English (en-US).
+4. Patient visit audio recordings must be obtained from each hospital in the network in a consistent manner.
 
-5. Transcribed patient audio must be indexed so that it can be searched from the internal web portal.
+5. Audio of the patient visit must be transcribed.
+
+6. If the patient visit audio is not in English. Transcribed text must be translated into English (en-US).
+
+7. Transcribed patient audio must be made searchable from the internal web portal.
 
 ### Customer objections
 
 1. Claims forms are filled out either electronically or are handwritten. We have a concern that handwritten input will not be able to be processed.
 
-2. Patient visit audio may involve conversations in languages other than English. We need a solution that can identify and transcribe from multiple languages.
+2. Patient visit audio may involve conversations in languages other than English. We need a solution that can identify and transcribe from multiple languages into English (en-US).
 
-3. We don't have a data dictionary of medical terms, dosages, and diagnoses. We don't want to spend months analyzing patient visit transcripts to build data sufficient enough to train a machine learning model that will be used to extract this key information from future transcripts. Is there an existing solution for this?
+3. We want to extract insight into the audio transcriptions from the patient visit. We would like a way to extract key information in our searches, however, we don't have a data dictionary of medical terms. Is there a way to automatically index our transcripts to surface medical terminology?
 
 ### Infographic for common scenarios
 
