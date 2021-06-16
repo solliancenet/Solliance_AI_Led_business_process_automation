@@ -1,24 +1,21 @@
 // Default URL for triggering event grid function in the local environment.
 // http://localhost:7071/runtime/webhooks/EventGrid?functionName={functionname}
-using System;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Azure.Storage.Blobs;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.EventGrid.Models;
+using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.EventGrid;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Audio;
-using System.Threading.Tasks;
-using System.IO;
-using System.Net;
-using System.Linq;
-using Azure.Storage.Blobs;
-using System.Text;
-using System.Net.Http;
-using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using Microsoft.Azure.Cosmos;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DocumentProcessing
 {
@@ -149,7 +146,7 @@ namespace DocumentProcessing
                 }
                 catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Conflict)
                 {
-                    //Conflicting EnsurerID is silently ignored for demo purposes.
+                    //Conflicting documents are silently ignored for demo purposes.
                 }
 
                 System.IO.File.Delete(tempPath);
