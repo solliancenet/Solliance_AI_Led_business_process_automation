@@ -1,5 +1,7 @@
 // Default URL for triggering event grid function in the local environment.
 // http://localhost:7071/runtime/webhooks/EventGrid?functionName={functionname}
+using Azure;
+using Azure.AI.TextAnalytics;
 using Azure.Storage.Blobs;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.EventGrid.Models;
@@ -41,6 +43,8 @@ namespace DocumentProcessing
                 string translatorLocation = System.Environment.GetEnvironmentVariable("TranslatorLocation", EnvironmentVariableTarget.Process);
                 string cosmosEndpointUrl = System.Environment.GetEnvironmentVariable("CosmosDBEndpointUrl", EnvironmentVariableTarget.Process);
                 string cosmosPrimaryKey = System.Environment.GetEnvironmentVariable("CosmosDBPrimaryKey", EnvironmentVariableTarget.Process);
+                string textAnalyticsKey = System.Environment.GetEnvironmentVariable("TextAnalyticsKey", EnvironmentVariableTarget.Process);
+                string textAnalyticsEndpoint = System.Environment.GetEnvironmentVariable("TextAnalyticsEndpoint", EnvironmentVariableTarget.Process);
 
                 // Download audio file to a local temp directory
                 var tempPath = Path.Combine(Path.GetTempPath(), blobName);
@@ -127,6 +131,16 @@ namespace DocumentProcessing
                     }
                 }
 
+                //Azure Text Analytics
+                List<string> healthDocuments = new List<string>
+                {
+                    transcribedText
+                };
+                var textAnalyticsClient = new TextAnalyticsClient(new Uri(textAnalyticsEndpoint), new AzureKeyCredential(textAnalyticsKey));
+                AnalyzeHealthcareEntitiesOperation healthOperation = textAnalyticsClient.StartAnalyzeHealthcareEntities(healthDocuments, "en", new AnalyzeHealthcareEntitiesOptions { });
+                await healthOperation.WaitForCompletionAsync();
+                AnalyzeHealthcareEntitiesResult healthcareResult = healthOperation.GetValues().FirstOrDefault().FirstOrDefault();
+                
                 //Insert documents into CosmosDB
                 var cosmosClient = new CosmosClient(cosmosEndpointUrl, cosmosPrimaryKey);
                 var cosmosDatabase = (await cosmosClient.CreateDatabaseIfNotExistsAsync("Contoso")).Database;
@@ -138,6 +152,10 @@ namespace DocumentProcessing
                     int.Parse(blobName.Substring(4, 2)), int.Parse(blobName.Substring(6, 2)));
                 newTranscription.FileName = blobName;
                 newTranscription.TranscribedText = transcribedText;
+                foreach (var item in healthcareResult.Entities)
+                {
+                    newTranscription.HealthcareEntities.Add(new Model.HealthcareEntity() { Category = item.Category, Text = item.Text });
+                }
 
                 try
                 {
