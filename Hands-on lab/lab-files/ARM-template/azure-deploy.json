@@ -20,6 +20,7 @@
         "cosmosDBName": "[concat('contoso-cdb-', uniqueString(resourceGroup().id))]",
         "speechServiceName": "[concat('contoso-speech-', uniqueString(resourceGroup().id))]",
         "translationServiceName": "[concat('contoso-translate-', uniqueString(resourceGroup().id))]",
+        "textAnalyticsServiceName": "[concat('contoso-textanalytics-', uniqueString(resourceGroup().id))]",
         
         "virtualMachineSize": "Standard_D2s_v3",
 
@@ -43,8 +44,28 @@
         {
             "type": "Microsoft.CognitiveServices/accounts",
             "apiVersion": "2017-04-18",
+            "name": "[variables('textAnalyticsServiceName')]",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "S"
+            },
+            "kind": "TextAnalytics",
+            "identity": {
+                "type": "None",
+                "userAssignedIdentities": {}
+            },
+            "properties": {
+                "apiProperties": {},
+                "customSubDomainName": "[variables('textAnalyticsServiceName')]",
+                "privateEndpointConnections": [],
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2017-04-18",
             "name": "[variables('translationServiceName')]",
-            "location": "westus2",
+            "location": "[variables('location')]",
             "sku": {
                 "name": "S1"
             },
@@ -63,7 +84,7 @@
             "type": "Microsoft.CognitiveServices/accounts",
             "apiVersion": "2017-04-18",
             "name": "[variables('speechServiceName')]",
-            "location": "westus2",
+            "location": "[variables('location')]",
             "sku": {
                 "name": "S0"
             },
