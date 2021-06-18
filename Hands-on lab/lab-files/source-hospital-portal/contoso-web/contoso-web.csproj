@@ -5,4 +5,8 @@
     <RootNamespace>contoso_web</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Azure.Search.Documents" Version="11.3.0" />
+  </ItemGroup>
+
 </Project>
