@@ -428,9 +428,9 @@ The primary audience is the business decision makers and technology decision mak
 
    There are multiple valid approaches to file organization. When using using batch processing, a common approach is to use the following structure (subject matter could be "claimsform" or "visitaudio"):
 
-    {Hospital}/{SubjectMatter}/In/{yyyy}/{mm}/{dd}/{hh}/
-    {Hospital}/{SubjectMatter}/Out/{yyyy}/{mm}/{dd}/{hh}/
-    {Hospital}/{SubjectMatter}/Bad/{yyyy}/{mm}/{dd}/{hh}/
+    1. {Hospital}/{SubjectMatter}/In/{yyyy}/{mm}/{dd}/{hh}/
+    2. {Hospital}/{SubjectMatter}/Out/{yyyy}/{mm}/{dd}/{hh}/
+    3. {Hospital}/{SubjectMatter}/Bad/{yyyy}/{mm}/{dd}/{hh}/
 
     Using this structure, files land in the "in" directory, and when processed the new data is placed in the "out" directory. Should the processing of a file fail, it can be moved into a "bad" folder for further review.
 
@@ -446,52 +446,86 @@ The primary audience is the business decision makers and technology decision mak
 
 1. What Azure service do you recommend to extract data from the claims forms? Are there any tools that can be used to simplify this process?
 
-    Azure Form Recognizer can be used to train a custom model to extract information from a form. The [sample labeling tool](https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/label-tool?tabs=v2-1) can be used to provide an intuitive user interface to identify the regions of the form from where data should be extracted, resulting in a supervised learning model.
+    Azure Form Recognizer can be used to train a custom model to extract information from a form. The [sample labeling tool](https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/label-tool?tabs=v2-1) can be used to provide an intuitive user interface to identify the regions of the form from where data should be extracted, resulting in a supervised learning model that can be used to extract data from subsequent forms. Training should take place with a minimum of 5 samples when using supervised (labeled) learning is used.
 
 2. How do you recommend storing the data extracted from the claims forms?
 
-
+    The result of the data extraction process using the Form Recognizer yields JSON documents. This data can be further processed and stored in a relational database, the results can be saved to a storage account as files, or they can be stored as documents in a NoSQL type of database, like Cosmos DB.
 
 *Reporting*
 
 1. What Azure service do you recommend for the creation of reports to visualize data extracted from the claims forms?
 
-    Power BI.
-    
+    Power BI is a collection of software services, apps, and connectors that work together to turn your unrelated sources of data into coherent, visually immersive, and interactive insights. Your data may be an Excel spreadsheet, or a collection of cloud-based and on-premises hybrid data warehouses. Power BI lets you easily connect to your data sources, visualize and discover what's important, and share that with anyone or everyone you want.
+
 *Audio Transcription and translation*
 
 1. What Azure service do you recommend for transcribing patient visit audio files?
 
+    Azure Speech Service provides APIs to transcribe from audio files, either individually or in batch.
+
 2. How would you identify the spoken language of the visit?
+
+    Language identification is available using the [Speech Service speech-to-text APIs](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/language-support). Alternatively, language identification is also available for transcribed text using [Azure Text Analytics APIs](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-language-detection).
 
 3. What Azure service would you use to translate audio transcriptions to English (en-US)?
 
+    The [Azure Speech service](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-translation) provides translation in speech-to-text as well as speech-to-speech. The [Microsoft Translator service](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-info-overview) can also be leveraged to accomplish the same goal. Speech translation, powered by Translator, is also available through the Azure Speech service. It combines functionality from the Translator Speech API and the Custom Speech Service into a unified and fully customizable service. In addition to speech translation, The Microsoft Translator service also offers text and document translation.
+
 4. How do you recommend storing the audio transcription?
 
+    The audio transcription can be stored in the same type of data store as the form data extraction (Cosmos DB).
+
 5. In case of audit, how would you be able to track down the original source audio file for a specific transcription?
+
+    Adding metadata fields to help with data lineage such as processing date and path to the originating source file is recommended.
 
 *Search indexing, enrichment, and implementation*
 
 1. What Azure service do you recommend to index the audio transcription data to make them searchable?
 
+    Azure Cognitive Search allows indexing for a wide variety of sources, including fields in Cosmos DB.
+
 2. How do you recommend keeping the index up-to-date when transcripts are added over time?
+
+    Change detection is available for many indexers. In the case of Cosmos DB, the purpose of a data change detection policy is to efficiently identify changed data items. Currently, the only supported policy is the HighWaterMarkChangeDetectionPolicy using the _ts (timestamp) property in the case of indexing by Azure Cosmos DB. This helps with both performance for large datasets, as well ensuring the index stays up to date. Re-indexing can be performed on a scheduled basis, or initiated via an API call.
 
 3. What Azure service do you recommend to enrich the search index to extract medical insights?
 
+    Text Analytics for health is a feature of the Text Analytics API service that extracts and labels relevant medical information from unstructured texts such as doctor's notes, discharge summaries, clinical documents, and electronic health records. Use this service as part of the [AI enrichment pipeline](https://docs.microsoft.com/en-us/azure/search/cognitive-search-concept-intro) in Azure Cognitive Search.
+
 4. What Azure service do you recommend to rank search results based on the search criteria, or to identify questions that may be asked and provide direct answers?
 
+    Semantic search is collection of features that improve the quality of search results. When enabled on your search service, it extends the query execution pipeline in two ways. First, it adds secondary ranking over an initial result set, promoting the most semantically relevant results to the top of the list. Second, it extracts and returns captions and answers in the response, which you can render on a search page to improve the user's search experience.
+
 5. What steps need to be taken to implement the audio transcription search to the internal web portal?
+
+    Many [tutorials](https://docs.microsoft.com/en-us/azure/search/tutorial-csharp-overview) are available in the Cognitive Search documentation to implement search in web applications on multiple platforms.
 
 *High-level architecture*
 
 1. Based on your answers to the questions above, diagram a high-level architecture for the initial vision of handling file ingestion, form processing, reporting, audio transcription/translation, as well as search indexing, enhancement, and implementation.
 
+![The solution architecture diagram as described in the paragraph that follows.](../Media/architecture.png "Solution architecture")
+
+Hospitals in the Contoso Healthcare network provide images of claim forms and visit audio recordings via an Azure File Share. The event grid propagates the blob creation event that triggers a Function App to perform document/audio processing. If required, the audio processing will also translate from the source language to English. Healthcare Text analytics is also applied to the transcribed text to surface medical terminology, dosage requirements, and diagnoses. The results of both claims form processing and visit audio processing is stored in Cosmos DB. The data obtained from claims processing is surfaced through a Power BI report, and the data from the visit audio recordings is surfaced through Cognitive search.
+
 ## Checklist of preferred objection handling
 
-\[insert your custom workshop content here . . . \]
- 
+1. Claims forms are filled out either electronically or are handwritten. We have a concern that handwritten input will not be able to be processed.
+
+    The Form Recognizer service has the ability to extract both digital and handwritten content.
+
+2. Patient visit audio may involve conversations in languages other than English. We need a solution that can identify and translate from multiple languages into English (en-US).
+
+    Language identification and translation are features of both the Speech and Text Analytics service.
+
+3. We want to extract insight from the audio transcriptions of patient visits through our internal portal searches. However, we don't have a data dictionary of medical terms. Is there a solution to analyze our audio transcripts to surface medical terminologies, such as dosages, medications, and diagnoses?
+
+Text Analytics for health is a feature of the Text Analytics API service that extracts and labels relevant medical information from unstructured texts such as doctor's notes, discharge summaries, clinical documents, and electronic health records.
 
 ## Customer quote (to be read back to the attendees at the end)
 
-\[insert your custom workshop content here . . . \]
+"Over the course of this project, we have not only reduced the effort involved in processing our claims forms, we have also increased accuracy and turn around time to gain insights on this data. We have developed essential visualizations on our claims data that allow us to view current and historical trends which assists us in identifying ways to improve our business model. We have also freed up many of our linguistic staff to work directly with our patients versus having them reviewing and translating visit audio files. One of the most exciting outcomes of this project is that we've also attained ground-breaking insights from our patient audio transcripts by adding Text Analytics for health AI into our search capabilities on our web portal."
 
+    - Senaabil Chandi, CTO, Contoso Healthcare
