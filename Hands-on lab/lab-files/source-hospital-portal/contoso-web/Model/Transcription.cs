@@ -13,6 +13,7 @@ namespace contoso_web.Model
         }
         public string TranscribedText { get; set; }
         public string HTML { get; set; }
+        public string AudioFileUrl { get; set; }
         public string FileName { get; set; }
         public DateTime DocumentDate { get; set; }
         public List<HealthcareEntity> HealthcareEntities { get; set; }

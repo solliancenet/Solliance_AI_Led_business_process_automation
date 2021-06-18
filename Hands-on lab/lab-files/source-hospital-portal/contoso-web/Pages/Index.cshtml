@@ -13,7 +13,7 @@
                     <div class="input-group">
                         <input placeholder="Search for..." type="text" class="form-control" id="searchBox" value="@Model.SearchString">
                         <div class="input-group-append">
-                            <button class="btn btn-secondary" onclick="javascript: window.location = window.location.origin + '?SearchString=' + document.getElementById('searchBox').value "><i class="fa fa-search"></i></button>
+                            <button id="searchSubmit" class="btn btn-secondary" onclick="javascript: window.location = window.location.origin + '?SearchString=' + document.getElementById('searchBox').value "><i class="fa fa-search"></i></button>
                         </div>
                     </div>
                 </div>
@@ -55,6 +55,10 @@
                                         </td>
                                         <td class="align-middle">
                                             <p style="text-align:left;">@Html.Raw(transcript.HTML)</p>
+                                            <audio controls>
+                                                <source src="@transcript.AudioFileUrl" type="audio/wav">
+                                                Your browser does not support the audio element.
+                                            </audio>
                                         </td>
                                     </tr>
                                 </tbody>

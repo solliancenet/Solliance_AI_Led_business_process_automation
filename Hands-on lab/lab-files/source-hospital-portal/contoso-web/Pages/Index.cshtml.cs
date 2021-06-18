@@ -87,8 +87,19 @@ namespace contoso_web.Pages
             foreach (Transcription transcription in Transcriptions)
             {
                 transcription.HTML = transcription.TranscribedText;
+                transcription.AudioFileUrl = $"{Configuration["ContosoStorageContainerEndpoint"]}/{transcription.FileName}?{Configuration["ContosoStorageContainerSAS"]}" ;
 
-                if (!string.IsNullOrEmpty(CategoryFilter))
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    var uniqueKeywords = (from inc in transcription.HealthcareEntities select inc.Text).Distinct();
+
+                    foreach (var healthcareKeywords in uniqueKeywords)
+                    {
+                        transcription.HTML = transcription.HTML.Replace(healthcareKeywords,
+                        $"<span class='badge badge-success badge - pill'>{@healthcareKeywords}</span>");
+                    }
+                }
+                else if (!string.IsNullOrEmpty(CategoryFilter))
                 {
                     var uniqueKeywords = (from inc in transcription.HealthcareEntities where inc.Category == CategoryFilter select inc.Text).Distinct();
 
@@ -98,6 +109,7 @@ namespace contoso_web.Pages
                         $"<span class='badge badge-success badge - pill'>{@healthcareKeywords}</span>");
                     }
                 }
+
             }
 
             Facets = response.Facets.FirstOrDefault().Value.ToList();
