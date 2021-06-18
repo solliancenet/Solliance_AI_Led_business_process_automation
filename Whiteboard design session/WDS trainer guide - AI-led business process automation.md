@@ -5,7 +5,7 @@ AI-led business process automation
 </div>
 
 <div class="MCWHeader2">
-Whiteboard design session student guide
+Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
@@ -24,6 +24,13 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 **Contents**
 
+<!-- TOC -->
+
+- [Trainer information](#trainer-information)
+  - [Role of the trainer](#role-of-the-trainer)
+  - [Whiteboard design session flow](#whiteboard-design-session-flow)
+  - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
+  - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
 - [AI-led business process automation whiteboard design session student guide](#ai-led-business-process-automation-whiteboard-design-session-student-guide)
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
@@ -35,6 +42,129 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Step 3: Present the solution](#step-3-present-the-solution)
   - [Wrap-up](#wrap-up)
   - [Additional references](#additional-references)
+- [AI-led business process automation whiteboard design session trainer guide](#ai-led-business-process-automation-whiteboard-design-session-trainer-guide)
+  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
+  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
+  - [Step 3: Present the solution](#step-3-present-the-solution-1)
+  - [Wrap-up](#wrap-up-1)
+  - [Preferred target audience](#preferred-target-audience)
+  - [Preferred solution](#preferred-solution)
+  - [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
+  - [Customer quote (to be read back to the attendees at the end)](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
+
+<!-- /TOC -->
+
+# Trainer information
+
+Thank you for taking time to support the whiteboard design sessions as a trainer!
+
+## Role of the trainer
+
+An amazing trainer:
+
+- Creates a safe environment in which learning can take place.
+
+- Stimulates the participant's thinking.
+
+- Involves the participant in the learning process.
+
+- Manages the learning process (on time, on topic, and adjusting to benefit participants).
+
+- Ensures individual participant accountability.
+
+- Ties it all together for the participant.
+
+- Provides insight and experience to the learning process.
+
+- Effectively leads the whiteboard design session discussion.
+
+- Monitors quality and appropriateness of participant deliverables.
+
+- Effectively leads the feedback process.
+
+## Whiteboard design session flow
+
+Each whiteboard design session uses the following flow:
+
+**Step 1: Review the customer case study (15 minutes)**
+
+**Outcome**
+
+Analyze your customer's needs.
+
+- Customer's background, situation, needs and technical requirements
+
+- Current customer infrastructure and architecture
+
+- Potential issues, objectives and blockers
+
+**Step 2: Design a proof of concept solution (60 minutes)**
+
+**Outcome**
+
+Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
+
+- Determine your target customer audience.
+
+- Determine customer's business needs to address your solution.
+
+- Design and diagram your solution.
+
+- Prepare to present your solution.
+
+**Step 3: Present the solution (30 minutes)**
+
+**Outcome**
+
+Present solution to your customer:
+
+- Present solution
+
+- Respond to customer objections
+
+- Receive feedback
+
+**Wrap-up (15 minutes)**
+
+- Review preferred solution
+
+## Before the whiteboard design session: How to prepare
+
+Before conducting your first whiteboard design session:
+
+- Read the Student guide (including the case study) and Trainer guide.
+
+- Become familiar with all key points and activities.
+
+- Plan the point you want to stress, which questions you want to drive, transitions, and be ready to answer questions.
+
+- Prior to the whiteboard design session, discuss the case study to pick up more ideas.
+
+- Make notes for later.
+
+## During the whiteboard design session: Tips for an effective whiteboard design session
+
+**Refer to the Trainer guide** to stay on track and observe the timings.
+
+**Do not expect to memorize every detail** of the whiteboard design session.
+
+When participants are doing activities, you can **look ahead to refresh your memory**.
+
+- **Adjust activity and whiteboard design session pace** as needed to allow time for presenting, feedback, and sharing.
+
+- **Add examples, points, and stories** from your own experience. Think about stories you can share that help you make your points clearly and effectively.
+
+- **Consider creating a "parking lot"** to record issues or questions raised that are outside the scope of the whiteboard design session or can be answered later. Decide how you will address these issues, so you can acknowledge them without being derailed by them.
+
+***Have fun**! Encourage participants to have fun and share!*
+
+**Involve your participants.** Talk and share your knowledge but always involve your participants, even while you are the one speaking.
+
+**Ask questions** and get them to share to fully involve your group in the learning process.
+
+**Ask first**, whenever possible. Before launching into a topic, learn your audience's opinions about it and experiences with it. Asking first enables you to assess their level of knowledge and experience, and leaves them more open to what you are presenting.
+
+**Wait for responses**. If you ask a question such as, "What's your experience with (fill in the blank)?" then wait. Do not be afraid of a little silence. If you leap into the silence, your participants will feel you are not serious about involving them and will become passive. Give participants a chance to think, and if no one answers, patiently ask again. You will usually get a response.
 
 # AI-led business process automation whiteboard design session student guide
 
@@ -233,3 +363,135 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 | Semantic search in Azure Cognitive Search | https://docs.microsoft.com/en-us/azure/search/semantic-search-overview |
 | Power BI | https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview |
 | Azure Functions | https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview |
+
+# AI-led business process automation whiteboard design session trainer guide
+
+## Step 1: Review the customer case study
+
+- Check in with your table participants to introduce yourself as the trainer.
+
+- Ask, "What questions do you have about the customer case study?"
+
+- Briefly review the steps and timeframes of the whiteboard design session.
+
+- Ready, set, go! Let the table participants begin.
+
+## Step 2: Design a proof of concept solution
+
+- Check in with your tables to ensure that they are transitioning from step to step on time.
+
+- Provide some feedback on their responses to the business needs and design.
+
+    - Try asking questions first that will lead the participants to discover the answers on their own.
+
+- Provide feedback for their responses to the customer's objections.
+
+    - Try asking questions first that will lead the participants to discover the answers on their own.
+
+## Step 3: Present the solution
+
+- Determine which table will be paired with your table before Step 3 begins.
+
+- For the first round, assign one table as the presenting team and the other table as the customer.
+
+- Have the presenting team present their solution to the customer team.
+
+    - Have the customer team provide one objection for the presenting team to respond to.
+
+    - The presentation, objections, and feedback should take no longer than 15 minutes.
+
+    - If needed, the trainer may also provide feedback.
+
+## Wrap-up
+
+- Have the table participants reconvene with the larger session group to hear the facilitator/SME share the following preferred solution.
+
+## Preferred target audience
+
+Senaabil Chandi, the CTO of Contoso Healthcare
+
+The primary audience is the business decision makers and technology decision makers. Usually we talk to the infrastructure managers who report to the chief information officers (CIOs), or to application sponsors (like a vice president [VP] line of business [LOB], or to those who represent the business unit IT or developers that report to application sponsors.
+
+## Preferred solution
+
+*File ingestion*
+
+1. Each hospital must submit claims forms in a consistent manner. How do you suggest having each hospital provide claims forms for automated centralized processing?
+
+    Each hospital should deliver claims forms digitally. This means that any handwritten forms should be scanned and provided as digital files. These files should be uploaded to an Azure Storage Account.In order to simplify the upload process, the Azure Files service can be used to expose the storage account as a network file share. It is important at this level to remove the handling of paper forms and proceed with a 100% digital process.
+
+2. Each hospital must provide patient audio files in a consistent manner. How do you suggest each hospital provide audio files for automated centralized processing? Does this differ from the method you suggested for claims forms, if so, why?
+
+    It is recommended to keep uploading of files consistent. Each hospital should use the same method to upload audio files as it does the claims forms.
+
+3. Audio and claim form files need to be stored centrally. What type of structure do you recommend to organize these incoming files?
+
+   There are multiple valid approaches to file organization. When using using batch processing, a common approach is to use the following structure (subject matter could be "claimsform" or "visitaudio"):
+
+    {Hospital}/{SubjectMatter}/In/{yyyy}/{mm}/{dd}/{hh}/
+    {Hospital}/{SubjectMatter}/Out/{yyyy}/{mm}/{dd}/{hh}/
+    {Hospital}/{SubjectMatter}/Bad/{yyyy}/{mm}/{dd}/{hh}/
+
+    Using this structure, files land in the "in" directory, and when processed the new data is placed in the "out" directory. Should the processing of a file fail, it can be moved into a "bad" folder for further review.
+
+4. The business process of extracting and storing claims form data and audio transcriptions must be automated. What do you recommend to trigger and orchestrate this processing so that manual intervention is not required?
+
+    Similar to file organization, multiple approaches to process triggering also exists. You can use timer triggers in Azure Functions, schedule triggers in Azure Logic Apps, and even scheduled triggers for an Azure Synapse Analytics pipeline. You also have the ability to utilize event-based triggers. An example of an event-based trigger is to utilize Event Grid that can identify the storage account as an event source and watch for the BlobCreated event, this event can initiate the execution of an Azure Function that begins processing the file that was added to storage.
+
+5. Once a claim form or audio file has been processed, how do you ensure that they do not get processed multiple times?
+
+    When using the batch processing in/out/bad approach, the result of the processing is idempotent, meaning that if the files do end up getting processed multiple times, it will result in unchanged values. The results in the "out" folder will remain the same, data will not be added or removed as long as the "in" folder files are unchanged. When it comes to individual file processing, it is recommended to move the file to some type of processed or archive location to ensure that it does not get processed multiple times.
+
+*Form processing*
+
+1. What Azure service do you recommend to extract data from the claims forms? Are there any tools that can be used to simplify this process?
+
+    Azure Form Recognizer can be used to train a custom model to extract information from a form. The [sample labeling tool](https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/label-tool?tabs=v2-1) can be used to provide an intuitive user interface to identify the regions of the form from where data should be extracted, resulting in a supervised learning model.
+
+2. How do you recommend storing the data extracted from the claims forms?
+
+
+
+*Reporting*
+
+1. What Azure service do you recommend for the creation of reports to visualize data extracted from the claims forms?
+
+    Power BI.
+    
+*Audio Transcription and translation*
+
+1. What Azure service do you recommend for transcribing patient visit audio files?
+
+2. How would you identify the spoken language of the visit?
+
+3. What Azure service would you use to translate audio transcriptions to English (en-US)?
+
+4. How do you recommend storing the audio transcription?
+
+5. In case of audit, how would you be able to track down the original source audio file for a specific transcription?
+
+*Search indexing, enrichment, and implementation*
+
+1. What Azure service do you recommend to index the audio transcription data to make them searchable?
+
+2. How do you recommend keeping the index up-to-date when transcripts are added over time?
+
+3. What Azure service do you recommend to enrich the search index to extract medical insights?
+
+4. What Azure service do you recommend to rank search results based on the search criteria, or to identify questions that may be asked and provide direct answers?
+
+5. What steps need to be taken to implement the audio transcription search to the internal web portal?
+
+*High-level architecture*
+
+1. Based on your answers to the questions above, diagram a high-level architecture for the initial vision of handling file ingestion, form processing, reporting, audio transcription/translation, as well as search indexing, enhancement, and implementation.
+
+## Checklist of preferred objection handling
+
+\[insert your custom workshop content here . . . \]
+ 
+
+## Customer quote (to be read back to the attendees at the end)
+
+\[insert your custom workshop content here . . . \]
+
