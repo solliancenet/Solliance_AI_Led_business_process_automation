@@ -95,18 +95,19 @@ namespace contoso_web.Pages
 
                     foreach (var healthcareKeywords in uniqueKeywords)
                     {
+                        var category = (from inc in transcription.HealthcareEntities where inc.Text == healthcareKeywords select inc.Category).FirstOrDefault();
                         transcription.HTML = transcription.HTML.Replace(healthcareKeywords,
-                        $"<span class='badge badge-success badge - pill'>{@healthcareKeywords}</span>");
+                        $"<span class='badge badge-success badge - pill' data-toggle='tooltip' data-placement='top' title='{category}'>{@healthcareKeywords}</span>");
                     }
                 }
                 else if (!string.IsNullOrEmpty(CategoryFilter))
                 {
-                    var uniqueKeywords = (from inc in transcription.HealthcareEntities where inc.Category == CategoryFilter select inc.Text).Distinct();
+                    var uniqueEntities = (from inc in transcription.HealthcareEntities where inc.Category == CategoryFilter select inc).Distinct();
 
-                    foreach (var healthcareKeywords in uniqueKeywords)
+                    foreach (var healthcareEntity in uniqueEntities)
                     {
-                        transcription.HTML = transcription.HTML.Replace(healthcareKeywords,
-                        $"<span class='badge badge-success badge - pill'>{@healthcareKeywords}</span>");
+                        transcription.HTML = transcription.HTML.Replace(healthcareEntity.Text,
+                        $"<span class='badge badge-success badge - pill' data-toggle='tooltip' data-placement='top' title='{healthcareEntity.Category}'>{healthcareEntity.Text}</span>");
                     }
                 }
 

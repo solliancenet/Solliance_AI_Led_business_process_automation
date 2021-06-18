@@ -14,3 +14,7 @@ input.addEventListener("keyup", function (event) {
         document.getElementById("searchSubmit").click();
     }
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
