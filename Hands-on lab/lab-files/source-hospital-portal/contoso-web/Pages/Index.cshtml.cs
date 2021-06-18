@@ -1,6 +1,8 @@
 ﻿using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
+using Azure.Search.Documents.Models;
+using contoso_web.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
@@ -23,16 +25,82 @@ namespace contoso_web.Pages
             Configuration = configuration;
         }
 
-        public void OnGet()
+        [BindProperty]
+        public List<Transcription> Transcriptions { get; set; }
+
+        [BindProperty]
+        public List<FacetResult> Facets { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string CategoryFilter { get; set; }
+
+        public async Task OnGetAsync()
         {
+            Transcriptions = new List<Transcription>();
+
             var azureSearchKey = Configuration["AzureSearchKey"];
             var azureSearchUrl = Configuration["AzureSearchUrl"];
-            var searchIndexName = "cosmosdb-index";
+            var searchIndexName = "cosmosdb-index2";
 
             AzureKeyCredential credential = new(azureSearchKey);
 
             SearchClient searchclient = new(new Uri(azureSearchUrl), searchIndexName, credential);
 
+            string indexSearch = "*";
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                indexSearch = SearchString;
+            }
+
+            string indexFilter = "";
+            if (!string.IsNullOrEmpty(CategoryFilter))
+            {
+                indexFilter = $"HealthcareEntities/any(t: t/Category eq '{CategoryFilter}')";
+            }
+
+            SearchOptions options;
+            SearchResults<Transcription> response;
+
+            options = new SearchOptions()
+            {
+                IncludeTotalCount = true,
+                Filter = indexFilter,
+                OrderBy = { "" }
+            };
+
+            options.Select.Add("TranscribedText");
+            options.Select.Add("FileName");
+            options.Select.Add("DocumentDate");
+            options.Select.Add("HealthcareEntities");
+            options.Facets.Add("HealthcareEntities/Category,count:1000");
+
+            response = searchclient.Search<Transcription>(indexSearch, options);
+            await foreach (SearchResult<Transcription> result in response.GetResultsAsync())
+            {
+                Transcriptions.Add(result.Document);
+            }
+
+            //Highlight keywords in HTML
+            foreach (Transcription transcription in Transcriptions)
+            {
+                transcription.HTML = transcription.TranscribedText;
+
+                if (!string.IsNullOrEmpty(CategoryFilter))
+                {
+                    var uniqueKeywords = (from inc in transcription.HealthcareEntities where inc.Category == CategoryFilter select inc.Text).Distinct();
+
+                    foreach (var healthcareKeywords in uniqueKeywords)
+                    {
+                        transcription.HTML = transcription.HTML.Replace(healthcareKeywords,
+                        $"<span class='badge badge-success badge - pill'>{@healthcareKeywords}</span>");
+                    }
+                }
+            }
+
+            Facets = response.Facets.FirstOrDefault().Value.ToList();
         }
     }
 }

@@ -11,68 +11,56 @@
                 <div class="mb-4">
                     <div class="small mb-3">Search Audio Records</div>
                     <div class="input-group">
-                        <input placeholder="Search for..." type="text" class="form-control">
+                        <input placeholder="Search for..." type="text" class="form-control" id="searchBox" value="@Model.SearchString">
                         <div class="input-group-append">
-                            <button class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                            <button class="btn btn-secondary" onclick="javascript: window.location = window.location.origin + '?SearchString=' + document.getElementById('searchBox').value "><i class="fa fa-search"></i></button>
                         </div>
                     </div>
                 </div>
                 <div class="mb-4">
-                    <div class="small mb-3">Projects</div>
+                    <div class="small mb-3">Findings</div>
                     <ul class="nav flex-column nav-pills">
-                        <li class="nav-item"><a href="#" class="d-flex nav-link"><i class="fa fa-fw fa-star-o align-self-center mr-2"></i>Analytics Redesign<span class="ml-auto align-self-center badge badge-secondary badge-pill">12</span></a></li>
-                        <li class="nav-item"><a href="#" class="d-flex nav-link"><i class="fa fa-fw fa-star-o align-self-center mr-2"></i>New Website<span class="ml-auto align-self-center badge badge-secondary badge-pill">4</span></a></li>
-                        <li class="nav-item"><a href="#" class="d-flex nav-link"><i class="fa fa-fw fa-star-o align-self-center mr-2"></i>Chart for Newsletter<span class="ml-auto align-self-center badge badge-secondary badge-pill">9</span></a></li>
-                     </ul>
+                        @foreach (var facet in Model.Facets)
+                        {
+                            <li class="nav-item"><a href="?CategoryFilter=@facet.Value" class="d-flex nav-link"><i class="fa fa-fw fa-star-o align-self-center mr-2"></i>@facet.Value<span class="ml-auto align-self-center badge badge-secondary badge-pill">@facet.Count</span></a></li>
+                        }
+                    </ul>
                 </div>
             </div>
             <div class="col-lg-9">
+                @if (!String.IsNullOrEmpty(Model.CategoryFilter))
+                {
+                    <div class="d-flex flex-column flex-md-row mb-3 mb-md-0">
+                        <nav class="mr-auto d-flex align-items-center" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="active breadcrumb-item" aria-current="page"><a href="/"><i class="fa fa-home"></i></a></li>
+                                <li class="active breadcrumb-item" aria-current="page">@Model.CategoryFilter</li>
+                            </ol>
+                        </nav>
+                    </div>
+                }
                 <div class="mb-3 Card_custom-card--border_5wJKy card">
                     <div class="table-responsive-xl">
-                        <table class="mb-0 table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <td class="align-middle" style="white-space: nowrap;"><strong>Ana-Guy</strong><br>2021-06-01</td>
-                                    <td class="align-middle">
-                                        <p style="text-align:left;">Hi doctor, my mom had pneumonia, bronchitis, the flu and a fungal infection in her lungs.When I brought her to a local hospital, she was intubated and had to be ambulance 2 hours away to a hospital that had a bed for patients on a ventilator.She was on a ventilator for three days and they discovered the fungal infection at the hospital.She was there for a total of 15 days.When I brought her home, she was given a home health, physical therapist, home health, occupational therapist, home health nurse to help me take care of her. She is still having quite an issue with breathing. She can do only so much and gets out of breath. Does anyone have any ideas or respiratory rehabilitation or any help they can offer so that my mom can breathe easier to be able to walk and do what she did prior to this illness? Here is my advice.Spirometry exercise would be better for her. An antifungal treatment should be done with other bronchodilator medication and supportive RX.Hope it helps, thanks Doctor.</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <span class="badge badge-success badge-pill">mom</span>
-                                        <span class="badge badge-success badge-pill">pneumonia</span>
-                                        <span class="badge badge-success badge-pill">bronchitis</span>
-                                        <span class="badge badge-success badge-pill">flu</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <hr />
-                        <table class="mb-0 table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <td class="align-middle"><strong>Ana-Guy</strong><br>2021-06-01</td>
-                                    <td class="align-middle">
-                                        <div><a href="/apps/tasks/list">Ergonomic real-time adapter</a></div><span>Last Edited by: Savanah Durgan <br>Sunday, 12 June, 2018</span>
-                                    </td>
-                                    <td class="align-middle"><span class="badge badge-success badge-pill">Active</span></td>
-                                    <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
-                                        </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">
-                                        <span class="badge badge-success badge-pill">Active</span>
-                                        <span class="badge badge-success badge-pill">Active</span>
-                                        <span class="badge badge-success badge-pill">Active</span>
-                                        <span class="badge badge-success badge-pill">Active</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        @foreach (var transcript in Model.Transcriptions)
+                        {
+                            <table class="mb-0 table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td class="align-middle" style="white-space: nowrap;">
+                                            <strong>Patient</strong><br>
+                                            @transcript.FileName.Substring(9, @transcript.FileName.IndexOf(".", 9) - 9).Split("-")[0]<br>
+                                            <strong>Doctor</strong><br>
+                                            Dr. @transcript.FileName.Substring(9, @transcript.FileName.IndexOf(".", 9) - 9).Split("-")[1]<br>
+                                            @transcript.DocumentDate.ToString().Substring(0, 10)
+                                        </td>
+                                        <td class="align-middle">
+                                            <p style="text-align:left;">@Html.Raw(transcript.HTML)</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr />
+                        }
                     </div>
                     <div class="d-flex justify-content-center pb-0 card-footer">
                         <nav class="" aria-label="Page navigation example">
