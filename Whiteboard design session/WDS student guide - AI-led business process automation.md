@@ -40,7 +40,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 ## Abstract and learning objectives
 
-In this whiteboard design session, you will work in a group to automate the business process of extracting data from form documents and perform visit audio transcription (and translation where required). You will evaluate Azure tools and services to design an optimal architecture that will fulfill Contoso Healthcare's business process automation requirements.
+In this whiteboard design session, you will work in a group to automate the business process of extracting data from medical claims form documents and perform visit audio transcription (and translation where required). You will evaluate Azure tools and services to design an optimal architecture that will fulfill Contoso Healthcare's business process automation requirements.
 
 At the end of this whiteboard design session, you will be better able to architect a solution to automate and enrich an existing business process and provide further insight into data using Azure Cognitive Services.
 
@@ -66,7 +66,7 @@ Contoso Healthcare is a major hospital network consisting of multiple locations 
 
 In addition to medical claims form processing, Contoso is looking to automate the process of transcribing, translating, and storing patient/doctor visit audio recordings. Currently, each hospital records audio files of patient/physician visits. This data is archived on-premises at each hospital and used strictly as an auditing tool should the details of any visit be questioned. When the results of a patient visit are challenged, the recording of the visit is retrieved and audibly reviewed by hospital employees. Unfortunately, this manual review process is not standard across the hospital network. As a result, each hospital has its own methods of dealing with patient audio file storage, retrieval, and review. A translation may also be needed in addition to patient audio transcription when the visit language is not US English (en-US). Currently, multiple language interpreters need to be on-hand at each hospital for the manual audio review process.
 
-Contoso Healthcare wants to implement useful reporting visualizations over the extracted claims processing data, such as visualizing the . Doctors are also interested in extracting key insights from the patient visit audio transcriptions, preferably via search functionality made available in their internal portal site.
+Contoso Healthcare wants to implement useful reporting visualizations over the extracted claims processing data, such as visualizing the ratio of total cost and the amount covered for a patient. Doctors are also interested in extracting key insights from the patient visit audio transcriptions, preferably via search functionality made available in their internal portal site.
 
 ### Customer needs
 

@@ -196,7 +196,7 @@ Contoso Healthcare is a major hospital network consisting of multiple locations 
 
 In addition to medical claims form processing, Contoso is looking to automate the process of transcribing, translating, and storing patient/doctor visit audio recordings. Currently, each hospital records audio files of patient/physician visits. This data is archived on-premises at each hospital and used strictly as an auditing tool should the details of any visit be questioned. When the results of a patient visit are challenged, the recording of the visit is retrieved and audibly reviewed by hospital employees. Unfortunately, this manual review process is not standard across the hospital network. As a result, each hospital has its own methods of dealing with patient audio file storage, retrieval, and review. A translation may also be needed in addition to patient audio transcription when the visit language is not US English (en-US). Currently, multiple language interpreters need to be on-hand at each hospital for the manual audio review process.
 
-Contoso Healthcare wants to implement useful reporting visualizations over the extracted claims processing data, such as visualizing the . Doctors are also interested in extracting key insights from the patient visit audio transcriptions, preferably via search functionality made available in their internal portal site.
+Contoso Healthcare wants to implement useful reporting visualizations over the extracted claims processing data, such as visualizing the ratio of total cost and the amount covered for a patient. Doctors are also interested in extracting key insights from the patient visit audio transcriptions, preferably via search functionality made available in their internal portal site.
 
 ### Customer needs
 
@@ -446,7 +446,7 @@ The primary audience is the business decision makers and technology decision mak
 
 1. What Azure service do you recommend to extract data from the claims forms? Are there any tools that can be used to simplify this process?
 
-    Azure Form Recognizer can be used to train a custom model to extract information from a form. The [sample labeling tool](https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/label-tool?tabs=v2-1) can be used to provide an intuitive user interface to identify the regions of the form from where data should be extracted, resulting in a supervised learning model that can be used to extract data from subsequent forms. Training should take place with a minimum of 5 samples when using supervised (labeled) learning is used.
+    Azure Form Recognizer can be used to train a custom model to extract information from a form. The [sample labeling tool](https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/label-tool?tabs=v2-1) can be used to provide an intuitive user interface to identify the regions of the form from where data should be extracted, resulting in a supervised learning model that can be used to extract data from subsequent forms. Training should take place with a minimum of 5 samples when using supervised (labeled) learning.
 
 2. How do you recommend storing the data extracted from the claims forms?
 
@@ -456,7 +456,7 @@ The primary audience is the business decision makers and technology decision mak
 
 1. What Azure service do you recommend for the creation of reports to visualize data extracted from the claims forms?
 
-    Power BI is a collection of software services, apps, and connectors that work together to turn your unrelated sources of data into coherent, visually immersive, and interactive insights. Your data may be an Excel spreadsheet, or a collection of cloud-based and on-premises hybrid data warehouses. Power BI lets you easily connect to your data sources, visualize and discover what's important, and share that with anyone or everyone you want.
+    Power BI is a collection of software services, apps, and connectors that work together to turn your unrelated sources of data into coherent, visually immersive, and interactive insights. The data can be sourced from a variety of cloud-based services, such as Azure Storage and Cosmos DB.
 
 *Audio Transcription and translation*
 
@@ -528,4 +528,4 @@ Text Analytics for health is a feature of the Text Analytics API service that ex
 
 "Over the course of this project, we have not only reduced the effort involved in processing our claims forms, we have also increased accuracy and turn around time to gain insights on this data. We have developed essential visualizations on our claims data that allow us to view current and historical trends which assists us in identifying ways to improve our business model. We have also freed up many of our linguistic staff to work directly with our patients versus having them reviewing and translating visit audio files. One of the most exciting outcomes of this project is that we've also attained ground-breaking insights from our patient audio transcripts by adding Text Analytics for health AI into our search capabilities on our web portal."
 
-    - Senaabil Chandi, CTO, Contoso Healthcare
+- Senaabil Chandi, CTO, Contoso Healthcare
