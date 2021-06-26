@@ -77,6 +77,7 @@ namespace DocumentProcessing
                     int.Parse(blobName.Substring(4, 2)), int.Parse(blobName.Substring(6, 2)));
                 processedDocument.PatientName = forms[0].Fields["PatientName"].ValueData?.Text;
                 processedDocument.InsuredID = forms[0].Fields["InsuredID"].ValueData?.Text;
+                processedDocument.Diagnosis = forms[0].Fields["Diagnosis"].ValueData?.Text;
                 decimal.TryParse(forms[0].Fields["TotalCharges"].ValueData?.Text, out decimal totalCharges);
                 processedDocument.TotalCharges = totalCharges;                
                 DateTime.TryParse(forms[0].Fields["PatientBirthDate"].ValueData?.Text, out DateTime patientBirthDate);
@@ -85,6 +86,7 @@ namespace DocumentProcessing
                 processedDocument.AmountPaid = amountPaid;
                 decimal.TryParse(forms[0].Fields["AmountDue"].ValueData?.Text, out decimal amountDue);
                 processedDocument.AmountDue = amountDue;
+                processedDocument.FileName = blobName;
                 if (processedDocument.InsuredID == null)
                 {
                     processedDocument.Id = Guid.NewGuid().ToString();

@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="mb-4">
-                    <div class="small mb-3">Search Audio Records</div>
+                    <div class="small mb-3">Search Patient Records</div>
                     <div class="input-group">
                         <input placeholder="Search for..." type="text" class="form-control" id="searchBox" value="@Model.SearchString">
                         <div class="input-group-append">
@@ -41,12 +41,39 @@
                 }
                 <div class="mb-3 Card_custom-card--border_5wJKy card">
                     <div class="table-responsive-xl">
+                        @foreach (var claim in Model.Claims)
+                        {
+                            <table class="mb-0 table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td class="align-middle" style="white-space: nowrap; width: 20%">
+                                            <strong>Patient</strong><br>
+                                            @claim.PatientName<br>
+                                            @if (!string.IsNullOrEmpty(claim.InsuredId))
+                                            {
+                                                <strong>Insured Id</strong><br>
+                                                @claim.InsuredId<br>
+                                            }
+                                            <strong>Document Date</strong><br>
+                                            @claim.DocumentDate.ToString().Substring(0, 10)
+                                        </td>
+                                        <td class="align-middle">
+                                            <p style="text-align:left;">
+                                                <strong>Diagnosis:&nbsp</strong>@claim.Diagnosis<br>
+                                                <strong>Original Document:&nbsp</strong><a href="@claim.FileName" target="_blank">PDF</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr />
+                        }
                         @foreach (var transcript in Model.Transcriptions)
                         {
                             <table class="mb-0 table table-borderless">
                                 <tbody>
                                     <tr>
-                                        <td class="align-middle" style="white-space: nowrap;">
+                                        <td class="align-middle" style="white-space: nowrap; width: 20%">
                                             <strong>Patient</strong><br>
                                             @transcript.FileName.Substring(9, @transcript.FileName.IndexOf(".", 9) - 9).Split("-")[0]<br>
                                             <strong>Doctor</strong><br>

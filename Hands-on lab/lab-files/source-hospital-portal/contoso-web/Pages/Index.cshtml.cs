@@ -27,6 +27,8 @@ namespace contoso_web.Pages
 
         [BindProperty]
         public List<Transcription> Transcriptions { get; set; }
+        [BindProperty]
+        public List<Claim> Claims { get; set; }
 
         [BindProperty]
         public List<FacetResult> Facets { get; set; }
@@ -40,14 +42,16 @@ namespace contoso_web.Pages
         public async Task OnGetAsync()
         {
             Transcriptions = new List<Transcription>();
+            Claims = new List<Claim>();
 
             var azureSearchKey = Configuration["AzureSearchKey"];
             var azureSearchUrl = Configuration["AzureSearchUrl"];
-            var searchIndexName = "cosmosdb-index2";
+            var claimsSearchIndexName = "claims-index";
+            var audioTranscriptsSearchIndexName = "audio-index";
 
             AzureKeyCredential credential = new(azureSearchKey);
 
-            SearchClient searchclient = new(new Uri(azureSearchUrl), searchIndexName, credential);
+            SearchClient audioTranscriptsSearchclient = new(new Uri(azureSearchUrl), audioTranscriptsSearchIndexName, credential);
 
             string indexSearch = "*";
             if (!string.IsNullOrEmpty(SearchString))
@@ -77,17 +81,50 @@ namespace contoso_web.Pages
             options.Select.Add("HealthcareEntities");
             options.Facets.Add("HealthcareEntities/Category,count:1000");
 
-            response = searchclient.Search<Transcription>(indexSearch, options);
+            //Searching for transcripts
+            response = audioTranscriptsSearchclient.Search<Transcription>(indexSearch, options);
             await foreach (SearchResult<Transcription> result in response.GetResultsAsync())
             {
                 Transcriptions.Add(result.Document);
+            }
+
+            //Searching for Claims Documents
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                SearchClient claimsSearchclient = new(new Uri(azureSearchUrl), claimsSearchIndexName, credential);
+                SearchOptions claimsSearchOptions;
+                SearchResults<Claim> claimsSearchResponse;
+
+                claimsSearchOptions = new SearchOptions()
+                {
+                    IncludeTotalCount = true,
+                    Filter = "",
+                    OrderBy = { "" }
+                };
+
+                claimsSearchOptions.Select.Add("PatientName");
+                claimsSearchOptions.Select.Add("InsuredID");
+                claimsSearchOptions.Select.Add("PatientBirthDate");
+                claimsSearchOptions.Select.Add("DocumentDate");
+                claimsSearchOptions.Select.Add("Diagnosis");
+                claimsSearchOptions.Select.Add("FileName");
+
+                claimsSearchResponse = claimsSearchclient.Search<Claim>(indexSearch, claimsSearchOptions);
+                await foreach (SearchResult<Claim> result in claimsSearchResponse.GetResultsAsync())
+                {
+                    Claims.Add(result.Document);
+                }
+                foreach (Claim currentClaim in Claims)
+                {
+                    currentClaim.FileName = $"{Configuration["ContosoClaimsStorageContainerEndpoint"]}/{currentClaim.FileName}?{Configuration["ContosoClaimsStorageContainerSAS"]}";
+                }
             }
 
             //Highlight keywords in HTML
             foreach (Transcription transcription in Transcriptions)
             {
                 transcription.HTML = transcription.TranscribedText;
-                transcription.AudioFileUrl = $"{Configuration["ContosoStorageContainerEndpoint"]}/{transcription.FileName}?{Configuration["ContosoStorageContainerSAS"]}" ;
+                transcription.AudioFileUrl = $"{Configuration["ContosoAudioStorageContainerEndpoint"]}/{transcription.FileName}?{Configuration["ContosoAudioStorageContainerSAS"]}" ;
 
                 if (!string.IsNullOrEmpty(SearchString))
                 {
