@@ -32,6 +32,8 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
     - [Task 2: Run ARM template to provision lab resources](#task-3-run-arm-template-to-provision-lab-resources)
     - [Task 3: Download lab artifacts](#task-3-download-lab-artifacts)
+    - [Task 4: Establish a user context](#task-4-establish-a-user-context)
+    - [Task 5: Run environment setup PowerShell script](#task-5-run-environment-setup-powershell-script)
 
 <!-- /TOC -->
 
