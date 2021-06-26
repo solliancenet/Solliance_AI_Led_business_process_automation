@@ -1,6 +1,6 @@
 # AI-led business process automation
 
-Contoso Healthcare is a major hospital network consisting of multiple locations across the United States. One of Contoso Healthcare's most significant needs is to have the ability to process handwritten and electronically filled medical claims forms. Currently, each hospital uploads image representations of completed forms via an Azure File Share. Employees then review each document and enter data manually into the claims system. Contoso Healthcare is looking to automate the business process of extracting claims form data and provide valuable reporting visualizations from the claims data ingested. 
+Contoso Healthcare is a major hospital network consisting of multiple locations across the United States. One of Contoso Healthcare's most significant needs is to have the ability to process handwritten and electronically filled medical claims forms. Currently, each hospital uploads image representations of completed forms via an Azure File Share. Employees then review each document and enter data manually into the claims system. Contoso Healthcare is looking to automate the business process of extracting claims form data and provide valuable reporting visualizations from the claims data ingested.
 
 In addition to claims processing, Contoso Healthcare needs to transcribe, translate, and store patient/doctor visit audio recordings. A key benefit to obtaining audio transcripts is the ability to surface valuable medical terms, dosage instructions, and diagnoses discussed. Therefore, the information transcribed needs to be analyzed and enhanced with medical labeling and provided as a source for search functionality in their web portal.
 
@@ -33,6 +33,7 @@ In this hands-on lab, you will learn to train a Form Recognizer model to extract
 At the end of this hands-on lab, you will be better able to implement a business process automation solution that leverages Azure Cognitive Services.
 
 #### Draft exercise outline
+
 - Before the HOL
   - Task 1: Create resource group
   - Task 2: Create Cognitive Services resource
@@ -57,16 +58,18 @@ At the end of this hands-on lab, you will be better able to implement a business
 ## Azure services and related products
 
 - App Service
-- Cognitive Services: Form Recognizer
-- Cognitive Services: Healthcare Text Analytics
-- Cognitive Services: Speech-to-Text
-- Cognitive Services: Speech Translation
+- Cognitive Services Forms Recognizer
+- Cognitive Services Speech to Text
+- Cognitive Services Text Analytics
+- Cognitive Services Translator
 - Cognitive Search
+- Cosmos DB
+- Event Grid
+- Forms Recognizer
 - Function App
-- Azure Data Lake Storage Gen2
-- Azure File Share
 - Power BI
-- Visual Studio Code
+- Storage Blobs
+- Visual Studio
 
 ## Related references
 
@@ -81,7 +84,6 @@ Hospitals in the Contoso Healthcare network provide images of claim forms and vi
 [Claims Form DOCX](Media/HealthClaimForm.docx)
 
 ![Empty Claims Form Image.](Media/empty-claims-form.png "Empty claims form")
-
 
 ## Help & Support
 
