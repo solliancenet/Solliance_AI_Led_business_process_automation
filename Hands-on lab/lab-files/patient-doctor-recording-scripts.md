@@ -3,9 +3,9 @@
 ### Dialog 1
 
 **Source**: <https://www.icliniq.com/qa/covid-19/i-have-cough-with-no-travel-history-is-this-a-symptoms-of-covid-19>  
-**Patient:** Hello Doctor, I have had a cough for the last few days, which is heavy during the night. No raise in temperature but feeling tired with no travel history. No contact with any Covid-19 persons. It has been four to five days, and has drunk a lot of Benadryl and took Paracetamol too. Doctors have shut the OP, so I do not know what to do? Please help.
-**Doctor:** Hello, I understand your concern. I just have a few more questions. Does your cough has phlegm? Any other symptoms like difficulty breathing? Any other medical condition such as asthma, hypertension? Are you a smoker? Alcoholic beverage drinker?
-**Patient:** I have phlegm but not a lot. A tiny amount comes out most of the time. I have no difficulty in breathing. No medical conditions and not a smoker nor a drinker.
+**Patient:** Hello Doctor, I have had a cough for the last few days, which is heavy during the night. No raise in temperature but feeling tired with no travel history. No contact with any Covid-19 persons. It has been four to five days, and has drunk a lot of Benadryl and took Paracetamol too. Doctors have shut the OP, so I do not know what to do? Please help.  
+**Doctor:** Hello, I understand your concern. I just have a few more questions. Does your cough has phlegm? Any other symptoms like difficulty breathing? Any other medical condition such as asthma, hypertension? Are you a smoker? Alcoholic beverage drinker?  
+**Patient:** I have phlegm but not a lot. A tiny amount comes out most of the time. I have no difficulty in breathing. No medical conditions and not a smoker nor a drinker.  
 **Doctor:** I would recommend you take n-acetylcysteine 200 mg powder dissolved in water three times a day. You may also nebulize using PNSS (saline nebulizer) three times a day. This will help the phlegm to come out. I would also recommend you take vitamin C 500 mg and zinc to boost your immune system. If symptoms persist, worsen, or new onset of symptoms has been noted, further consult is advised.
 
 ### Dialog 2
