@@ -152,7 +152,7 @@ When executing the script below, it is important to let the scripts run to compl
 
     | Prompt |
     |--------|
-    | Enter the desired Azure Subscription for this lab [you will be able to copy and paste from a listing] |
-    | Enter the name of the resource group containing the Azure Synapse Analytics Workspace |
+    | Enter the desired Azure Subscription for this lab (you will be able to copy and paste from a listing) |
+    | Enter the name of your resource group. |
 
 3. At the end of the script, you should see a message indicating **Environment setup complete**.
