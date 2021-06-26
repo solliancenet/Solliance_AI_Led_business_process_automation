@@ -30,6 +30,11 @@
             "fieldKey": "TotalCharges",
             "fieldType": "number",
             "fieldFormat": "not-specified"
+        },
+        {
+            "fieldKey": "Diagnosis",
+            "fieldType": "string",
+            "fieldFormat": "not-specified"
         }
     ],
     "definitions": {}
