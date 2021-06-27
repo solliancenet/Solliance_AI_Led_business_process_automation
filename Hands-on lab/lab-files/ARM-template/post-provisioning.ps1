@@ -22,7 +22,7 @@ $localPath = $dest + "/claims-forms/*"
 
 Write-Host "Uploading training data to Azure Storage"
 
-azcopy copy $localPath $containerSASURI 
+azcopy copy $localPath $containerSASURI --exclude-pattern="*test*.*"
 
 Write-Host "Deploying Document Processing Azure Function App "
 $functionAppName = (Get-AzFunctionApp -ResourceGroupName $resourceGroupName).Name
