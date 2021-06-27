@@ -164,9 +164,145 @@ Contoso has its own document template for claims processing. In this exercise, y
 
 ### Task 2: Configuring Azure Functions and Event Grid for document uploads
 
-### Task 3: Connecting CosmosDB to Azure Functions
+As part of its automation process, Contoso will upload claims documents in the form of PDF files to an Azure Storage account as blobs. An Azure Function App has to detect new files and process them with the trained Forms Recognizer Model. [Event Grid](https://docs.microsoft.com/en-us/azure/event-grid/overview) is the perfect candidate to build applications with event-based architectures thanks to its built-in support for events coming from Azure services, like storage blobs and resource groups. For the Functions App to detect new blobs, you will be using an Azure Event Grid subscription and defining an event handler for the matching Azure Function.
+
+1. Find your storage account in your lab resource group and select it to navigate to its Overview page.
+
+   ![Lab resource group is open. The storage account is highlighted.](media/select-storage-account.png "Storage Account Selection")
+
+2. Switch to the **Events (1)** panel. Select **Azure Function (2)** as the event destination type. Select **Create (3)** to continue.
+
+   ![Storage account page is open. Events panel is shown. Azure Functions is selected. Create button is highlighted.](media/storage-event-function.png "Create Storage Event Subscription")
+
+3. From the list of function apps select the arrow **(1)** for the function app named `contoso-func-SUFFIX` to get a list of functions available. From the list select the `ClaimsProcessing` function.
+
+   ![Function Apps are listed. Contoso function app functions are shown. ClaimsProcessing function is highlighted.](media/event-grid-select-claimsprocessing.png "Function Selection for Event Grid")
+
+4. Select **Add Event Grid Subscription (1)**.
+
+   ![ClaimsProcessing function is selected. Add Event Grid Subscription link is highlighted.](media/event-grid-add-subscription.png "Add Event Grid Subscription")
+
+5. Set the values listed below.
+
+    - **Name (1):** `DocumentEvents`
+    - **Topic Type (2):** Storage account.
+    - **Source Resource (3):** Contoso storage account.
+    - **System Topic Name (4):** `DocumentEvent`
+    - **Filter to Event Types (5):** Blob Created
+
+   ![Create event subscription page is presented. Event name is set to DocumentEvents. Topic Type is set to Storage account. Source Resource is set to contosoSUFFIX storage account. System Topic Name is set to DocumentEvent. Blob Created and Blob Deleted events are selected. Create button is highlighted.](media/event-grid-create-subscription.png)
+
+    Select **Create (6)** to continue.
+
+### Task 3: Connecting CosmosDB and Forms Recognizer to Azure Functions
+
+For the document processing automation, our Azure Function must read the documents from Azure Storage, connect to Azure Forms Recognizer and use the trained model, and finally connect to CosmosDB to save the final results. In this task, we will connect all the required services to the ClaimsProcessing function.
+
+1. Find your storage account in your lab resource group and select it to navigate to its Overview page.
+
+   ![Lab resource group is open. The storage account is highlighted.](media/select-storage-account.png "Storage Account Selection")
+
+2. Switch to the **Access keys (1)** panel. Select **Show keys (2)** to reveal the keys. Select the copy button **(3)** for the first connection string and paste it to a text editor of your choice to be used in the next steps.
+
+   ![Storage Account Access keys page is shown. Show Keys button is selected. The copy button for the first connection string is highlighted.](media/get-storage-connection-string.png "Copy Storage Connection String")
+
+3. Go back to your resource group and find your Cosmos DB account in your lab resource group. Select it to navigate to its Overview page.
+
+   ![Resource group page is open. CosmosDB service is highlighted.](media/select-cosmosdb-service.png "Select Cosmos DB service.")
+
+4. Switch to the **Keys (1)** panel. Copy the values for **URI (2)** and **PRIMARY KEY (3)** to a text editor of your choice to be used in the next steps.
+
+   ![Keys panel of the Cosmos DB account is open. The copy buttons for URI and Primary Key are highlighted.](media/get-cosmosdb-keys.png "Cosmos DB Key and URI")
+
+5. Go back to your resource group and find your Function App named `contoso-func-SUFFIX` in your lab resource group. Select it to navigate to its Overview page.
+
+   ![Resource group page is open. Function App is highlighted.](media/select-azure-function.png "Select Function App.")
+
+6. Switch to the **Configuration (1)** panel. Select **New application setting (2)**.
+
+   ![Function App Configuration page is open. New application setting link is highlighted.](media/function-app-new-application-setting.png "Function App New Application Setting")
+
+7. Set **Name (1)** to `ContosoStorageConnectionString` and **Value (2)** to the previously copied Contoso storage account connection string. Select **OK (3)** to save.
+
+   ![Add Edit Application setting panel is open. Name is set to ContosoStorageConnectionString. Value is set to the previously copied Contoso storage account connection string. OK button is highlighted.](media/function-app-setting-contoso-storage.png)
+
+8. Repeat the same steps to add the **Application Settings** listed below.
+
+   | Name                    | Value                                               |
+   |-------------------------|-----------------------------------------------------|
+   | FormsRecognizerEndpoint | Previously copied **Endpoint** for Forms Recognizer |
+   | FormsRecognizerKey      | Previously copied **Key 1** for Forms Recognizer    |
+   | CosmosDBEndpointUrl     | Previously copied **URI** for Cosmos DB             |
+   | CosmosDBPrimaryKey      | Previously copied **Primary Key** for Cosmos DB     |
+
+9. Once all settings **(1)** are set select **Save (2)**.
+
+  ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save.png "Save new application settings")
 
 ### Task 4: Running document processing automation
+
+Now that all implementations are completed, we can upload a new document to the storage and see the entire process extracting values from claims submissions.
+
+1. In the [Azure portal](https://portal.azure.com), navigate to your **LabVM** Virtual Machine by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **WabVM** Virtual Machine from the list of resources.
+
+    ![The WebVM virtual machine is highlighted in the list of resources.](media/select-labvm.png "WebVM Selection")
+
+2. On the LabVM Virtual Machine's **Overview** blade, select **Connect (1)** and **RDP (2)** on the top menu.
+
+   ![The LabVM VM blade is displayed, with the Connect button highlighted in the top menu.](media/connect-rdp-labvm.png "LabVM RDP Connect")
+
+3. Select **Download RDP File** on the next page, and open the downloaded file.
+
+    > **Note**: The first time you connect to the LabVM Virtual Machine, you will see a blue pop-up terminal dialog taking you through a couple of software installs. Don't be alarmed, and wait until the installs are complete.
+
+    ![RDP Window is open. Download RDP File button is highlighted.](media/rdp-download.png "LabVM RDP File Download")
+
+4. Select **Connect** on the Remote Desktop Connection dialog.
+
+    ![In the Remote Desktop Connection Dialog Box, the Connect button is highlighted.](media/remote-desktop-connection-labvm.png "Remote Desktop Connection dialog")
+
+5. Enter the following credentials with your password when prompted, and then select **OK**:
+
+   - **Username**: demo
+   - **Password**: {YOUR-ADMIN-PASSWORD}
+  
+    > **Note**: default password is `Password.1!!`
+
+    ![The credentials specified above are entered into the Enter your credentials dialog.](media/rdp-credentials-labvm.png "Enter your credentials")
+
+6. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
+
+    ![In the Remote Desktop Connection dialog box, a warning states that the remote computer's identity cannot be verified and asks if you want to continue anyway. At the bottom, the Yes button is circled.](media/remote-desktop-connection-identity-verification-labvm.png "Remote Desktop Connection dialog")
+
+7. Once logged into the LabVM VM, a script will execute to install the various items needed for the remaining lab steps.
+
+8. Once the script completes, open **Edge** and navigate to the [Azure portal](https://portal.azure.com). Enter your credentials to access your subscriptions. Navigate to **contosoSUFFIX** storage account by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contosoSUFFIX** Storage Account from the list of resources.
+
+    ![Edge is highlighted on the desktop. Browser is open and navigate to portal.azure.com. Storage account overview page is open.](media/azure-portal-labvm.png "Storage Account on Lab VM")
+
+9. Switch to the **Containers (1)** panel. Select the **claims (3)** container.
+
+   ![Contoso storage containers are listed. Claims container is highlighted.](media/storage-claims-container.png "Claims Storage Container")
+
+10. Select **Upload (1)** and **Browse (2)**. Navigate to `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms`. Pick **20210621-test-form** and select **Open**.
+
+    ![Container page is open. Upload button is selected. File open dialog shows claims-forms folder with PDF files listed. 20210621-test-form PDF file and Open buttons are highlighted.](media/upload-test-claims-form.png "Local file selection for upload.")
+
+11. Select **Upload** to start the upload process.
+
+    ![Upload blob dialog is open. 20210621-test-form.pdf is selected. Upload button is highlighted.](media/storage-upload-claims-form.png "File Upload")
+
+12. Now, if everything went smooth, we should see the result in the Cosmos DB service. Go back to your resource group and find your Cosmos DB Account named `contoso-cdb-SUFFIX` in your lab resource group. Select it to navigate to its Overview page.
+
+    ![Resource group page is open. CosmosDB service is highlighted.](media/select-cosmosdb-service.png "Select Cosmos DB service.")
+
+13. Select **Data Explorer**.
+
+    ![Cosmos DB Overview page is open. Data explorer button is highlighted.](media/cosmosdb-data-explorer.png "Cosmos DB Data Explorer")
+
+14. Select the **Items (1)** list under the **Contoso** database's **Claims** collection. Select the first document **(2)** to see it's content. Take a look at the values extracted by Forms Recognizer such as **PatientName** and **Diagnosis (3)**.
+
+    ![Cosmos DB Data Explorer is open. Claims Document values are shown as a document in Claims collection in the Contoso database.](media/cosmosdb-data-explorer-claims-document.png "Claims Document in Cosmos DB")
 
 ## Exercise 2: Extract Health Analytics from visit audio records
 
