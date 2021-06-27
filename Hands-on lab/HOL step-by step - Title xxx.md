@@ -154,57 +154,47 @@ Contoso has its own document template for claims processing. In this exercise, y
 
     ![Model training result page is shown. Estimated Accuracy values and Average Accuracy values are presented. Average accuracy is 97.60%.](media/fott-model-trained.png)
 
-### Task 2: Configure Azure Functions for document processing
+### Task 2: Configuring Azure Functions and Event Grid for Document Uploads
 
-1. Number and insert your custom workshop content here . . .
+### Task 3: Connecting CosmosDB to Azure Functions
 
-    - Insert content here
+### Task 4: Running document processing automation
 
-        -  
-
-## Exercise 2: Exercise name
+## Exercise 2: Extract Health Analytics from Visit Audio Records
 
 Duration: X minutes
 
 \[insert your custom Hands-on lab content here . . . \]
 
-### Task 1: Task name
+### Task 1: Configuring Azure Functions and Event Grid for Audio Uploads
 
-1. Number and insert your custom workshop content here . . .
+### Task 2: Connecting Cognitive Services to Azure Functions
 
-    - Insert content here
+### Task 3: Storing enriched metadata in CosmosDB
 
-        -  
+### Task 4: Running audio record processing automation
 
-### Task 2: Task name
-
-1. Number and insert your custom workshop content here . . .
-
-    - Insert content here
-
-        -  
-
-## Exercise 3: Exercise name
+## Exercise 3: Using Azure Cognitive Search to index and serve data
 
 Duration: X minutes
 
-\[insert your custom Hands-on lab content here . . .\]
+\[insert your custom Hands-on lab content here . . . \]
 
-### Task 1: Task name
+### Task 1: Setting up Indexer for Forms Documents
 
-1. Number and insert your custom workshop content here . . .
+### Task 2: Setting up Indexer for Audio Transcriptions and Health Analytics
 
-    - Insert content here
+### Task 3: Connecting Azure Cognitive Search to Hospital Portal
 
-        -  
+## Exercise 4: Building Custom PowerBI reports on Healthcare data
 
-### Task 2: Task name
+Duration: X minutes
 
-1. Number and insert your custom workshop content here . . .
+\[insert your custom Hands-on lab content here . . . \]
 
-    - Insert content here
+### Task 1: Connecting PowerBI to CosmosDB
 
-        -  
+### Task 2: Creating PowerBI report unifying structured and unstructured data
 
 ## After the hands-on lab
 
