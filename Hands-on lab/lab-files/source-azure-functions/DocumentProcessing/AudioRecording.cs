@@ -47,7 +47,7 @@ namespace DocumentProcessing
                 string textAnalyticsEndpoint = System.Environment.GetEnvironmentVariable("TextAnalyticsEndpoint", EnvironmentVariableTarget.Process);
 
                 // Download audio file to a local temp directory
-                var tempPath = Path.Combine(Path.GetTempPath(), blobName);
+                var tempPath = System.IO.Path.GetTempFileName();
                 BlobContainerClient container = new BlobContainerClient(contosoStorageConnectionString, "audiorecordings");
                 BlobClient blob = container.GetBlobClient(blobName);
                 await blob.DownloadToAsync(tempPath);

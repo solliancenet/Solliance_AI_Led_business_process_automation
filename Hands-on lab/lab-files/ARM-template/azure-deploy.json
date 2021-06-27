@@ -442,7 +442,7 @@
             "name": "[variables('functionAppName')]",
             "apiVersion": "2018-11-01",
             "location": "[variables('location')]",
-            "kind": "functionapp,linux",
+            "kind": "functionapp",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
@@ -478,10 +478,10 @@
         },
                 {
             "type": "Microsoft.Web/serverfarms",
-            "apiVersion": "2019-08-01",
+            "apiVersion": "2018-02-01",
             "name": "[variables('hostingPlanName')]",
             "location": "[variables('location')]",
-            "kind": "linux",
+            "kind": "functionapp",
             "properties": {
                 "reserved": true
             },
