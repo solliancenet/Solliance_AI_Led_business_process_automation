@@ -38,10 +38,58 @@
         "labCustomScriptFileName": "configure-labvm.ps1",
         "labCustomScriptUri": "[concat('https://raw.githubusercontent.com/solliancenet/Solliance_AI_Led_business_process_automation/', variables('githubBranchName'),'/Hands-on%20lab/lab-files/ARM-template/', variables('labCustomScriptFileName'))]",
 
-        "hostingPlanName": "[concat(resourceGroup().name, '-asp-ln-fn')]",
-		"functionAppName": "[concat('contoso-func-', uniqueString(resourceGroup().id))]"
+        "hostingPlanName": "[concat(resourceGroup().name, '-asp-fn')]",
+		"functionAppName": "[concat('contoso-func-', uniqueString(resourceGroup().id))]",
+
+        "appServiceHostingPlanName": "[concat(resourceGroup().name, '-asp-portal')]",
+        "webAppName": "[concat('contoso-portal-', uniqueString(resourceGroup().id))]"
     },
     "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[variables('webAppName')]",
+            "location": "[variables('location')]",
+            "kind": "app",
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', variables('appServiceHostingPlanName'))]"
+            ],
+            "properties": {
+                "name": "[variables('webAppName')]",
+                "siteConfig": {
+                    "appSettings": [],
+                    "metadata": [
+                        {
+                            "name": "CURRENT_STACK",
+                            "value": "dotnet"
+                        }
+                    ],
+                    "phpVersion": "OFF",
+                    "netFrameworkVersion": "v5.0",
+                    "alwaysOn": false
+                },
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServiceHostingPlanName'))]",
+                "clientAffinityEnabled": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[variables('appServiceHostingPlanName')]",
+            "location": "[variables('location')]",
+            "dependsOn": [],
+            "sku": {
+                "Tier": "Basic",
+                "Name": "B1"
+            },
+            "kind": "",
+            "properties": {
+                "name": "[variables('appServiceHostingPlanName')]",
+                "workerSize": "0",
+                "workerSizeId": "0",
+                "numberOfWorkers": "1"
+            }
+        },
         {
             "type": "Microsoft.Search/searchServices",
             "apiVersion": "2020-08-01",
