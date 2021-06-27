@@ -35,7 +35,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Exercise 1: Extract text and structure from documents with Forms Recognizer](#exercise-1-extract-text-and-structure-from-documents-with-forms-recognizer)
     - [Task 1: Prepare custom model to process documents](#task-1-prepare-custom-model-to-process-documents)
     - [Task 2: Configuring Azure Functions and Event Grid for document uploads](#task-2-configuring-azure-functions-and-event-grid-for-document-uploads)
-    - [Task 3: Connecting CosmosDB to Azure Functions](#task-3-connecting-cosmosdb-to-azure-functions)
+    - [Task 3: Connecting CosmosDB and Forms Recognizer to Azure Functions](#task-3-connecting-cosmosdb-and-forms-recognizer-to-azure-functions)
     - [Task 4: Running document processing automation](#task-4-running-document-processing-automation)
   - [Exercise 2: Extract Health Analytics from visit audio records](#exercise-2-extract-health-analytics-from-visit-audio-records)
     - [Task 1: Configuring Azure Functions and Event Grid for audio uploads](#task-1-configuring-azure-functions-and-event-grid-for-audio-uploads)
@@ -100,11 +100,11 @@ Contoso has its own document template for claims processing. In this exercise, y
 
 ### Task 1: Prepare custom model to process documents
 
-1. To access the training data in Azure Storage, we need a [SAS](https://docs.microsoft.com/en-us/rest/api/storageservices/delegate-access-with-shared-access-signature) access link. Find your storage account in your lab resource group and select it to navigate to its Overview page.
+1. To access the training data in Azure Storage, we need a [SAS](https://docs.microsoft.com/en-us/rest/api/storageservices/delegate-access-with-shared-access-signature) access link. In the [Azure portal](https://portal.azure.com), navigate to your **contosoSUFFIX** Storage Account Overview page by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contosoSUFFIX** Storage Account from the list of resources.
 
    ![Lab resource group is open. The storage account is highlighted.](media/select-storage-account.png "Storage Account Selection")
 
-2. Once you are on the Storage Account Overview page, switch to the **Containers (1)** panel.  Select `claimstraining` **(2)** container and open the context menu with the three dots **(3)** at the end of the row. Select **Generate SAS (4)**.
+2. Once you are on the Storage Account Overview page, switch to the **Containers (1)** panel.  Select **claimstraining (2)** container and open the context menu with the three dots **(3)** at the end of the row. Select **Generate SAS (4)**.
 
    ![Claimstraining container is selected. Generate SAS command from the context menu is highlighted.](media/storage-generate-sas-claimstraining.png "Generate SAS for Container")
 
@@ -112,7 +112,7 @@ Contoso has its own document template for claims processing. In this exercise, y
 
    ![Generate SAS panel is open. All permissions are selected. The expiry date is set to a month further. Generate SAS token, and URL button is selected. Copy button for SAS URL is highlighted.](media/storage-generate-sas-claimstraining-copy.png "Blob SAS URL Copy")
 
-4. Go back to your resource group and select 'contoso-fr-SUFFIX' **(1)** Azure Forms Recognizer service where SUFFIX represents a unique string value for your resource group.
+4. Go back to your resource group and select **contoso-fr-SUFFIX (1)** Azure Forms Recognizer service where SUFFIX represents a unique string specific to your resource group.
 
    ![Lab resource group is open. Azure Forms Recognizer account is highlighted.](media/select-forms-recognizer.png "Select Forms Recognizer Service")
 
@@ -130,11 +130,11 @@ Contoso has its own document template for claims processing. In this exercise, y
 
    ![New Custom Training Project selection is highlighted.](media/fott-new-project.png "New Project")
 
-9. Set **Display Name (1)** to `ContosoDocuments` and select **Add Connection (2)**.
+9. Set **Display Name (1)** to **ContosoDocuments** and select **Add Connection (2)**.
 
    ![Project Settings page is open. Display name is set to ContosoDocuments. Add connection button is highlighted.](media/fott-new-connection.png "Add Source Connection")
 
-10. Set **Display name (1)** to `DocumentSource` and past the previously copies SAS URL into the **SAS URI (2)** box. Select **Save Connection (3)** to continue.
+10. Set **Display name (1)** to **DocumentSource** and past the previously copies SAS URL into the **SAS URI (2)** box. Select **Save Connection (3)** to continue.
 
     ![Blob Connection Settings page is open. Display name is set to DocumentSource. SAS URI is set. Save connection button is highlighted.](media/fott-storage-sas.png "Setting SAS URL")
 
@@ -142,7 +142,7 @@ Contoso has its own document template for claims processing. In this exercise, y
 
 12. Set the values listed below.
 
-    - **Source Connection (2):** `DocumentSource`
+    - **Source Connection (2):** **DocumentSource**
     - **Form recognizer service URI (3):** Previously copied **Endpoint** value from Forms Recognizer.
     - **API key (4):** Previously copied **Key 1** value from Forms Recognizer.
 
@@ -154,7 +154,7 @@ Contoso has its own document template for claims processing. In this exercise, y
 
     ![Tags Editor is shown. Documents and Tags Lists are highlighted. PatientName, PatientBirthDate, InsuredID, AmountDue, AmountPaid, TotalCharges, and Diagnosis tags are created, and matching values are extracted from the document.](media/fott-labelled-documents.png "Tag Editor")
 
-14. Switch to the **Train (1)** page. Set **Model name (2)** to `ContosoModel` and select **Train (3)** to start the model training.
+14. Switch to the **Train (1)** page. Set **Model name (2)** to **ContosoModel** and select **Train (3)** to start the model training.
 
     ![Model training page is open. The model name is set to ContosoModel. Train button is highlighted.](media/fott-train-model.png "Model Training")
 
@@ -166,7 +166,7 @@ Contoso has its own document template for claims processing. In this exercise, y
 
 As part of its automation process, Contoso will upload claims documents in the form of PDF files to an Azure Storage account as blobs. An Azure Function App has to detect new files and process them with the trained Forms Recognizer Model. [Event Grid](https://docs.microsoft.com/en-us/azure/event-grid/overview) is the perfect candidate to build applications with event-based architectures thanks to its built-in support for events coming from Azure services, like storage blobs and resource groups. For the Functions App to detect new blobs, you will be using an Azure Event Grid subscription and defining an event handler for the matching Azure Function.
 
-1. Find your storage account in your lab resource group and select it to navigate to its Overview page.
+1. In the [Azure portal](https://portal.azure.com), navigate to your **contosoSUFFIX** Storage Account Overview page by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contosoSUFFIX** Storage Account from the list of resources.
 
    ![Lab resource group is open. The storage account is highlighted.](media/select-storage-account.png "Storage Account Selection")
 
@@ -174,7 +174,7 @@ As part of its automation process, Contoso will upload claims documents in the f
 
    ![Storage account page is open. Events panel is shown. Azure Functions is selected. Create button is highlighted.](media/storage-event-function.png "Create Storage Event Subscription")
 
-3. From the list of function apps select the arrow **(1)** for the function app named `contoso-func-SUFFIX` to get a list of functions available. From the list select the `ClaimsProcessing` function.
+3. From the list of function apps select the arrow **(1)** for the function app named **contoso-func-SUFFIX** to get a list of functions available. From the list select the **ClaimsProcessing** function.
 
    ![Function Apps are listed. Contoso function app functions are shown. ClaimsProcessing function is highlighted.](media/event-grid-select-claimsprocessing.png "Function Selection for Event Grid")
 
@@ -184,10 +184,10 @@ As part of its automation process, Contoso will upload claims documents in the f
 
 5. Set the values listed below.
 
-    - **Name (1):** `DocumentEvents`
+    - **Name (1):** **DocumentEvents**
     - **Topic Type (2):** Storage account.
     - **Source Resource (3):** Contoso storage account.
-    - **System Topic Name (4):** `DocumentEvent`
+    - **System Topic Name (4):** **DocumentEvent**
     - **Filter to Event Types (5):** Blob Created
 
    ![Create event subscription page is presented. Event name is set to DocumentEvents. Topic Type is set to Storage account. Source Resource is set to contosoSUFFIX storage account. System Topic Name is set to DocumentEvent. Blob Created and Blob Deleted events are selected. Create button is highlighted.](media/event-grid-create-subscription.png)
@@ -198,7 +198,7 @@ As part of its automation process, Contoso will upload claims documents in the f
 
 For the document processing automation, our Azure Function must read the documents from Azure Storage, connect to Azure Forms Recognizer and use the trained model, and finally connect to CosmosDB to save the final results. In this task, we will connect all the required services to the ClaimsProcessing function.
 
-1. Find your storage account in your lab resource group and select it to navigate to its Overview page.
+1. In the [Azure portal](https://portal.azure.com), navigate to your **contosoSUFFIX** Storage Account Overview page by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contosoSUFFIX** Storage Account from the list of resources.
 
    ![Lab resource group is open. The storage account is highlighted.](media/select-storage-account.png "Storage Account Selection")
 
@@ -214,7 +214,7 @@ For the document processing automation, our Azure Function must read the documen
 
    ![Keys panel of the Cosmos DB account is open. The copy buttons for URI and Primary Key are highlighted.](media/get-cosmosdb-keys.png "Cosmos DB Key and URI")
 
-5. Go back to your resource group and find your Function App named `contoso-func-SUFFIX` in your lab resource group. Select it to navigate to its Overview page.
+5. Go back to your resource group and find your Function App named **contoso-func-SUFFIX** in your lab resource group. Select it to navigate to its Overview page.
 
    ![Resource group page is open. Function App is highlighted.](media/select-azure-function.png "Select Function App.")
 
@@ -222,7 +222,7 @@ For the document processing automation, our Azure Function must read the documen
 
    ![Function App Configuration page is open. New application setting link is highlighted.](media/function-app-new-application-setting.png "Function App New Application Setting")
 
-7. Set **Name (1)** to `ContosoStorageConnectionString` and **Value (2)** to the previously copied Contoso storage account connection string. Select **OK (3)** to save.
+7. Set **Name (1)** to **ContosoStorageConnectionString** and **Value (2)** to the previously copied Contoso storage account connection string. Select **OK (3)** to save.
 
    ![Add Edit Application setting panel is open. Name is set to ContosoStorageConnectionString. Value is set to the previously copied Contoso storage account connection string. OK button is highlighted.](media/function-app-setting-contoso-storage.png)
 
