@@ -32,21 +32,21 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Solution architecture](#solution-architecture)
   - [Requirements](#requirements)
   - [Before the hands-on lab](#before-the-hands-on-lab)
-  - [Exercise 1: Extract Text and Structure from Documents with Forms Recognizer](#exercise-1-extract-text-and-structure-from-documents-with-forms-recognizer)
-    - [Task 1: Prepare Custom Model to process documents](#task-1-prepare-custom-model-to-process-documents)
-    - [Task 2: Configuring Azure Functions and Event Grid for Document Uploads](#task-2-configuring-azure-functions-and-event-grid-for-document-uploads)
+  - [Exercise 1: Extract text and structure from documents with Forms Recognizer](#exercise-1-extract-text-and-structure-from-documents-with-forms-recognizer)
+    - [Task 1: Prepare custom model to process documents](#task-1-prepare-custom-model-to-process-documents)
+    - [Task 2: Configuring Azure Functions and Event Grid for document uploads](#task-2-configuring-azure-functions-and-event-grid-for-document-uploads)
     - [Task 3: Connecting CosmosDB to Azure Functions](#task-3-connecting-cosmosdb-to-azure-functions)
     - [Task 4: Running document processing automation](#task-4-running-document-processing-automation)
-  - [Exercise 2: Extract Health Analytics from Visit Audio Records](#exercise-2-extract-health-analytics-from-visit-audio-records)
-    - [Task 1: Configuring Azure Functions and Event Grid for Audio Uploads](#task-1-configuring-azure-functions-and-event-grid-for-audio-uploads)
+  - [Exercise 2: Extract Health Analytics from visit audio records](#exercise-2-extract-health-analytics-from-visit-audio-records)
+    - [Task 1: Configuring Azure Functions and Event Grid for audio uploads](#task-1-configuring-azure-functions-and-event-grid-for-audio-uploads)
     - [Task 2: Connecting Cognitive Services to Azure Functions](#task-2-connecting-cognitive-services-to-azure-functions)
-    - [Task 3: Storing enriched metadata in CosmosDB](#task-3-storing-enriched-metadata-in-cosmosdb)
+    - [Task 3: Storing enriched metadata in Cosmos DB](#task-3-storing-enriched-metadata-in-cosmos-db)
     - [Task 4: Running audio record processing automation](#task-4-running-audio-record-processing-automation)
   - [Exercise 3: Using Azure Cognitive Search to index and serve data](#exercise-3-using-azure-cognitive-search-to-index-and-serve-data)
-    - [Task 1: Setting up Indexer for Forms Documents](#task-1-setting-up-indexer-for-forms-documents)
-    - [Task 2: Setting up Indexer for Audio Transcriptions and Health Analytics](#task-2-setting-up-indexer-for-audio-transcriptions-and-health-analytics)
-    - [Task 3: Connecting Azure Cognitive Search to Hospital Portal](#task-3-connecting-azure-cognitive-search-to-hospital-portal)
-  - [Exercise 4: Building Custom PowerBI reports on Healthcare data](#exercise-4-building-custom-powerbi-reports-on-healthcare-data)
+    - [Task 1: Setting up indexer for forms documents](#task-1-setting-up-indexer-for-forms-documents)
+    - [Task 2: Setting up indexer for audio transcriptions and health analytics](#task-2-setting-up-indexer-for-audio-transcriptions-and-health-analytics)
+    - [Task 3: Connecting Azure Cognitive Search to hospital portal](#task-3-connecting-azure-cognitive-search-to-hospital-portal)
+  - [Exercise 4: Building custom PowerBI reports on healthcare data](#exercise-4-building-custom-powerbi-reports-on-healthcare-data)
     - [Task 1: Connecting PowerBI to CosmosDB](#task-1-connecting-powerbi-to-cosmosdb)
     - [Task 2: Creating PowerBI report unifying structured and unstructured data](#task-2-creating-powerbi-report-unifying-structured-and-unstructured-data)
   - [After the hands-on lab](#after-the-hands-on-lab)
@@ -90,7 +90,7 @@ Finally, the internal hospital portal queries the indexes created in Azure Cogni
 
 Refer to the Before the hands-on lab setup guide manual before continuing to the lab exercises.
 
-## Exercise 1: Extract Text and Structure from Documents with Forms Recognizer
+## Exercise 1: Extract text and structure from documents with Forms Recognizer
 
 Duration: X minutes
 
@@ -98,7 +98,7 @@ Azure Form Recognizer is a part of [Azure Applied AI Services](https://docs.micr
 
 Contoso has its own document template for claims processing. In this exercise, you will be using a set of documents to train a custom model with labels. When you train with labeled data, the model uses supervised learning to extract values of interest, using the labeled forms you provide. In this case, Form Recognizer uses the [Layout API](https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/concept-layout) to learn the expected sizes and positions of printed and handwritten text elements and extract values.
 
-### Task 1: Prepare Custom Model to process documents
+### Task 1: Prepare custom model to process documents
 
 1. To access the training data in Azure Storage, we need a [SAS](https://docs.microsoft.com/en-us/rest/api/storageservices/delegate-access-with-shared-access-signature) access link. Find your storage account in your lab resource group and select it to navigate to its Overview page.
 
@@ -162,23 +162,23 @@ Contoso has its own document template for claims processing. In this exercise, y
 
     ![Model training result page is shown. Estimated Accuracy values and Average Accuracy values are presented. Average accuracy is 97.60%.](media/fott-model-trained.png)
 
-### Task 2: Configuring Azure Functions and Event Grid for Document Uploads
+### Task 2: Configuring Azure Functions and Event Grid for document uploads
 
 ### Task 3: Connecting CosmosDB to Azure Functions
 
 ### Task 4: Running document processing automation
 
-## Exercise 2: Extract Health Analytics from Visit Audio Records
+## Exercise 2: Extract Health Analytics from visit audio records
 
 Duration: X minutes
 
 \[insert your custom Hands-on lab content here . . . \]
 
-### Task 1: Configuring Azure Functions and Event Grid for Audio Uploads
+### Task 1: Configuring Azure Functions and Event Grid for audio uploads
 
 ### Task 2: Connecting Cognitive Services to Azure Functions
 
-### Task 3: Storing enriched metadata in CosmosDB
+### Task 3: Storing enriched metadata in Cosmos DB
 
 ### Task 4: Running audio record processing automation
 
@@ -188,13 +188,13 @@ Duration: X minutes
 
 \[insert your custom Hands-on lab content here . . . \]
 
-### Task 1: Setting up Indexer for Forms Documents
+### Task 1: Setting up indexer for forms documents
 
-### Task 2: Setting up Indexer for Audio Transcriptions and Health Analytics
+### Task 2: Setting up indexer for audio transcriptions and health analytics
 
-### Task 3: Connecting Azure Cognitive Search to Hospital Portal
+### Task 3: Connecting Azure Cognitive Search to hospital portal
 
-## Exercise 4: Building Custom PowerBI reports on Healthcare data
+## Exercise 4: Building custom PowerBI reports on healthcare data
 
 Duration: X minutes
 
