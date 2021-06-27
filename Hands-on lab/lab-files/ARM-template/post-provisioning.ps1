@@ -29,4 +29,10 @@ $functionAppName = (Get-AzFunctionApp -ResourceGroupName $resourceGroupName).Nam
 $zipArchiveFullPath = $dest + "/source-azure-functions/DocumentProcessing.zip"
 az functionapp deployment source config-zip -g "$($resourceGroupName)" -n "$($functionAppName)" --src "$($zipArchiveFullPath)" --subscription "$($subscriptionId)"   
 
+Write-Host "Deploying Hospital Portal"
+$webAppName = (Get-AzWebApp -ResourceGroupName $resourceGroupName | Where-Object Name -like 'contoso-portal*').Name
+$zipArchiveFullPath = $dest + "/source-hospital-portal/contoso-web.zip"
+az webapp deployment source config-zip -g "$($resourceGroupName)" -n "$($webAppName)" --src "$($zipArchiveFullPath)" --subscription "$($subscriptionId)"   
+
 Write-Host "Environment setup complete." -ForegroundColor Green
+
