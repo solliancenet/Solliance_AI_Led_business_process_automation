@@ -91,7 +91,7 @@ Refer to the Before the hands-on lab setup guide manual before continuing to the
 
 ## Exercise 1: Extract text and structure from documents with Forms Recognizer
 
-Duration: X minutes
+Duration: 45 minutes
 
 Azure Form Recognizer is a part of [Azure Applied AI Services](https://docs.microsoft.com/en-us/azure/applied-ai-services/) that lets you build automated data processing software using machine learning technology. You can identify and extract text, key/value pairs, selection marks, tables, and structure from your documents. The service outputs structured data that includes the relationships in the original file, bounding boxes, confidence, and more. You can quickly get accurate results tailored to your specific content without heavy manual intervention or extensive data science expertise. Form Recognizer comprises custom document processing models, prebuilt models for invoices, receipts, IDs and business cards, and the layout model.
 
@@ -413,8 +413,6 @@ Now that all implementations are completed, we can upload new patient recordings
     ![Container page is open. The upload button is selected. File open dialog shows the audio-recordings folder with WAV files listed. All WAV files and Open button are highlighted.](media/upload-audio-recordings.png "Local file selection for upload.")
 
 4. Select **Upload** to start the upload process.
-
-    ![Upload blob dialog is open. 20210621-test-form.pdf is selected. Upload button is highlighted.](media/storage-upload-claims-form.png "File Upload")
 
 5. Now, if everything went smoothly, we should see the result in the Cosmos DB service. Go back to your resource group and find your Cosmos DB Account named `contoso-cdb-SUFFIX` in your lab resource group. Select it to navigate to its Overview page.
 
