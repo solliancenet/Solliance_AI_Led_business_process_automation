@@ -47,7 +47,8 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 3: Configuring the hospital portal](#task-3-configuring-the-hospital-portal)
   - [Exercise 4: Building custom PowerBI reports on healthcare data](#exercise-4-building-custom-powerbi-reports-on-healthcare-data)
     - [Task 1: Connecting PowerBI to CosmosDB](#task-1-connecting-powerbi-to-cosmosdb)
-    - [Task 2: Creating PowerBI report unifying structured and unstructured data](#task-2-creating-powerbi-report-unifying-structured-and-unstructured-data)
+    - [Task 2: Setting up data transformations for semi-structured data](#task-2-setting-up-data-transformations-for-semi-structured-data)
+    - [Task 3: Creating a custom PowerBI report from multiple data sets](#task-3-creating-a-custom-powerbi-report-from-multiple-data-sets)
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete Azure resource groups](#task-1-delete-azure-resource-groups)
 
@@ -576,11 +577,97 @@ In this task, we will connect our Azure Cognitive Search indexes with the hospit
 
 Duration: X minutes
 
-\[insert your custom Hands-on lab content here . . . \]
+In this exercise, you will create Power BI reports surfacing the data extracted from claims forms and the health analytics data extracted from visit audio transcriptions. With the use of [DirectQuery](https://docs.microsoft.com/en-us/power-bi/connect-data/service-dataset-modes-understand#directquery-mode), our reports will send native queries to retrieve data from the underlying data source, in our case Cosmos DB. The ability to natively query Cosmos DB from custom reports is beneficial when reports need to deliver "near real-time" data beyond what can be achieved within scheduled refreshes.
 
 ### Task 1: Connecting PowerBI to CosmosDB
 
-### Task 2: Creating PowerBI report unifying structured and unstructured data
+1. Connect to your LabVM and start **Power BI Desktop (1)** from its shortcut on the desktop. Select **Get data (2)** to continue.
+
+   ![Power BI Desktop shortcut on desktop is highlighted. PowerBI window is shown. Get data link is highlighted.](media/powerbi-start.png "Power BI Desktop")
+
+2. Type **cosmos (1)** into the search box and select **Azure Cosmos DB (2)** as the data source. Select **Connect (3)** to continue.
+
+   ![Get data window is open. The search result for cosmos is shown. Azure Cosmos DB is selected. Connect button is highlighted.](media/powerbi-cosmosdb-connector.png "Get Data Cosmos DB")
+
+3. Enter the **Cosmos DB URL** you previously copied into the **URL (1)** field. Type in **Contoso** for the **Database (2)** name. Select **OK (3)** to continue.
+
+   ![Azure Cosmos DB Connection window is shown. URL is set to the Cosmos DB URL. The database is set to Contoso. The OK button is highlighted.](media/powerbi-cosmosdb-url.png "Cosmos DB Connection")
+
+4. Enter the **Cosmos DB Primary Key** you previously copied into the **Account key (1)** field. Select **Connect (2)** to continue.
+
+   ![Cosmos DB Feed Key window is open. The account key is set to Cosmos DB Primary Key. Connect button is highlighted.](media/powerbi-cosmosdb-key.png "Cosmos DB Account Key")
+
+5. On the Navigator window select **Claims** and **Transcriptions** collections **(1)**. Select **Load (2)** to continue.
+
+   ![Navigator window is shown. Claims and Transcriptions collections are selected. Load button is highlighted.](media/powerbi-load-cosmosdb.png "Loading Claims and Transcriptions")
+
+6. So far, we did not decide what attributes in our JSON documents in Cosmos DB will be reflected as columns in Power BI. Select **Continue** and disregard the error to define the mapping on the following step.
+
+   ![Load error is shown. Continue button is highlighted.](media/powerbi-cant-load.png "Loading Failed")
+
+### Task 2: Setting up data transformations for semi-structured data
+
+1. Select **Transform Data (1)** to start transforming our unstructured data.
+
+   ![Power BI Desktop is open. Transform data menu is shown.](media/powerbi-transform-data.png "Transform Data")
+
+2. Select **Claims** Query from the left Queries list **(1)**. Select the context  menu button **(2)** and open the field list. From the list select **TotalCharges, AmountPaid, AmountDue, DocumentDate** and **Diagnosis (3)**. Select **OK (4)** to finish.
+
+   ![Claims query is selected. The context menu is open for the documents collection. From the fields list, TotalCharges, AmountPaid, AmountDue, DocumentDate, and Diagnosis are chosen. The OK button is highlighted. ](media/powerbi-claims-transform.png "Drill Down to Fields")
+
+3. Once the data is loaded, it is time to assign the proper data types to columns. Right-click each column and assign the matching data type. For numbered columns such as **TotalCharges, AmountPaid** and **AmountDue** select **Decimal Number (3)**. For **DocumentDate** set **Date/Time**.
+
+   ![TotalCharges column context menu is open. Change Type / Decimal Number selected is selected.](media/powerbi-change-data-types.png "Changing Data Types")
+
+4. Now that the query is ready to be loaded, right-click **Claims (1)** from the query list and **Enable Load (2)**.
+
+   ![Claims query is selected. Right-click context menu is shown. Enable Load is checked.](media/powerbi-claims-enable-load.png "Enable Load")
+
+5. Now, we will switch gears and focus on the **Transcriptions** query in the Queries list. Right-click on the document list and open the context menu to select the **HealthcareEntities** field. Select **OK (3)** to continue.
+
+   ![Transcriptions query is selected. The context menu is open for the documents collection. From the fields list, HealthcareEntities is selected. The OK button is highlighted. ](media/powerbi-transcriptions-healthcare-entities.png "Healthcare Entities from Transcriptions")
+
+6. Select the arrow button **(1)** on the HealthcareEntities collection header and choose **Expand to New Rows (2)**.
+
+   ![HealthcareEntities column context menu is open. Expand to new rows command is highlighted.](media/powerbi-expand-new-rows.png "Expand New Rows")
+
+7. Select the arrow button **(1)** on the HealthcareEntities collection header and choose **Category** and **Text (2)** fields. Select **OK (3)** to continue.
+
+   ![HealthcareEntities column context menu is open. Category and Text fields are selected. OK button is highlighted.](media/powerbi-transcriptions-select-fields.png "Selectin Fields for HealthcareEntities")
+
+8. Right-click **Transcriptions (1)** from the query list and **Enable Load (2)**.
+
+   ![Transcriptions query is selected. Right-click context menu is shown. Enable Load is checked.](media/powerbi-transcriptions-enable-load.png "Enable Load")
+
+9. Select the arrow button **(1)** on the **HealthcareEntities.Category** field header and choose **Diagnosis (2)** to filter out other entities. We will only use entities under the **Diagnosis** category. Select **OK (3)** to continue.
+
+   ![HealthcareEntities.Category column context menu is open. Diagnosis is selected. OK button is highlighted.](media/powerbi-transcriptions-filter.png "Filter Diagnosis")
+
+10. Now, we will group by diagnosis texts to determine the number of times each diagnosis has appeared in audio recordings. Right-click **(1)** on the **HealthcareEntities.Text** field header and choose **Group By (2)**.
+
+    ![HealthcareEntities.Text column context menu is open. Group By is highlighted.](media/powerbi-transcriptions-groupby.png "Group By")
+
+11. Select **OK**.
+
+    ![Group By window is shown. Ok button is highlighted.](media/powerbi-transcriptions-groupby-ok.png "Group By Details")
+
+12. Close the window **(1)** and select **Yes (2)** to save changes.
+
+    ![Close Window button is selected. Yes confirmation button is highlighted.](media/powerbi-save-transform.png "Save Transform")
+
+### Task 3: Creating a custom PowerBI report from multiple data sets
+
+1. Select **Treemap (1)** visualization and check **Transcriptions.Count** and **Document.HealthcareEntities.Text (2)** as values and grouping.
+
+   ![Treemap visualization is selected. The count is set for Values and HealthcareEntities.Text is set for Group.](media/powerbi-treemap.png "Treemap")
+
+2. Select **Stacked Bar Chart (1)** and check **Claims.Diagnosis (2)** as Axis, **Claims.TotalCharges (3)** as Values.
+
+   ![Stacked Bar Chart visualization is selected. Claims.Diagnosis is set for Axis and Claims.TotalCharges is set for Values.](media/powerbi-bar-chart.png "Stacked Bar Chart")
+
+3. Feel free to resize the charts. Here is an example view fetching data from visit audio recordings and claim submission forms.
+
+   ![Report showing data from visit audio recordings and claim submission forms.](media/powerbi-sample-report.png "Sample Report")
 
 ## After the hands-on lab
 
