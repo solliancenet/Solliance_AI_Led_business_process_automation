@@ -2,6 +2,8 @@
 using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Models;
+using Azure.Storage.Blobs;
+using Azure.Storage.Sas;
 using contoso_web.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -41,6 +43,28 @@ namespace contoso_web.Pages
 
         public async Task OnGetAsync()
         {
+            //Getting SAS Keys for both containers
+            var contosoStorageConnectionString = Configuration["ContosoStorageConnectionString"];
+            BlobContainerClient claimsContainer = new(contosoStorageConnectionString, "claims");
+            BlobSasBuilder sasBuilder = new()
+            {
+                BlobContainerName = claimsContainer.Name,
+                Resource = "c"
+            };
+            sasBuilder.ExpiresOn = DateTimeOffset.UtcNow.AddHours(1);
+            sasBuilder.SetPermissions(BlobContainerSasPermissions.Read);
+            Uri claimsSasUri = claimsContainer.GenerateSasUri(sasBuilder);
+
+            BlobContainerClient audioRecordingsContainer = new(contosoStorageConnectionString, "audiorecordings");
+            sasBuilder = new()
+            {
+                BlobContainerName = audioRecordingsContainer.Name,
+                Resource = "c"
+            };
+            sasBuilder.ExpiresOn = DateTimeOffset.UtcNow.AddHours(1);
+            sasBuilder.SetPermissions(BlobContainerSasPermissions.Read);
+            Uri audioRecordingsSasUri = audioRecordingsContainer.GenerateSasUri(sasBuilder);
+
             Transcriptions = new List<Transcription>();
             Claims = new List<Claim>();
 
@@ -116,15 +140,15 @@ namespace contoso_web.Pages
                 }
                 foreach (Claim currentClaim in Claims)
                 {
-                    currentClaim.FileName = $"{Configuration["ContosoClaimsStorageContainerEndpoint"]}/{currentClaim.FileName}?{Configuration["ContosoClaimsStorageContainerSAS"]}";
+                    currentClaim.FileName = $"https://{claimsSasUri.Host}{claimsSasUri.AbsolutePath}/{currentClaim.FileName}{claimsSasUri.Query}";
                 }
             }
 
             //Highlight keywords in HTML
             foreach (Transcription transcription in Transcriptions)
             {
-                transcription.HTML = transcription.TranscribedText;
-                transcription.AudioFileUrl = $"{Configuration["ContosoAudioStorageContainerEndpoint"]}/{transcription.FileName}?{Configuration["ContosoAudioStorageContainerSAS"]}" ;
+                transcription.HTML = transcription.TranscribedText; 
+                transcription.AudioFileUrl = $"https://{audioRecordingsSasUri.Host}{audioRecordingsSasUri.AbsolutePath}/{transcription.FileName}{audioRecordingsSasUri.Query}";
 
                 if (!string.IsNullOrEmpty(SearchString))
                 {
