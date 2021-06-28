@@ -44,7 +44,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Exercise 3: Using Azure Cognitive Search to index and serve data](#exercise-3-using-azure-cognitive-search-to-index-and-serve-data)
     - [Task 1: Setting up indexer for forms documents](#task-1-setting-up-indexer-for-forms-documents)
     - [Task 2: Setting up indexer for audio transcriptions and health analytics](#task-2-setting-up-indexer-for-audio-transcriptions-and-health-analytics)
-    - [Task 3: Connecting Azure Cognitive Search to hospital portal](#task-3-connecting-azure-cognitive-search-to-hospital-portal)
+    - [Task 3: Configuring the hospital portal](#task-3-configuring-the-hospital-portal)
   - [Exercise 4: Building custom PowerBI reports on healthcare data](#exercise-4-building-custom-powerbi-reports-on-healthcare-data)
     - [Task 1: Connecting PowerBI to CosmosDB](#task-1-connecting-powerbi-to-cosmosdb)
     - [Task 2: Creating PowerBI report unifying structured and unstructured data](#task-2-creating-powerbi-report-unifying-structured-and-unstructured-data)
@@ -514,11 +514,64 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
    ![Search service's Overview page is open. Indexers list is shown. The success status of the indexer is highlighted. Processed documents count is highlighted.](media/search-audio-indexed.png "Indexer Status")
 
-10. Select **Search (1)** to see a list of documents having the **TranscribedText (2)** and **Healthcare Entities (3)** fields. 
+10. Select **Search (1)** to see a list of documents having the **TranscribedText (2)** and **Healthcare Entities (3)** fields.
 
     ![Search explorer is open. The search button is selected. The search result is highlighted.](media/search-audio-result.png "Search Result")
 
-### Task 3: Connecting Azure Cognitive Search to hospital portal
+### Task 3: Configuring the hospital portal
+
+In this task, we will connect our Azure Cognitive Search indexes with the hospital portal and provide read access to the original documents so that the portal can show the actual files as well.
+
+1. In the [Azure portal](https://portal.azure.com), navigate to your **contoso-search-SUFFIX** Search service's Overview page by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contoso-search-SUFFIX** Search service from the list of resources.
+
+   ![Lab resource group is open. The search service is highlighted.](media/select-search-service.png "Search Service Selection")
+
+2. On the **Overview (1)** page, copy the **Url (2)** for the service to a text editor of your choice to be used in upcoming steps during the lab.
+
+   ![Overview page for the search service is open. URL Copy button is highlighted.](media/search-copy-endpoint.png "Endpoint URL for Azure Search")
+
+3. Switch to the **Keys (1)** page and copy the **Primary admin key (2)** to a text editor of your choice to be used in upcoming steps during the lab.
+
+   ![Keys page for the search service is open. Copy button for the primary admin key is highlighted.](media/search-copy-key.png "Search Service Primary Admin Key")
+
+4. Go back to your resource group and select **contosoSUFFIX** Storage Account.
+
+   ![Lab resource group is open. The storage account is highlighted.](media/select-storage-account.png "Storage Account Selection")
+
+5. Switch to the **Access keys (1)** panel. Select **Show keys (2)** to reveal the keys. Select the copy button **(3)** for the first connection string and paste it to a text editor of your choice to be used in the following steps.
+
+   ![Storage Account Access keys page is shown. The show Keys button is selected. The copy button for the first connection string is highlighted.](media/get-storage-connection-string.png "Copy Storage Connection String")
+
+6. Go back to your resource group and select **contoso-portal-SUFFIX** App Service. This is the App Service hosting the hospital portal.
+
+   ![Lab resource group is open. The App Service for the hospital portal is highlighted.](media/select-app-service.png "App Service Selection")
+
+7. Switch to the **Configuration (1)** panel. Select **New application setting (2)**.
+
+   ![App Service Configuration page is open. New application setting link is highlighted.](media/app-service-new-application-setting-step.png "App Service New Application Setting")
+
+8. Set **Name (1)** to **ContosoStorageConnectionString** and **Value (2)** to the previously copied Azure Storage Connection String. Select **OK (3)** to save.
+
+   ![Add Edit Application setting panel is open. Name is set to ContosoStorageConnectionString. Value is set to the previously copied Contoso storage account connection string. OK button is highlighted.](media/app-setting-config-storage.png "App Service Storage Application Setting")
+
+9. Repeat the same steps to add the **Application Settings** listed below.
+
+   | Name           | Value                                                                 |
+   |----------------|-----------------------------------------------------------------------|
+   | AzureSearchKey | Previously copied Endpoint **URL** for Cognitive Search               |
+   | AzureSearchUrl | Previously copied Endpoint **Primary Admin Key** for Cognitive Search |
+
+10. Once all settings **(1)** are set, select **Save (2)** and **Continue**.
+
+    ![New application settings are highlighted. Save button is pointed.](media/app-service-settings-save-step.png "Save new application settings")
+
+11. Go back to the **Overview (1)** page and select the **URL (2)** to navigate to the hospital portal.
+
+    ![Overview page for the App Service is shown. URL for the App Service is highlighted.](media/app-service-navigate-to-portal.png "Hospital Portal URL")
+
+12. Search for **covid** on the portal and observe results that include both claims documents and visit transcriptions. Feel free to use the filters based on medical information extracted by Cognitive Text Analytics for Health.
+
+    ![Hospital Portal is shown. The search box is filled with COVID. Claims document and transcription results are highlighted. Filtering options based on medical information are highlighted.](media/hospital-portal.png "Hospital Portal")
 
 ## Exercise 4: Building custom PowerBI reports on healthcare data
 
