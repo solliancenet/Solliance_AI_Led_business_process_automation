@@ -436,9 +436,47 @@ Now that all implementations are completed, we can upload new patient recordings
 
 Duration: X minutes
 
-\[insert your custom Hands-on lab content here . . . \]
+Contoso has an internal web portal hosted in an Azure App Service where staff can access various content and forms. The organization is looking to enhance the portal by centralizing patient information, streamlining, unifying, and simplifying access to claims documents and audio recordings. In this exercise, you will be indexing claims and audio transcriptions data sets in a Cognitive Search service using indexers that connect to Cosmos DB. [Azure Cognitive Search](https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search) is a cloud search service that gives developers an architecture, APIs, and tools to build rich search experiences over private, heterogenous content in web, mobile, and enterprise applications. Finally, you will configure the web portal to use the indexes for a unified search experience enriched with health analytics metadata.
 
 ### Task 1: Setting up indexer for forms documents
+
+1. In the [Azure portal](https://portal.azure.com), navigate to your **contoso-search-SUFFIX** Search service's Overview page by selecting **Resource groups** from Azure services list selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contoso-search-SUFFIX** Search service from the list of resources.
+
+   ![Lab resource group is open. The search service is highlighted.](media/select-search-service.png "Search Service Selection")
+
+2. Once you are on the **Overview (1)** page select **Import data (2)** to continue.
+
+   ![Azure Cognitive Search Overview page is open. Import data is highlighted.](media/search-import-data.png "Import Data for Search")
+
+3. On the **Connect to your data** step set **Data Source (1)** to **Azure Cosmos DB** and **Data source name (2)** to **ClaimsSource**. Select **Choose an existing connection (3)** to continue.
+
+   ![Connect to your data page is open. Data source is set to Azure Cosmos DB. Data source name is set to ClaimsSource. Choose an existing connection link is highlighted.](media/search-import-data-claims.png "Connecting to Cosmos DB")
+
+4. Select **contoso-cdb-SUFFIX** Cosmos DB account as the source.
+
+   ![Azure Cosmos DB account selection screen is open. contoso-cdb-SUFFIX is highlighted.](media/search-import-data-pick-cosmosdb.png "Cosmos DB Account Selection")
+
+5. Set **Database (1)** to **Contoso** and **Collection (2)** to **Claims**. Select **Next: Add cognitive skills (Optional)** to Continue.
+
+   ![Connect to your data page is open. Database is set to Contoso. Collection is set to Claims. Next: Add cognitive skills (Optional) button is highlighted.](media/search-import-data-claims-2.png "Connect to Cosmos DB Data")
+
+6. On the **Add cognitive skills (Optional)** page select **Skip to: Customize target Index**.
+
+7. On the **Customize target index** page set **Index name (1)** to **claims-index**. Make sure Retrievable, Filterable, Sortable, Facetable and Searchable checkboxes **(2)** for all fields match the setup in the following screen shot. Select **Next: Create an indexer** to continue.
+
+   ![Customize target index page is open. Index name is set to claims-index. Retrievable is enabled for all fields. Filterable is enabled for all fields except id and rid. Sortable is enabled for all fields except id, PatientName, DocumentDate, FileName and rid. Facetable is enabled for PatientBirthDate and Diagnosis. Searchable is enabled for PatientName, InsuredID, Diagnosis and FileName. Next: Create an indexer button is highlighted.](media/search-claims-index-setup.png "Customize Target Index")
+
+8. On the **Create an indexer** page set **Name (1)** to **claims-indexer** adn select **Submit (2)** to continue. We will leave the indexer schedule set to **Once** as we are not expecting data changes in Cosmos DB in our lab environment. However, you should set a different schedule to index new documents saved in Cosmos DB.
+
+   ![Create an indexer page is open. Name is set to claims-indexer. Submit button is highlighted.](media/search-claims-indexer-schedule.png "Submit Indexer Job")
+
+9. Once you are back on the **Overview (1)** page switch to the **Indexers (2)** list to see the status **(3)** of the indexer and the amount of documents indexed **(4)**. Select **Search explorer (5)** to continue.
+
+   ![Search service's Overview page is open. Indexers list is shown. Success status of the indexer is highlighted. Processed documents count is highlighted.](media/search-claims-indexed.png "Indexer Status")
+
+10. Select **Search (1)** to see a list of documents **(2)** from the index.
+
+    ![Search explorer is open. Search button is selected. Search result is highlighted.](media/search-claims-result.png "Search Result")
 
 ### Task 2: Setting up indexer for audio transcriptions and health analytics
 
