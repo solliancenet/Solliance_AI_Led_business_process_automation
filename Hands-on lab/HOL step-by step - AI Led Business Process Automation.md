@@ -49,8 +49,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 1: Connecting PowerBI to CosmosDB](#task-1-connecting-powerbi-to-cosmosdb)
     - [Task 2: Creating PowerBI report unifying structured and unstructured data](#task-2-creating-powerbi-report-unifying-structured-and-unstructured-data)
   - [After the hands-on lab](#after-the-hands-on-lab)
-    - [Task 1: Task name](#task-1-task-name)
-    - [Task 2: Task name](#task-2-task-name)
+    - [Task 1: Delete Azure resource groups](#task-1-delete-azure-resource-groups)
 
 <!-- /TOC -->
 
@@ -585,24 +584,12 @@ Duration: X minutes
 
 ## After the hands-on lab
 
-Duration: X minutes
+Duration: 15 minutes
 
-\[insert your custom Hands-on lab content here . . .\]
+In this exercise, you will de-provision all Azure resources created in support of this hands-on lab.
 
-### Task 1: Task name
+### Task 1: Delete Azure resource groups
 
-1. Number and insert your custom workshop content here . . .
-
-    - Insert content here
-
-        -  
-
-### Task 2: Task name
-
-1. Number and insert your custom workshop content here . . .
-
-    - Insert content here
-
-        -
+1. In the Azure portal, select **Resource groups** from the Azure services list and locate and delete the **hands-on-lab-SUFFIX** resource group.
 
 You should follow all steps provided *after* attending the Hands-on lab.
