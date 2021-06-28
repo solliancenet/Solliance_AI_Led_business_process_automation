@@ -32,29 +32,6 @@ In this hands-on lab, you will learn to train a Form Recognizer model to extract
 
 At the end of this hands-on lab, you will be better able to implement a business process automation solution that leverages Azure Cognitive Services.
 
-#### Draft exercise outline
-
-- Before the HOL
-  - Task 1: Create resource group
-  - Task 2: Create Cognitive Services resource
-- Exercise 1: Claims form processing
-  - Task 1: Train Forms Recognizer with sample claims forms
-  - Task 2: Configure Azure Function to perform document processing
-  - Task 3: Setup Event Grid for data flow (triggers function)
-  - Task 4: Executing the claims form data pipeline
-  - Task 5: Visualizing claim processing results in Power BI (Cosmos DB)
-- Exercise 2: Processing visit audio
-  - Task 1: Configure Azure Function to perform audio transcription (identify language, speech-to-text)
-  - Task 2: Configure Azure Function to perform text translation (translate to English if necessary)
-  - Task 3: Configure Azure Function to perform Healthcare Text Analytics on transcribed text
-  - Task 3: Setup Event Grid for data flow (triggers function)
-  - Task 4: Executing the audio processing data pipeline (view results)
-- Exercise 3: Cognitive Search on audio text transcriptions
-  - Task 1: Create the search index
-  - Task 2: Configure the web portal to use the search index
-- After the hands-on lab
-  - Task 1: Delete resource group
-
 ## Azure services and related products
 
 - App Service
@@ -73,17 +50,8 @@ At the end of this hands-on lab, you will be better able to implement a business
 
 ## Related references
 
-![The solution architecture diagram as described in the paragraph that follows.](Media/architecture.png "Solution architecture")
-
-Hospitals in the Contoso Healthcare network provide images of claim forms and visit audio recordings via an Azure File Share. The event grid propagates the blob creation event that triggers a Function App to perform document/audio processing. If required, the audio processing will also translate from the source language to English. Healthcare Text analytics is also applied to the transcribed text to surface medical terminology, dosage requirements, and diagnoses. The results of both claims form processing and visit audio processing is stored in Cosmos DB. The data obtained from claims processing is surfaced through a Power BI report, and the data from the visit audio recordings is surfaced through Cognitive search.
-
-### Claims form
-
-[Claims Form PDF](Media/HealthClaimForm.pdf)
-
-[Claims Form DOCX](Media/HealthClaimForm.docx)
-
-![Empty Claims Form Image.](Media/empty-claims-form.png "Empty claims form")
+- [MCW](https://microsoftcloudworkshop.com)
+- [Azure application architecture guide](https://docs.microsoft.com/azure/architecture/guide/)
 
 ## Help & Support
 
