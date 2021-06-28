@@ -1,7 +1,7 @@
 ![Microsoft Cloud Workshops](https://raw.githubusercontent.com/Microsoft/MCW-Template-Cloud-Workshop/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-[Insert workshop name here]
+AI Led Business Process Automation
 </div>
 
 <div class="MCWHeader2">
@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-[Insert date here Month Year]
+June 2021
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -26,7 +26,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 <!-- TOC -->
 
-- [\[insert workshop name here\] hands-on lab step-by-step](#insert-workshop-name-here-hands-on-lab-step-by-step)
+- [AI Led Business Process Automation hands-on lab step-by-step](#ai-led-business-process-automation-hands-on-lab-step-by-step)
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
@@ -54,7 +54,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 <!-- /TOC -->
 
-# \[insert workshop name here\] hands-on lab step-by-step
+# AI Led Business Process Automation hands-on lab step-by-step
 
 ## Abstract and learning objectives
 
@@ -394,7 +394,7 @@ For audio recording processing, the AudioProcessing function will use multiple C
 
 11. Once all settings **(1)** are set, select **Save (2)**.
 
-   ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save-step2.png "Save new application settings")
+    ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save-step2.png "Save new application settings")
 
 ### Task 3: Running audio record processing automation
 
