@@ -1,7 +1,7 @@
 ![Microsoft Cloud Workshops](https://raw.githubusercontent.com/Microsoft/MCW-Template-Cloud-Workshop/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-[Insert workshop name here]
+AI Led Business Process Automation
 </div>
 
 <div class="MCWHeader2">
@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-[Insert date here Month Year]
+June 2021
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -26,18 +26,18 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 <!-- TOC -->
 
-- [\[insert workshop name here\] before the hands-on lab setup guide](#\insert-workshop-name-here\-before-the-hands-on-lab-setup-guide)
+- [AI Led Business Process Automation before the hands-on lab setup guide](#ai-led-business-process-automation-before-the-hands-on-lab-setup-guide)
   - [Requirements](#requirements)
   - [Before the hands-on lab](#before-the-hands-on-lab)
     - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
-    - [Task 2: Run ARM template to provision lab resources](#task-3-run-arm-template-to-provision-lab-resources)
+    - [Task 2: Run ARM template to provision lab resources](#task-2-run-arm-template-to-provision-lab-resources)
     - [Task 3: Download lab artifacts](#task-3-download-lab-artifacts)
     - [Task 4: Establish a user context](#task-4-establish-a-user-context)
     - [Task 5: Run environment setup PowerShell script](#task-5-run-environment-setup-powershell-script)
 
 <!-- /TOC -->
 
-# \[insert workshop name here\] before the hands-on lab setup guide
+# AI Led Business Process Automation before the hands-on lab setup guide
 
 ## Requirements
 
@@ -58,7 +58,7 @@ In this task, you create an Azure resource group to serve as a container for the
 
 1. In the [Azure portal](https://portal.azure.com), select **Resource groups** from the Azure services list.
 
-   ![Resource groups is highlighted in the Azure services list.](media/azure-services-resource-groups.png "Azure services")
+   ![Resource groups are highlighted in the Azure services list.](media/azure-services-resource-groups.png "Azure services")
 
 2. On the Resource groups blade, select **+Add**.
 
@@ -90,13 +90,13 @@ In this task, you create an Azure resource group to serve as a container for the
    - **Resource group (2)**: Select the hands-on-lab-SUFFIX resource group from the dropdown list.
    - **Admin Password (3)**: Type in your custom password you will be using for the rest of the lab. The default password is `Password.1!!`
 
-    ![The Custom deployment blade displays and the information above is entered on the Custom deployment blade.](media/azure-custom-deployment.png "Custom deployment blade")
+    ![The Custom deployment blade displays, and the information above is entered on the Custom deployment blade.](media/azure-custom-deployment.png "Custom deployment blade")
 
 3. Select **Review + create** and select **Create** on the next step to start provisioning the lab resources.
 
-   > **Note**: The deployment of the custom ARM template takes about 10 minutes to complete. If the error indicates an issue with quotas in the region you selected for the resource group, you can delete the resource group, create a new resource group in a different region, and re-run the ARM template, or you can request a quota increase and then manually provision the missing resources.
+   > **Note**: The deployment of the custom ARM template takes about 10-15 minutes to complete. If the error indicates an issue with quotas in the region you selected for the resource group, you can delete the resource group, create a new resource group in a different region, and re-run the ARM template, or you can request a quota increase and then manually provision the missing resources.
 
-4. You can monitor the progress of the deployment by navigating to the hands-on-lab-SUFFIX resource group in the Azure portal and then selecting **Deployments (1)** from the left-hand menu. The deployment should be named **Microsoft.Template (2)**. Select the deployment item to view the progress of each individual component in the template.
+4. You can monitor the progress of the deployment by navigating to the hands-on-lab-SUFFIX resource group in the Azure portal and then selecting **Deployments (1)** from the left-hand menu. The deployment should be named **Microsoft.Template (2)**. Select the deployment item to view the progress of each component in the template.
 
    ![The Deployments menu item is selected in the left-hand menu of the hands-on-lab-SUFFIX resource group and the Microsoft.Template deployment is highlighted.](media/resource-group-deployments.png "Resource group deployments")
 
@@ -124,7 +124,7 @@ In this task, you create an Azure resource group to serve as a container for the
     az login
     ```
 
-2. A message will be displayed asking you to open a new tab in your web browser, navigate to [https://microsoft.com/devicelogin](https://microsoft.com/devicelogin) and to enter a code for authentication.
+2. A message will be displayed asking you to open a new tab in your web browser, navigate to [https://microsoft.com/devicelogin](https://microsoft.com/devicelogin) and enter a code for authentication.
 
    ![A message is displayed indicating to enter an authentication code on the device login page.](media/bhol_devicelogin.png "Authentication message")
 
@@ -134,7 +134,7 @@ In this task, you create an Azure resource group to serve as a container for the
 
 ### Task 5: Run environment setup PowerShell script
 
-When executing the script below, it is important to let the scripts run to completion. Some tasks may take longer than others to run. When a script completes execution, you will be returned to a command prompt.
+When executing the script below, it is crucial to let the scripts run to completion. Some tasks may take longer than others to run. When a script completes execution, you will be returned to a command prompt.
 
 1. In the Cloud Shell, change the current directory to the **automation** folder of the cloned repository by executing the following:
 
