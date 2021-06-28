@@ -283,7 +283,7 @@ Now that all implementations are completed, we can upload a new document to the 
 
    ![Contoso storage containers are listed. Claims container is highlighted.](media/storage-claims-container.png "Claims Storage Container")
 
-10. Select **Upload (1)** and **Browse (2)**. Navigate to `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` **(3)**. Pick **20210621-test-form (4)** and select **Open (5)**.
+10. Select **Upload (1)** and **Browse (2)**. Navigate to `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` **(3)**. Pick **20210621-test-form (4)** and select **Open (5)**. This PDF file is brand new in the eyes of our trained model and not used during model training.
 
     ![Container page is open. The upload button is selected. File open dialog shows the claims-forms folder with PDF files listed. 20210621-test-form PDF file and Open button are highlighted.](media/upload-test-claims-form.png "Local file selection for upload.")
 
@@ -302,6 +302,12 @@ Now that all implementations are completed, we can upload a new document to the 
 14. Select the **Items (1)** list under the **Contoso** database's **Claims** collection. Select the first document **(2)** to see its content. Take a look at the values extracted by Forms Recognizer, such as **PatientName** and **Diagnosis (3)**.
 
     ![Cosmos DB Data Explorer is open. Claims Document values are shown as a document in Claims collection in the Contoso database.](media/cosmosdb-data-explorer-claims-document.png "Claims Document in Cosmos DB")
+
+15. To have some more data in the Cosmos DB Claims collection, go back and upload all the PDF files available in the `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` folder.
+
+    ![All PDF files are selected. Open button is highlighted.](media/storage-upload-claims-forms.png "File Upload")
+
+    You can go back to CosmosDB Claims collection and observe the new results.
 
 ## Exercise 2: Extract Health Analytics from visit audio records
 
