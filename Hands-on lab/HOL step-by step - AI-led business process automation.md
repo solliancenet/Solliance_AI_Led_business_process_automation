@@ -1,7 +1,7 @@
 ![Microsoft Cloud Workshops](https://raw.githubusercontent.com/Microsoft/MCW-Template-Cloud-Workshop/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-AI Led Business Process Automation
+AI-led business process automation
 </div>
 
 <div class="MCWHeader2">
@@ -26,7 +26,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 <!-- TOC -->
 
-- [AI Led Business Process Automation hands-on lab step-by-step](#ai-led-business-process-automation-hands-on-lab-step-by-step)
+- [AI-led business process automation hands-on lab step-by-step](#ai-led-business-process-automation-hands-on-lab-step-by-step)
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
@@ -54,7 +54,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 <!-- /TOC -->
 
-# AI Led Business Process Automation hands-on lab step-by-step
+# AI-led business process automation hands-on lab step-by-step
 
 ## Abstract and learning objectives
 
