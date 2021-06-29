@@ -195,7 +195,7 @@ As part of its automation process, Contoso will upload claims documents in the f
 
 ### Task 3: Connecting CosmosDB and Forms Recognizer to Azure Functions
 
-For the document processing automation, our Azure Function must read the documents from Azure Storage, connect to Azure Forms Recognizer and use the trained model, and finally connect to CosmosDB to save the final results. In this task, we will connect all the required services to the ClaimsProcessing function.
+For the document processing automation, our Azure Function must read the documents from Azure Storage, connect to Azure Forms Recognizer and use the trained model, and finally connect to CosmosDB to save the final results. In this task, we will connect all the required services to the **ClaimsProcessing** function.
 
 1. In the [Azure portal](https://portal.azure.com), navigate to your **contosoSUFFIX** Storage Account Overview page by selecting **Resource groups** from Azure services list selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contosoSUFFIX** Storage Account from the list of resources.
 
@@ -234,7 +234,7 @@ For the document processing automation, our Azure Function must read the documen
    | CosmosDBEndpointUrl     | Previously copied **URI** for Cosmos DB             |
    | CosmosDBPrimaryKey      | Previously copied **Primary Key** for Cosmos DB     |
 
-9. Once all settings **(1)** are set, select **Save (2)**.
+9. Once all settings **(1)** are set, select **Save (2)** and **Continue**.
 
    ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save.png "Save new application settings")
 
@@ -430,11 +430,13 @@ Now that all implementations are completed, we can upload new patient recordings
 
 7. Select the **Items (1)** list under the **Contoso** database's **Transcriptions** collection. Select the first document **(2)** to see it's content. Take a look at the **TranscribedText (3)** and **HealthcareEntities (4)** extracted.
 
+    > **Note:** It can take up to a minute for the initial results to show up. Refresh the collection every fifteen seconds to see the latest.
+
     ![Cosmos DB Data Explorer is open. Claims Document values are shown as a document in Claims collection in the Contoso database.](media/cosmosdb-data-explorer-audio-transcriptions.png "Claims Document in Cosmos DB")
 
 ## Exercise 3: Using Azure Cognitive Search to index and serve data
 
-Duration: X minutes
+Duration: 30 minutes
 
 Contoso has an internal web portal hosted in an Azure App Service where staff can access various content and forms. The organization is looking to enhance the portal by centralizing patient information, streamlining, unifying, and simplifying access to claims documents and audio recordings. In this exercise, you will be indexing claims and audio transcriptions data sets in a Cognitive Search service using indexers that connect to Cosmos DB. [Azure Cognitive Search](https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search) is a cloud search service that gives developers an architecture, APIs, and tools to build rich search experiences over private, heterogenous content in web, mobile, and enterprise applications. Finally, you will configure the web portal to use the indexes for a unified search experience enriched with health analytics metadata.
 
@@ -470,7 +472,7 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
    ![Create an indexer page is open. The name is set to claims-indexer. Submit button is highlighted.](media/search-claims-indexer-schedule.png "Submit Indexer Job")
 
-9. Once you are back on the **Overview (1)** page, switch to the **Indexers (2)** list to see the status **(3)** of the indexer and the number of documents indexed **(4)**. Select **Search explorer (5)** to continue.
+9. Once you are back on the **Overview (1)** page, switch to the **Indexers (2)** list to see the status **(3)** of the indexer and the number of documents indexed **(4)**. You might need to use the refresh button on the page to get the latest status. Select **Search explorer (5)** to continue.
 
    ![Search service's Overview page is open. Indexers list is shown. The success status of the indexer is highlighted. Processed documents count is highlighted.](media/search-claims-indexed.png "Indexer Status")
 
@@ -510,7 +512,7 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
    ![Create an indexer page is open. The name is set to audio-indexer. Submit button is highlighted.](media/search-audio-indexer-schedule.png "Submit Indexer Job")
 
-9. Once you are back on the **Overview (1)** page, switch to the **Indexers (2)** list to see the status **(3)** of the audio-indexer and the number of documents indexed **(4)**. Select **Search explorer (5)** to continue.
+9. Once you are back on the **Overview (1)** page, switch to the **Indexers (2)** list to see the status **(3)** of the audio-indexer and the number of documents indexed **(4)**. You might need to use the refresh button on the page to get the latest status. Select **Search explorer (5)** to continue.
 
    ![Search service's Overview page is open. Indexers list is shown. The success status of the indexer is highlighted. Processed documents count is highlighted.](media/search-audio-indexed.png "Indexer Status")
 
@@ -575,7 +577,7 @@ In this task, we will connect our Azure Cognitive Search indexes with the hospit
 
 ## Exercise 4: Building custom PowerBI reports on healthcare data
 
-Duration: X minutes
+Duration: 30 minutes
 
 In this exercise, you will create Power BI reports surfacing the data extracted from claims forms and the health analytics data extracted from visit audio transcriptions. With the use of [DirectQuery](https://docs.microsoft.com/en-us/power-bi/connect-data/service-dataset-modes-understand#directquery-mode), our reports will send native queries to retrieve data from the underlying data source, in our case Cosmos DB. The ability to natively query Cosmos DB from custom reports is beneficial when reports need to deliver "near real-time" data beyond what can be achieved within scheduled refreshes.
 
@@ -623,7 +625,7 @@ In this exercise, you will create Power BI reports surfacing the data extracted 
 
    ![Claims query is selected. Right-click context menu is shown. Enable Load is checked.](media/powerbi-claims-enable-load.png "Enable Load")
 
-5. Now, we will switch gears and focus on the **Transcriptions** query in the Queries list. Right-click on the document list and open the context menu to select the **HealthcareEntities** field. Select **OK (3)** to continue.
+5. Now, we will switch gears and focus on the **Transcriptions** query in the Queries list. Select the context  menu button **(1)** and open the field list. Select the **HealthcareEntities (2)** field. Select **OK (3)** to continue.
 
    ![Transcriptions query is selected. The context menu is open for the documents collection. From the fields list, HealthcareEntities is selected. The OK button is highlighted. ](media/powerbi-transcriptions-healthcare-entities.png "Healthcare Entities from Transcriptions")
 
