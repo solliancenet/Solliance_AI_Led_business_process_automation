@@ -218,9 +218,8 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Additional references
 
-|                                           |                                                                                                              |
-|-------------------------------------------|:------------------------------------------------------------------------------------------------------------:|
-| **Description**                           | **Links**                                                                                                    |
+| Description                               | Links                                                                                                        |
+|-------------------------------------------|--------------------------------------------------------------------------------------------------------------|
 | Azure Storage Account                     | <https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview>                             |
 | Azure Files                               | <https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction>                            |
 | Azure Event Grid                          | <https://docs.microsoft.com/en-us/azure/event-grid/overview>                                                 |

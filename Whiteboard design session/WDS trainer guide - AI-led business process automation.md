@@ -348,9 +348,8 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Additional references
 
-|                                           |                                                                                                              |
-|-------------------------------------------|:------------------------------------------------------------------------------------------------------------:|
-| **Description**                           | **Links**                                                                                                    |
+| Description                               | Links                                                                                                        |
+|-------------------------------------------|--------------------------------------------------------------------------------------------------------------|
 | Azure Storage Account                     | <https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview>                             |
 | Azure Files                               | <https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction>                            |
 | Azure Event Grid                          | <https://docs.microsoft.com/en-us/azure/event-grid/overview>                                                 |
@@ -522,7 +521,7 @@ Hospitals in the Contoso Healthcare network provide images of claim forms and vi
 
 3. We want to extract insight from the audio transcriptions of patient visits through our internal portal searches. However, we don't have a data dictionary of medical terms. Is there a solution to analyze our audio transcripts to surface medical terminologies, such as dosages, medications, and diagnoses?
 
-Text Analytics for health is a feature of the Text Analytics API service that extracts and labels relevant medical information from unstructured texts such as doctor's notes, discharge summaries, clinical documents, and electronic health records.
+    Text Analytics for health is a feature of the Text Analytics API service that extracts and labels relevant medical information from unstructured texts such as doctor's notes, discharge summaries, clinical documents, and electronic health records.
 
 ## Customer quote (to be read back to the attendees at the end)
 
