@@ -40,7 +40,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 ## Abstract and learning objectives
 
-In this whiteboard design session, you will work in a group to automate the business process of extracting data from medical claims form documents and perform visit audio transcription (and translation where required). You will evaluate Azure tools and services to design an optimal architecture that will fulfill Contoso Healthcare's business process automation requirements.
+In this whiteboard design session, you will work in a group to automate the business process of extracting data from form documents and perform visit audio transcription (and translation where required) to extract and label medical information. You will evaluate Azure tools and services to design an optimal architecture to fulfill Contoso Healthcare's business process automation requirements.
 
 At the end of this whiteboard design session, you will be better able to architect a solution to automate and enrich an existing business process and provide further insight into data using Azure Cognitive Services.
 
@@ -64,13 +64,13 @@ Directions: With all participants in the session, the facilitator/SME presents a
 
 Contoso Healthcare is a major hospital network consisting of multiple locations across the United States. One of Contoso Healthcare's most significant needs is to have the ability to process handwritten and electronically filled medical claims forms. Each hospital needs to provide filled forms to Contoso Healthcare's central offices in a standard fashion. Currently, claims forms are completed as both digital files and physical paper documents. Employees then review each document and enter data manually into the claims system. Contoso Healthcare is looking to automate the business process of obtaining claim forms, extracting claims form data to reduce overall form processing time, data-entry errors, and the loss of physical documents. Contoso can also then re-direct their employees to more impactful tasks and increase overall productivity.
 
-In addition to medical claims form processing, Contoso is looking to automate the process of transcribing, translating, and storing patient/doctor visit audio recordings. Currently, each hospital records audio files of patient/physician visits. This data is archived on-premises at each hospital and used strictly as an auditing tool should the details of any visit be questioned. When the results of a patient visit are challenged, the recording of the visit is retrieved and audibly reviewed by hospital employees. Unfortunately, this manual review process is not standard across the hospital network. As a result, each hospital has its own methods of dealing with patient audio file storage, retrieval, and review. A translation may also be needed in addition to patient audio transcription when the visit language is not US English (en-US). Currently, multiple language interpreters need to be on-hand at each hospital for the manual audio review process.
+In addition to medical claims form processing, Contoso is looking to automate the process of transcribing, translating, and storing patient/doctor visit audio recordings. Currently, each hospital records audio files of patient/physician visits. This data is archived on-premises at each hospital and used strictly as an auditing tool should the details of any visit be questioned. When the results of a patient visit are challenged, the recording of the visit is retrieved and audibly reviewed by hospital employees. Unfortunately, this manual review process is not standard across the hospital network. As a result, each hospital has its own methods of dealing with patient audio file storage, retrieval, and review. A translation may also be needed in addition to patient audio transcription when the visit language is Spanish. Currently, multiple language interpreters need to be on-hand at each hospital for the manual audio review process.
 
-Contoso Healthcare wants to implement useful reporting visualizations over the extracted claims processing data, such as visualizing the ratio of total cost and the amount covered for a patient. Doctors are also interested in extracting key insights from the patient visit audio transcriptions, preferably via search functionality made available in their internal portal site.
+Contoso Healthcare wants to implement useful reporting visualizations over the extracted claims processing data, such as visualizing the ratio of total cost and the amount covered for a patient. Doctors are also interested in extracting critical insights from the patient visit audio transcriptions, preferably via search functionality available on their internal portal site.
 
 ### Customer needs
 
-1. Claims forms and patient visit audio files need to be obtained from each hospital in the network in a consistent manner.
+1. Claims forms and patient visit audio files need to be obtained from each hospital in the network consistently.
 
 2. An automated process should extract data from claims forms submitted.
 
@@ -78,9 +78,9 @@ Contoso Healthcare wants to implement useful reporting visualizations over the e
 
 4. Audio of the patient visit must be transcribed.
 
-5. If the patient visit audio is not in English. Transcribed text must be translated into English (en-US).
+5. If the patient visit audio is in Spanish, transcribed text must be translated into English (en-US).
 
-6. Transcribed patient audio must be made searchable from the internal web portal.
+6. Transcribed patient audio and claims forms must be made searchable from the internal web portal.
 
 7. The process of extracting and storing data from claims forms and obtaining audio transcription from patient visits needs to be automated.
 
@@ -88,7 +88,7 @@ Contoso Healthcare wants to implement useful reporting visualizations over the e
 
 1. Claims forms are filled out either electronically or are handwritten. We have a concern that handwritten input will not be able to be processed.
 
-2. Patient visit audio may involve conversations in languages other than English. We need a solution that can identify and translate from multiple languages into English (en-US).
+2. Patient visit audio may involve conversations in languages other than English. We need a solution that can identify and translate from Spanish into English (en-US). Additional languages might be needed as the network spans to other regions.
 
 3. We want to extract insight from the audio transcriptions of patient visits through our internal portal searches. However, we don't have a data dictionary of medical terms. Is there a solution to analyze our audio transcripts to surface medical terminologies, such as dosages, medications, and diagnoses?
 
@@ -126,11 +126,11 @@ Directions: With all participants at your table, respond to the following questi
 
 1. Each hospital must submit claims forms in a consistent manner. How do you suggest having each hospital provide claims forms for automated centralized processing?
 
-2. Each hospital must provide patient audio files in a consistent manner. How do you suggest each hospital provide audio files for automated centralized processing? Does this differ from the method you suggested for claims forms, if so, why?
+2. Each hospital must provide patient audio files in a consistent manner. How do you suggest each hospital provide audio files for automated centralized processing? Does this differ from the method you suggested for claims forms? If so, why?
 
 3. Audio and claim form files need to be stored centrally. What type of structure do you recommend to organize these incoming files?
 
-4. The business process of extracting and storing claims form data and audio transcriptions must be automated. What do you recommend to trigger and orchestrate this processing so that manual intervention is not required?
+4. The business process of extracting and storing claims form data and audio transcriptions must be automated. What do you recommend to trigger and orchestrate this processing, so that manual intervention is not required?
 
 5. Once a claim form or audio file has been processed, how do you ensure that they do not get processed multiple times?
 
@@ -142,7 +142,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *Reporting*
 
-1. What Azure service do you recommend for the creation of reports to visualize data extracted from the claims forms?
+1. What Azure service do you recommend for the creation of reports to visualize data extracted from both the claims forms and audio transcriptions?
 
 *Audio Transcription and translation*
 
@@ -154,7 +154,7 @@ Directions: With all participants at your table, respond to the following questi
 
 4. How do you recommend storing the audio transcription?
 
-5. In case of audit, how would you be able to track down the original source audio file for a specific transcription?
+5. In case of an audit, how would you be able to track down the original source audio file for a specific transcription?
 
 *Search indexing, enrichment, and implementation*
 
@@ -164,9 +164,9 @@ Directions: With all participants at your table, respond to the following questi
 
 3. What Azure service do you recommend to enrich the search index to extract medical insights?
 
-4. What Azure service do you recommend to rank search results based on the search criteria, or to identify questions that may be asked and provide direct answers?
+4. What Azure service do you recommend to rank search results based on the search criteria or to identify questions that may be asked and provide direct answers?
 
-5. What steps need to be taken to implement the audio transcription search to the internal web portal?
+5. What steps must be taken to implement the audio transcription search to the internal web portal?
 
 *High-level architecture*
 
@@ -218,18 +218,18 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Additional references
 
-|    |            |
-|----------|:-------------:|
-| **Description** | **Links** |
-| Azure Storage Account | https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview  |
-| Azure Files  | https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction  |
-| Azure Event Grid  | https://docs.microsoft.com/en-us/azure/event-grid/overview  |
-| ADLS Gen 2 Best Practices  | https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-best-practices  |
-| Azure Data Store Models | https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/data-store-overview |
-| Azure Form Recognizer | https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/overview?tabs=v2-1 |
-| Speech Service | https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/overview |
-| Azure Cognitive Search | https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search |
-| Text Analytics for Health | https://docs.microsoft.com/en-us/azure/cognitive-services/Text-Analytics/how-tos/text-analytics-for-health |
-| Semantic search in Azure Cognitive Search | https://docs.microsoft.com/en-us/azure/search/semantic-search-overview |
-| Power BI | https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview |
-| Azure Functions | https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview |
+|                                           |                                                                                                              |
+|-------------------------------------------|:------------------------------------------------------------------------------------------------------------:|
+| **Description**                           | **Links**                                                                                                    |
+| Azure Storage Account                     | <https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview>                             |
+| Azure Files                               | <https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction>                            |
+| Azure Event Grid                          | <https://docs.microsoft.com/en-us/azure/event-grid/overview>                                                 |
+| ADLS Gen 2 Best Practices                 | <https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-best-practices>                      |
+| Azure Data Store Models                   | <https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/data-store-overview>           |
+| Azure Form Recognizer                     | <https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/overview?tabs=v2-1>               |
+| Speech Service                            | <https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/overview>                          |
+| Azure Cognitive Search                    | <https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search>                                  |
+| Text Analytics for Health                 | <https://docs.microsoft.com/en-us/azure/cognitive-services/Text-Analytics/how-tos/text-analytics-for-health> |
+| Semantic search in Azure Cognitive Search | <https://docs.microsoft.com/en-us/azure/search/semantic-search-overview>                                     |
+| Power BI                                  | <https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview>                                   |
+| Azure Functions                           | <https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview>                                  |
