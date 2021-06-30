@@ -248,7 +248,7 @@ For the document processing automation, our Azure Function must read the documen
 
 Now that all implementations are completed, we can upload a new document to the storage and see the entire process extracting values from claims submissions.
 
-1. In the [Azure portal](https://portal.azure.com), navigate to your **LabVM** Virtual Machine by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **WabVM** Virtual Machine from the list of resources.
+1. In the [Azure portal](https://portal.azure.com), navigate to your **LabVM** Virtual Machine by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **LabVM** Virtual Machine from the list of resources.
 
     ![The WebVM virtual machine is highlighted in the list of resources.](media/select-labvm.png "WebVM Selection")
 
