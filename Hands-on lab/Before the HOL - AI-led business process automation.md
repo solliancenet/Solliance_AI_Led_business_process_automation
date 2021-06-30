@@ -78,6 +78,8 @@ In this task, you create an Azure resource group to serve as a container for the
 
 ### Task 2: Run ARM template to provision lab resources
 
+> **Note**: You can review the steps to manually provision the lab resources in the [Manual resource setup guide](./Manual-resource-setup.md).
+
 1. To run the ARM template deployment, select the **Deploy to Azure** button below, which opens a custom deployment screen in the Azure portal.
 
    <a href ="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsolliancenet%2FSolliance_AI_Led_business_process_automation%2Fmain%2FHands-on%2520lab%2Flab-files%2FARM-template%2Fazure-deploy.json" target="_blank" title="Deploy to Azure">
