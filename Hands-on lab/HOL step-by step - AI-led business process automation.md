@@ -58,9 +58,9 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 ## Abstract and learning objectives
 
-In this hands-on lab, you implement the steps to automate two business processes for a hospital network called Contoso. Contoso is looking to automate the business process of extracting data from claims form documents and insights from patient visit audio recordings. You will present the data in custom reports and Contoso's internal hospital portal.
+In this hands-on lab, you will learn to train a Form Recognizer model to extract data from images of documents and use Speech services to transcribe and translate audio. You will also learn to analyze transcribed text with Healthcare text analytics to extract medical terminology, medication dosages, and diagnoses.
 
-At the end of this hands-on lab, your ability to automate business processes by incorporating AI using cloud services will be improved. 
+At the end of this hands-on lab, you will be better able to implement a business process automation solution that leverages Azure Cognitive Services.
 
 ## Overview
 
@@ -121,7 +121,7 @@ Contoso has its own document template for claims processing. In this exercise, y
 
    ![Lab resource group is open. Azure Forms Recognizer account is highlighted.](media/select-forms-recognizer.png "Select Forms Recognizer Service")
 
-5. Switch to the **Keys and Endpoint (1)** panel. Copy **Key 1 (2)** and **Endpoint (3)** to a text editor of your choice to be used in upcoming steps during the lab.
+5. From the left menu, select **Keys and Endpoint (1)**, then copy **Key 1 (2)** and **Endpoint (3)** to a text editor of your choice to be used in upcoming steps during the lab.
 
    ![Forms Recognizer Keys and Endpoint panel is shown. Key 1 Copy and Endpoint Copy buttons are highlighted.](media/get-forms-recognizer-keys.png "Copy Forms Recognizer Key and Endpoint")
 
@@ -139,7 +139,7 @@ Contoso has its own document template for claims processing. In this exercise, y
 
    ![Project Settings page is open. Display name is set to ContosoDocuments. Add connection button is highlighted.](media/fott-new-connection.png "Add Source Connection")
 
-10. Set **Display name (1)** to **DocumentSource** and past the previously copies SAS URL into the **SAS URI (2)** box. Select **Save Connection (3)** to continue.
+10. Set **Display name (1)** to **DocumentSource** and paste the previously copied storage account SAS URL into the **SAS URI (2)** box. Select **Save Connection (3)** to continue.
 
     ![Blob Connection Settings page is open. Display name is set to DocumentSource. SAS URI is set. Save connection button is highlighted.](media/fott-storage-sas.png "Setting SAS URL")
 
@@ -163,7 +163,7 @@ Contoso has its own document template for claims processing. In this exercise, y
 
     ![Model training page is open. The model name is set to ContosoModel. Train button is highlighted.](media/fott-train-model.png "Model Training")
 
-15. Your trained model is ready. Observe the estimated accuracy for each tag/label **(1)** and average accuracy **(2)** for the model.  
+15. In a few moments, your trained model will be ready. Observe the estimated accuracy for each tag/label **(1)** and average accuracy **(2)** for the model.  
 
     ![Model training result page is shown. Estimated Accuracy values and Average Accuracy values are presented. Average accuracy is 97.60%.](media/fott-model-trained.png)
 
@@ -171,15 +171,15 @@ Contoso has its own document template for claims processing. In this exercise, y
 
 As part of its automation process, Contoso will upload claims documents in the form of PDF files to an Azure Storage account as blobs. An Azure Function App has to detect new files and process them with the trained Forms Recognizer Model. [Event Grid](https://docs.microsoft.com/en-us/azure/event-grid/overview) is the perfect candidate to build applications with event-based architectures thanks to its built-in support for events coming from Azure services, like storage blobs and resource groups. For the Functions App to detect new blobs, you will be using an Azure Event Grid subscription and defining an event handler for the matching Azure Function.
 
-1. In the [Azure portal](https://portal.azure.com), navigate to your **contosoSUFFIX** Storage Account Overview page by selecting **Resource groups** from Azure services list selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contosoSUFFIX** Storage Account from the list of resources.
+1. In the [Azure portal](https://portal.azure.com), navigate to your **contosoSUFFIX** Storage Account located in the **hands-on-lab-SUFFIX** resource group.
 
    ![Lab resource group is open. The storage account is highlighted.](media/select-storage-account.png "Storage Account Selection")
 
-2. Switch to the **Events (1)** panel. Make sure you are on the **Get Started (2)** page. Select **Azure Function (3)** as the event destination type. Select **Create (4)** to continue.
+2. From the left menu, select **Events (1)**. Make sure you are on the **Get Started (2)** page. Select **Azure Function (3)** as the event destination type. Select **Create (4)** to continue.
 
    ![Storage account page is open. The events panel is shown. Azure Functions is selected. Create button is highlighted.](media/storage-event-function.png "Create Storage Event Subscription")
 
-3. From the list of function apps, select the arrow **(1)** for the function app named **contoso-func-SUFFIX** to get a list of functions available. From the list, select the **ClaimsProcessing** function.
+3. From the list of function apps, expand the function app named **contoso-func-SUFFIX** **(1)** to get a list of functions available. From the list, select the **ClaimsProcessing** function.
 
    ![Function Apps are listed. Contoso function app functions are shown. ClaimsProcessing function is highlighted.](media/event-grid-select-claimsprocessing.png "Function Selection for Event Grid")
 
@@ -203,11 +203,11 @@ As part of its automation process, Contoso will upload claims documents in the f
 
 For the document processing automation, our Azure Function must read the documents from Azure Storage, connect to Azure Forms Recognizer and use the trained model, and finally connect to CosmosDB to save the final results. In this task, we will connect all the required services to the **ClaimsProcessing** function.
 
-1. In the [Azure portal](https://portal.azure.com), navigate to your **contosoSUFFIX** Storage Account Overview page by selecting **Resource groups** from Azure services list selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contosoSUFFIX** Storage Account from the list of resources.
+1. In the [Azure portal](https://portal.azure.com), navigate to your **contosoSUFFIX** Storage Account located in the **hands-on-lab-SUFFIX** resource group.
 
    ![Lab resource group is open. The storage account is highlighted.](media/select-storage-account.png "Storage Account Selection")
 
-2. Switch to the **Access keys (1)** panel. Select **Show keys (2)** to reveal the keys. Select the copy button **(3)** for the first connection string and paste it to a text editor of your choice to be used in the following steps.
+2. From the left menu, select **Access keys (1)**. Select **Show keys (2)** to reveal the keys. Select the copy button **(3)** next to the **key1** connection string and paste it to a text editor of your choice. This value will be used later in the lab.
 
    ![Storage Account Access keys page is shown. The show Keys button is selected. The copy button for the first connection string is highlighted.](media/get-storage-connection-string.png "Copy Storage Connection String")
 
@@ -215,19 +215,19 @@ For the document processing automation, our Azure Function must read the documen
 
    ![Resource group page is open. CosmosDB service is highlighted.](media/select-cosmosdb-service.png "Select Cosmos DB service.")
 
-4. Switch to the **Keys (1)** panel. Copy the values for **URI (2)** and **PRIMARY KEY (3)** to a text editor of your choice to be used in the following steps.
+4. From the left menu, select **Keys (1)**. Copy the values for **URI (2)** and **PRIMARY KEY (3)** to a text editor of your choice. These values will be used later in the lab.
 
    ![Keys panel of the Cosmos DB account is open. The copy buttons for URI and Primary Key are highlighted.](media/get-cosmosdb-keys.png "Cosmos DB Key and URI")
 
-5. Go back to your resource group and find your Function App named **contoso-func-SUFFIX** in your lab resource group. Select it to navigate to its Overview page.
+5. Return to the lab resource group and select the Function App named **contoso-func-SUFFIX**.
 
    ![Resource group page is open. Function App is highlighted.](media/select-azure-function.png "Select Function App.")
 
-6. Switch to the **Configuration (1)** panel. Select **New application setting (2)**.
+6. From the left menu, select **Configuration (1)**, then select **New application setting (2)**.
 
    ![Function App Configuration page is open. New application setting link is highlighted.](media/function-app-new-application-setting.png "Function App New Application Setting")
 
-7. Set **Name (1)** to **ContosoStorageConnectionString** and **Value (2)** to the previously copied Contoso storage account connection string. Select **OK (3)** to save.
+7. Set **Name (1)** to **ContosoStorageConnectionString** and **Value (2)** to the previously copied storage account connection string. Select **OK (3)** to save.
 
    ![Add Edit Application setting panel is open. Name is set to ContosoStorageConnectionString. Value is set to the previously copied Contoso storage account connection string. OK button is highlighted.](media/function-app-setting-contoso-storage.png)
 
@@ -248,7 +248,7 @@ For the document processing automation, our Azure Function must read the documen
 
 Now that all implementations are completed, we can upload a new document to the storage and see the entire process extracting values from claims submissions.
 
-1. In the [Azure portal](https://portal.azure.com), navigate to your **LabVM** Virtual Machine by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **WabVM** Virtual Machine from the list of resources.
+1. In the [Azure portal](https://portal.azure.com), navigate to your **LabVM** Virtual Machine in the lab resource group.
 
     ![The WebVM virtual machine is highlighted in the list of resources.](media/select-labvm.png "WebVM Selection")
 
@@ -281,15 +281,15 @@ Now that all implementations are completed, we can upload a new document to the 
 
 7. Once logged into the LabVM VM, a script will execute to install the various items needed for the remaining lab steps.
 
-8. Once the script completes, open **Edge** and navigate to the [Azure portal](https://portal.azure.com). Enter your credentials to access your subscriptions. Navigate to **contosoSUFFIX** storage account by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contosoSUFFIX** Storage Account from the list of resources.
+8. Once the script completes, open **Edge** and navigate to the [Azure portal](https://portal.azure.com). Enter your credentials to access your subscriptions. Navigate to **contosoSUFFIX** storage account in your lab resource group.
 
     ![Edge is highlighted on the desktop. Browser is open and navigated to portal.azure.com. Storage account overview page is open.](media/azure-portal-labvm.png "Storage Account on Lab VM")
 
-9. Switch to the **Containers (1)** panel. Select the **claims (2)** container.
+9. From the left menu, select **Containers (1)**, then select the **claims (2)** container.
 
    ![Contoso storage containers are listed. Claims container is highlighted.](media/storage-claims-container.png "Claims Storage Container")
 
-10. Select **Upload (1)** and **Browse (2)**. Navigate to `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` **(3)**. Pick **20210621-test-form (4)** and select **Open (5)**. This PDF file is brand new in the eyes of our trained model and not used during model training.
+10. Select **Upload (1)** and **Browse (2)**. Navigate to `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` **(3)**. Pick **20210621-test-form (4)** and select **Open (5)**. This PDF file was not used during model training.
 
     ![Container page is open. The upload button is selected. File open dialog shows the claims-forms folder with PDF files listed. 20210621-test-form PDF file and Open button are highlighted.](media/upload-test-claims-form.png "Local file selection for upload.")
 
@@ -297,7 +297,7 @@ Now that all implementations are completed, we can upload a new document to the 
 
     ![Upload blob dialog is open. 20210621-test-form.pdf is selected. Upload button is highlighted.](media/storage-upload-claims-form.png "File Upload")
 
-12. Now, if everything went smoothly, we should see the result in the Cosmos DB service. Go back to your resource group and find your Cosmos DB Account named `contoso-cdb-SUFFIX` in your lab resource group. Select it to navigate to its Overview page.
+12. Our Azure Function for claims form processing has triggered with the addition of this file in storage. You should see the result in the Cosmos DB service. Go back to your resource group and select your Cosmos DB Account named `contoso-cdb-SUFFIX` from your lab resource group.
 
     ![Resource group page is open. CosmosDB service is highlighted.](media/select-cosmosdb-service.png "Select Cosmos DB service.")
 
@@ -309,7 +309,7 @@ Now that all implementations are completed, we can upload a new document to the 
 
     ![Cosmos DB Data Explorer is open. Claims Document values are shown as a document in Claims collection in the Contoso database.](media/cosmosdb-data-explorer-claims-document.png "Claims Document in Cosmos DB")
 
-15. To have some more data in the Cosmos DB Claims collection, go back and upload all the PDF files available in the `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` folder.
+15. Repeat steps 10 to 14 to upload the remaining PDF files in the `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` folder. You can upload multiple files at one time.
 
     ![All PDF files are selected. Open button is highlighted.](media/storage-upload-claims-forms.png "File Upload")
 
@@ -319,21 +319,21 @@ Now that all implementations are completed, we can upload a new document to the 
 
 Duration: 45 minutes
 
-Contoso uploads audio recordings of patient visits to an Azure Storage Blob service. An Azure Function will be triggered with an Event Grid subscription/event handler to process recordings. The function will first detect the language of the recording using [Azure Cognitive Speech Audio Language Identification](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/how-to-automatic-language-detection?pivots=programming-language-csharp) and then transcribe it to text. Once transcriptions are ready, Spanish records will be translated to English based on Contoso's requirements. Finally, [Azure Cognitive Services Text Analytics for Health](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-for-health?tabs=ner) will extract and label relevant medical information to provide a richer search experience. During the exercise, you will integrate all the pieces, run a couple of sample recordings, and observe the results.
+Contoso Healthcare hospitals upload audio recordings of patient visits to an Azure Storage Blob service. An Azure Function will be triggered with an Event Grid subscription/event handler to process recordings. The function will first detect the language of the recording using [Azure Cognitive Speech Audio Language Identification](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/how-to-automatic-language-detection?pivots=programming-language-csharp) and then transcribe it to text. Once transcriptions are ready, Spanish records will be translated to English based on Contoso's requirements. Finally, [Azure Cognitive Services Text Analytics for Health](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-for-health?tabs=ner) will extract and label relevant medical information to provide a richer search experience. During the exercise, you will integrate all the pieces, run a couple of sample recordings, and observe the results.
 
 ### Task 1: Configuring Azure Functions and Event Grid for audio uploads
 
-As part of its automation process, Contoso will upload audio recordings of patient visits as WAV files to an Azure Storage account as blobs. An Azure Function App has to detect new files and process them with multiple Cognitive Services. For the Functions App to detect new blobs, you will be using a new Azure Event Grid subscription and defining an event handler for the matching Azure Function.
+As part of its automation process, Contoso will upload audio recordings of patient visits as WAV files to an Azure Storage account as blobs. An Azure Function App will detect new files and process them with multiple Cognitive Services. For the Functions App to detect new blobs, you will be using a new Azure Event Grid subscription and defining an event handler for the matching Azure Function.
 
-1. In the [Azure portal](https://portal.azure.com), navigate to your **contosoSUFFIX** Storage Account Overview page by selecting **Resource groups** from Azure services list selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contosoSUFFIX** Storage Account from the list of resources.
+1. In the [Azure portal](https://portal.azure.com), select your **contosoSUFFIX** Storage Account in the lab resource group.
 
    ![Lab resource group is open. The storage account is highlighted.](media/select-storage-account.png "Storage Account Selection")
 
-2. Switch to the **Events (1)** panel. Make sure you are on the **Get Started (2)** page. Select **Azure Function (3)** as the event destination type. Select **Create (4)** to continue.
+2. From the left menu, select **Events (1)**. Make sure you are on the **Get Started (2)** page. Select **Azure Function (3)** as the event destination type. Select **Create (4)** to continue.
 
    ![Storage account page is open. The events panel is shown. Azure Functions is selected. Create button is highlighted.](media/storage-event-function.png "Create Storage Event Subscription")
 
-3. From the list of function apps, select the arrow **(1)** for the function app named **contoso-func-SUFFIX** to get a list of functions available. From the list, select the **AudioProcessing** function.
+3. Beneath the **Function Apps** header, expand the function app named **contoso-func-SUFFIX**. Expand the **Functions (Read Only)** item to get a list of functions available. From the functions list, select the **AudioProcessing** function.
 
    ![Function Apps are listed. Contoso function app functions are shown. ClaimsProcessing function is highlighted.](media/event-grid-select-audioprocessing.png "Function Selection for Event Grid")
 
@@ -357,41 +357,41 @@ As part of its automation process, Contoso will upload audio recordings of patie
 
 For audio recording processing, the AudioProcessing function will use multiple Cognitive Service accounts. Cognitive Services Speech will be used to detect the language of the recording and to transcribe the audio file. Cognitive Services Translator will be used to translate Spanish transcriptions to English. Finally, Cognitive Services Text Analytics will be used to extract and label relevant medical information from transcriptions. In this task, you will be connecting all the required Cognitive Services to the AudioProcessing Azure Function.
 
-1. In the [Azure portal](https://portal.azure.com), navigate to your **contoso-speech-SUFFIX** Cognitive Service Overview page by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contoso-speech-SUFFIX** Cognitive Service Account from the list of resources.
+1. In the [Azure portal](https://portal.azure.com), select the **contoso-speech-SUFFIX** Cognitive Service from the lab resource group.
 
    ![Lab resource group is open. The Cognitive Service Speech account is highlighted.](media/select-speech-account.png "Cognitive Service Speech Account Selection")
 
-2. Switch to the **Keys and Endpoint (1)** panel. Copy **Key 1 (2)** and **Location (3)** to a text editor of your choice to be used in upcoming steps during the lab.
+2. From the left menu, select **Keys and Endpoint (1)**. Copy **Key 1 (2)** and **Location (3)** to a text editor of your choice to be used later in the lab.
 
    ![Cognitive Services Speech Keys and Endpoint panel is shown. Key 1 Copy and Location Copy buttons are highlighted.](media/get-speech-service-keys.png "Copy Cognitive Service Speech Key and Endpoint")
 
-3. Go back to your resource group and find your Cognitive Service named **contoso-translate-SUFFIX** in your lab resource group. Select it to navigate to its Overview page.
+3. Return to the lab resource group and select the Cognitive Service named **contoso-translate-SUFFIX** in your lab resource group.
 
    ![Lab resource group is open. The Cognitive Service Translate account is highlighted.](media/select-translate-account.png "Cognitive Service Translate Account Selection")
 
-4. Switch to the **Keys and Endpoint (1)** panel. Copy **Key 1 (2)**, **Location (3)** and **Text Translation Endpoint (4)** to a text editor of your choice to be used in upcoming steps during the lab.
+4. From the left menu, select **Keys and Endpoint (1)**. Copy **Key 1 (2)**, **Location (3)** and **Text Translation Endpoint (4)** to a text editor of your choice to be used later in the lab.
 
    ![Cognitive Services Translate Keys and Endpoint panel is shown. Key 1 Copy, Location Copy, and Text Translation copy buttons are highlighted.](media/get-translate-service-keys.png "Copy Cognitive Service Translate Key and Endpoint")
 
-5. Go back to your resource group and find your Cognitive Service named **contoso-textanalytics-SUFFIX** in your lab resource group. Select it to navigate to its Overview page.
+5. Return to the lab resource group and select the Cognitive Service named **contoso-textanalytics-SUFFIX** in your lab resource group.
 
    ![Lab resource group is open. The Cognitive Service Text Analytics account is highlighted.](media/select-textanalytics-account.png "Cognitive Service Text Analytics Account Selection")
 
-6. Switch to the **Keys and Endpoint (1)** panel. Copy **Key 1 (2)** and **Endpoint (3)** to a text editor of your choice to be used in upcoming steps during the lab.
+6. From the left menu, select **Keys and Endpoint (1)**. Copy **Key 1 (2)** and **Endpoint (3)** to a text editor of your choice to be used later in the lab.
 
    ![Cognitive Services Text Analytics Keys and Endpoint panel is shown. Key 1 Copy and Endpoint copy buttons are highlighted.](media/get-textanalytics-service-keys.png "Copy Cognitive Service Text Analytics Key and Endpoint")
 
-7. Go back to your resource group and find your Function App named **contoso-func-SUFFIX** in your lab resource group. Select it to navigate to its Overview page.
+7. Return to the lab resource group and select the Function App named **contoso-func-SUFFIX** in your lab resource group.
 
    ![Resource group page is open. Function App is highlighted.](media/select-azure-function.png "Select Function App.")
 
-8. Switch to the **Configuration (1)** panel. Select **New application setting (2)**.
+8. From the left menu, select **Configuration (1)**, then select **New application setting (2)**.
 
    ![Function App Configuration page is open. New application setting link is highlighted.](media/function-app-new-application-setting-step2.png "Function App New Application Setting")
 
 9. Set **Name (1)** to **SpeechRegion** and **Value (2)** to the previously copied Speech service's **Location**. Select **OK (3)** to save.
 
-   ![Add Edit Application setting panel is open. Name is set to ContosoStorageConnectionString. Value is set to the previously copied Contoso storage account connection string. OK button is highlighted.](media/function-app-setting-speech-region.png)
+   ![Add Edit Application setting panel is open. Name is set to SpeechRegion. Value is set to the previously copied speech service region. The OK button is highlighted.](media/function-app-setting-speech-region.png)
 
 10. Repeat the same steps to add the **Application Settings** listed below.
 
@@ -412,11 +412,11 @@ For audio recording processing, the AudioProcessing function will use multiple C
 
 Now that all implementations are completed, we can upload new patient recordings and see the entire process of transcription, translation, and the extraction of medical information from audio files.
 
-1. Connect to your LABVM. Open **Edge** and navigate to the [Azure portal](https://portal.azure.com). Enter your credentials to access your subscriptions. Navigate to **contosoSUFFIX** storage account by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contosoSUFFIX** Storage Account from the list of resources.
+1. Connect to your LABVM. Open **Edge** and navigate to the [Azure portal](https://portal.azure.com). Enter your credentials to access your subscriptions. Navigate to **contosoSUFFIX** storage account in the lab resource group.
 
     ![Edge is highlighted on the desktop. Browser is open and navigated to portal.azure.com. Storage account overview page is open.](media/azure-portal-labvm.png "Storage Account on Lab VM")
 
-2. Switch to the **Containers (1)** panel. Select the **audiorecordings (2)** container.
+2. From the left menu, select **Containers (1)**, then select the **audiorecordings (2)** container.
 
    ![Contoso storage containers are listed. audiorecordings container is highlighted.](media/storage-audiorecordings-container.png "audiorecordings Storage Container")
 
@@ -426,7 +426,7 @@ Now that all implementations are completed, we can upload new patient recordings
 
 4. Select **Upload** to start the upload process.
 
-5. Now, if everything went smoothly, we should see the result in the Cosmos DB service. Go back to your resource group and find your Cosmos DB Account named `contoso-cdb-SUFFIX` in your lab resource group. Select it to navigate to its Overview page.
+5. The Azure Function for audio file processing will trigger for the files added. We should see the results of the audio transcription in Cosmos DB. Go back to your resource group and select your Cosmos DB Account named `contoso-cdb-SUFFIX`.
 
     ![Resource group page is open. CosmosDB service is highlighted.](media/select-cosmosdb-service.png "Select Cosmos DB service.")
 
@@ -438,17 +438,17 @@ Now that all implementations are completed, we can upload new patient recordings
 
     > **Note:** It can take up to a minute for the initial results to show up. Refresh the collection every fifteen seconds to see the latest.
 
-    ![Cosmos DB Data Explorer is open. Claims Document values are shown as a document in Claims collection in the Contoso database.](media/cosmosdb-data-explorer-audio-transcriptions.png "Claims Document in Cosmos DB")
+    ![Cosmos DB Data Explorer is open. A Transcriptions Document is shown in JSON format from the Transcriptions collection in the Contoso database.](media/cosmosdb-data-explorer-audio-transcriptions.png "Transcriptions Document in Cosmos DB")
 
 ## Exercise 3: Using Azure Cognitive Search to index and serve data
 
 Duration: 30 minutes
 
-Contoso has an internal web portal hosted in an Azure App Service where staff can access various content and forms. The organization is looking to enhance the portal by centralizing patient information, streamlining, unifying, and simplifying access to claims documents and audio recordings. In this exercise, you will be indexing claims and audio transcriptions data sets in a Cognitive Search service using indexers that connect to Cosmos DB. [Azure Cognitive Search](https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search) is a cloud search service that gives developers an architecture, APIs, and tools to build rich search experiences over private, heterogenous content in web, mobile, and enterprise applications. Finally, you will configure the web portal to use the indexes for a unified search experience enriched with health analytics metadata.
+Contoso has an internal web portal hosted in an Azure App Service where staff can access various content and forms. The organization is looking to enhance the portal by centralizing patient information, streamlining, unifying, and simplifying access to claims documents and audio recordings. In this exercise, you will be indexing claims and audio transcription data sets in a Cognitive Search service using indexers that connect to Cosmos DB. [Azure Cognitive Search](https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search) is a cloud search service that gives developers an architecture, APIs, and tools to build rich search experiences over private, heterogenous content in web, mobile, and enterprise applications. Finally, you will configure the web portal to use the indexes for a unified search experience enriched with health analytics metadata.
 
 ### Task 1: Setting up indexer for forms documents
 
-1. In the [Azure portal](https://portal.azure.com), navigate to your **contoso-search-SUFFIX** Search service's Overview page by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contoso-search-SUFFIX** Search service from the list of resources.
+1. In the [Azure portal](https://portal.azure.com), select the **contoso-search-SUFFIX** Search service from the lab resource group.
 
    ![Lab resource group is open. The search service is highlighted.](media/select-search-service.png "Search Service Selection")
 
@@ -478,7 +478,7 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
    ![Create an indexer page is open. The name is set to claims-indexer. Submit button is highlighted.](media/search-claims-indexer-schedule.png "Submit Indexer Job")
 
-9. Once you are back on the **Overview (1)** page, switch to the **Indexers (2)** list to see the status **(3)** of the indexer and the number of documents indexed **(4)**. You might need to use the refresh button on the page to get the latest status. Select **Search explorer (5)** to continue.
+9. Once you are back on the **Overview (1)** page, select the **Indexers (2)** tab to see the status **(3)** of the indexer and the number of documents indexed **(4)**. You might need to use the refresh button on the page to get the latest status. Select **Search explorer (5)** to continue.
 
    ![Search service's Overview page is open. Indexers list is shown. The success status of the indexer is highlighted. Processed documents count is highlighted.](media/search-claims-indexed.png "Indexer Status")
 
@@ -488,7 +488,7 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
 ### Task 2: Setting up indexer for audio transcriptions and health analytics
 
-1. In the [Azure portal](https://portal.azure.com), navigate to your **contoso-search-SUFFIX** Search service's Overview page by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contoso-search-SUFFIX** Search service from the list of resources.
+1. In the [Azure portal](https://portal.azure.com), select the **contoso-search-SUFFIX** Search service from the lab resource group.
 
    ![Lab resource group is open. The search service is highlighted.](media/select-search-service.png "Search Service Selection")
 
@@ -518,11 +518,11 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
    ![Create an indexer page is open. The name is set to audio-indexer. Submit button is highlighted.](media/search-audio-indexer-schedule.png "Submit Indexer Job")
 
-9. Once you are back on the **Overview (1)** page, switch to the **Indexers (2)** list to see the status **(3)** of the audio-indexer and the number of documents indexed **(4)**. You might need to use the refresh button on the page to get the latest status. Select **Search explorer (5)** to continue.
+9. Once you are back on the **Overview (1)** page, select the **Indexers (2)** tab to see the status **(3)** of the audio-indexer and the number of documents indexed **(4)**. You might need to use the refresh button on the page to get the latest status. Select **Search explorer (5)** to continue.
 
    ![Search service's Overview page is open. Indexers list is shown. The success status of the indexer is highlighted. Processed documents count is highlighted.](media/search-audio-indexed.png "Indexer Status")
 
-10. Select **Search (1)** to see a list of documents having the **TranscribedText (2)** and **Healthcare Entities (3)** fields.
+10. Select the **audio-index** index, then select **Search (1)** to see a list of documents having the **TranscribedText (2)** and **Healthcare Entities (3)** fields.
 
     ![Search explorer is open. The search button is selected. The search result is highlighted.](media/search-audio-result.png "Search Result")
 
@@ -530,54 +530,46 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
 In this task, we will connect our Azure Cognitive Search indexes with the hospital portal and provide read access to the original documents so that the portal can show the actual files as well.
 
-1. In the [Azure portal](https://portal.azure.com), navigate to your **contoso-search-SUFFIX** Search service's Overview page by selecting **Resource groups** from Azure services list, selecting the **hands-on-lab-SUFFIX** resource group, and selecting the **contoso-search-SUFFIX** Search service from the list of resources.
+1. In the [Azure portal](https://portal.azure.com), select the **contoso-search-SUFFIX** Search service from the lab resource group.
 
    ![Lab resource group is open. The search service is highlighted.](media/select-search-service.png "Search Service Selection")
 
-2. On the **Overview (1)** page, copy the **Url (2)** for the service to a text editor of your choice to be used in upcoming steps during the lab.
+2. On the **Overview (1)** page, copy the **Url (2)** for the service to a text editor of your choice to be used later in the lab.
 
    ![Overview page for the search service is open. URL Copy button is highlighted.](media/search-copy-endpoint.png "Endpoint URL for Azure Search")
 
-3. Switch to the **Keys (1)** page and copy the **Primary admin key (2)** to a text editor of your choice to be used in upcoming steps during the lab.
+3. From the left menu, select **Keys (1)** and copy the **Primary admin key (2)** to a text editor of your choice to be used later in the lab.
 
    ![Keys page for the search service is open. Copy button for the primary admin key is highlighted.](media/search-copy-key.png "Search Service Primary Admin Key")
 
-4. Go back to your resource group and select **contosoSUFFIX** Storage Account.
-
-   ![Lab resource group is open. The storage account is highlighted.](media/select-storage-account.png "Storage Account Selection")
-
-5. Switch to the **Access keys (1)** panel. Select **Show keys (2)** to reveal the keys. Select the copy button **(3)** for the first connection string and paste it to a text editor of your choice to be used in the following steps.
-
-   ![Storage Account Access keys page is shown. The show Keys button is selected. The copy button for the first connection string is highlighted.](media/get-storage-connection-string.png "Copy Storage Connection String")
-
-6. Go back to your resource group and select **contoso-portal-SUFFIX** App Service. This is the App Service hosting the hospital portal.
+4. Go back to your resource group and select **contoso-portal-SUFFIX** App Service. This is the App Service hosting the hospital portal.
 
    ![Lab resource group is open. The App Service for the hospital portal is highlighted.](media/select-app-service.png "App Service Selection")
 
-7. Switch to the **Configuration (1)** panel. Select **New application setting (2)**.
+5. From the left menu, select **Configuration (1)**, then select **New application setting (2)**.
 
    ![App Service Configuration page is open. New application setting link is highlighted.](media/app-service-new-application-setting-step.png "App Service New Application Setting")
 
-8. Set **Name (1)** to **ContosoStorageConnectionString** and **Value (2)** to the previously copied Azure Storage Connection String. Select **OK (3)** to save.
+6. Set **Name (1)** to **ContosoStorageConnectionString** and **Value (2)** to the previously copied Azure Storage Connection String. Select **OK (3)** to save.
 
    ![Add Edit Application setting panel is open. Name is set to ContosoStorageConnectionString. Value is set to the previously copied Contoso storage account connection string. OK button is highlighted.](media/app-setting-config-storage.png "App Service Storage Application Setting")
 
-9. Repeat the same steps to add the **Application Settings** listed below.
+7. Repeat the same steps to add the **Application Settings** listed below.
 
    | Name           | Value                                                                 |
    |----------------|-----------------------------------------------------------------------|
    | AzureSearchKey | Previously copied Endpoint **URL** for Cognitive Search               |
    | AzureSearchUrl | Previously copied Endpoint **Primary Admin Key** for Cognitive Search |
 
-10. Once all settings **(1)** are set, select **Save (2)** and **Continue**.
+8. Once all settings **(1)** are set, select **Save (2)** and **Continue**.
 
     ![New application settings are highlighted. Save button is pointed.](media/app-service-settings-save-step.png "Save new application settings")
 
-11. Go back to the **Overview (1)** page and select the **URL (2)** to navigate to the hospital portal.
+9. Go back to the **Overview (1)** page and select the **URL (2)** to navigate to the hospital portal.
 
     ![Overview page for the App Service is shown. URL for the App Service is highlighted.](media/app-service-navigate-to-portal.png "Hospital Portal URL")
 
-12. Search for **covid** on the portal and observe results that include both claims documents and visit transcriptions. Feel free to use the filters based on medical information extracted by Cognitive Text Analytics for Health.
+10. Search for **covid** on the portal and observe results that include both claims documents and visit transcriptions. Feel free to use the filters based on medical information extracted by Cognitive Text Analytics for Health.
 
     ![Hospital Portal is shown. The search box is filled with COVID. Claims document and transcription results are highlighted. Filtering options based on medical information are highlighted.](media/hospital-portal.png "Hospital Portal")
 
@@ -623,7 +615,7 @@ In this exercise, you will create Power BI reports surfacing the data extracted 
 
    ![Claims query is selected. The context menu is open for the documents collection. From the fields list, TotalCharges, AmountPaid, AmountDue, DocumentDate, and Diagnosis are chosen. The OK button is highlighted. ](media/powerbi-claims-transform.png "Drill Down to Fields")
 
-3. Once the data is loaded, it is time to assign the proper data types to columns. Right-click each column and assign the matching data type. For numbered columns such as **TotalCharges, AmountPaid** and **AmountDue** select **Decimal Number (3)**. For **DocumentDate** set **Date/Time**.
+3. Once the data is loaded, it is time to assign the proper data types to columns. Right-click each column and assign the matching data type. For numbered columns such as **TotalCharges, AmountPaid** and **AmountDue** select **Decimal Number (3)**. For **DocumentDate** set **Date/Time**, and for **Diagnosis** select **Text**.
 
    ![TotalCharges column context menu is open. Change Type / Decimal Number selected is selected.](media/powerbi-change-data-types.png "Changing Data Types")
 
