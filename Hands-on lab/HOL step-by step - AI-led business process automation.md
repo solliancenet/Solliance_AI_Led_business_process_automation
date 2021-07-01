@@ -46,7 +46,8 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Exercise 3: Using Azure Cognitive Search to index and serve data](#exercise-3-using-azure-cognitive-search-to-index-and-serve-data)
     - [Task 1: Setting up indexer for forms documents](#task-1-setting-up-indexer-for-forms-documents)
     - [Task 2: Setting up indexer for audio transcriptions and health analytics](#task-2-setting-up-indexer-for-audio-transcriptions-and-health-analytics)
-    - [Task 3: Configuring the hospital portal](#task-3-configuring-the-hospital-portal)
+    - [Task 3: Implementing Cognitive Services for audio processing](#task-3-implementing-cognitive-services-for-audio-processing-1)
+    - [Task 4: Configuring the hospital portal](#task-4-configuring-the-hospital-portal)
   - [Exercise 4: Building custom PowerBI reports on healthcare data](#exercise-4-building-custom-powerbi-reports-on-healthcare-data)
     - [Task 1: Connecting PowerBI to CosmosDB](#task-1-connecting-powerbi-to-cosmosdb)
     - [Task 2: Setting up data transformations for semi-structured data](#task-2-setting-up-data-transformations-for-semi-structured-data)
@@ -608,7 +609,7 @@ Now that all implementations are completed, we can upload new patient recordings
 
 ## Exercise 3: Using Azure Cognitive Search to index and serve data
 
-Duration: 30 minutes
+Duration: 45 minutes
 
 Contoso has an internal web portal hosted in an Azure App Service where staff can access various content and forms. The organization is looking to enhance the portal by centralizing patient information, streamlining, unifying, and simplifying access to claims documents and audio recordings. In this exercise, you will be indexing claims and audio transcription data sets in a Cognitive Search service using indexers that connect to Cosmos DB. [Azure Cognitive Search](https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search) is a cloud search service that gives developers an architecture, APIs, and tools to build rich search experiences over private, heterogenous content in web, mobile, and enterprise applications. Finally, you will configure the web portal to use the indexes for a unified search experience enriched with health analytics metadata.
 
@@ -692,7 +693,52 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
     ![Search explorer is open. The search button is selected. The search result is highlighted.](media/search-audio-result.png "Search Result")
 
-### Task 3: Configuring the hospital portal
+
+### Task 3: Implementing Cognitive Services for audio processing
+
+In this task, we will look into the implementation of Cognitive Search used to search data extracted from claims documents, patient audio recording transcriptions, and healthcare analytics.
+
+1. Connect to your LABVM. Open **File Explorer** and navigate to the `C:\MCW\MCW-main\Hands-on lab\lab-files\source-hospital-portal\contoso-web` folder. Open **contoso-web** solution file.
+
+    ![File Explorer shows the DocumentProcessing folder in C:\MCW\MCW-main\Hands-on lab\lab-files\source-hospital-portal\contoso-web. contoso-web solution file is highlighted.](media/visual-studio-open-contoso-web.png "contoso-web Solution")
+
+2. Once the solution is open, select the **Index.cshtml.cs (1)** file from the Solution Explorer. Analyze the code that starts with the **Searching for Claims Document** comment. 
+
+   ![contoso-web solution is open in Visual Studio. Index.cshtml.cs is shown. Searching for Claims Document code is highlighted.](media/hospital-portal-claims-search.png "Searching for Claims Document Code")
+
+3. Analyzing the first section of the code, you can see the **claimsSearchclient** created out of the service endpoint, index name, and credential that helps to access Azure Cognitive Search. The fields that we want to select are assigned to the **Select** collection of the **SearchOptions** object. 
+
+   ```cs
+   SearchClient claimsSearchclient = new(new Uri(azureSearchUrl), claimsSearchIndexName, credential);
+   SearchOptions claimsSearchOptions;
+   SearchResults<Claim> claimsSearchResp
+   claimsSearchOptions = new SearchOptions()
+   {
+      IncludeTotalCount = true,
+      Filter = "",
+      OrderBy = { "" }
+
+   claimsSearchOptions.Select.Add("PatientName");
+   claimsSearchOptions.Select.Add("InsuredID");
+   claimsSearchOptions.Select.Add("PatientBirthDate");
+   claimsSearchOptions.Select.Add("DocumentDate");
+   claimsSearchOptions.Select.Add("Diagnosis");
+   claimsSearchOptions.Select.Add("FileName");
+   ```
+
+4. In the following section, the **Search** method is used to send the query to the target index. The result can be iterated and passed to other objects, in this case, for data binding.
+
+   ```cs
+   claimsSearchResponse = claimsSearchclient.Search<Claim>(indexSearch, claimsSearchOptions);
+   await foreach (SearchResult<Claim> result in claimsSearchResponse.GetResultsAsync())
+   {
+      Claims.Add(result.Document);
+   }
+   ```
+
+5. Now, you can close Visual Studio. A fully functional version of the Web App is already deployed to your Lab environment and will be soon ready to be tested.
+
+### Task 4: Configuring the hospital portal
 
 In this task, we will connect our Azure Cognitive Search indexes with the hospital portal and provide read access to the original documents so that the portal can show the actual files as well.
 
