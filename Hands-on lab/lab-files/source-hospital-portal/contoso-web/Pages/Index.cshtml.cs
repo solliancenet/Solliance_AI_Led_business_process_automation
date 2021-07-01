@@ -43,7 +43,7 @@ namespace contoso_web.Pages
 
         public async Task OnGetAsync()
         {
-            //Getting SAS Keys for both containers
+            //Getting SAS Keys for both containers to be used for public access
             var contosoStorageConnectionString = Configuration["ContosoStorageConnectionString"];
             BlobContainerClient claimsContainer = new(contosoStorageConnectionString, "claims");
             BlobSasBuilder sasBuilder = new()
@@ -75,6 +75,7 @@ namespace contoso_web.Pages
 
             AzureKeyCredential credential = new(azureSearchKey);
 
+            //Setting up Azure Cognitive Search clients for two indexes, claims and audio.
             SearchClient audioTranscriptsSearchclient = new(new Uri(azureSearchUrl), audioTranscriptsSearchIndexName, credential);
 
             string indexSearch = "*";
@@ -83,6 +84,7 @@ namespace contoso_web.Pages
                 indexSearch = SearchString;
             }
 
+            //If there is a category selected on the UI, make sure it's part of the query as a filter for Audio Transcriptions.
             string indexFilter = "";
             if (!string.IsNullOrEmpty(CategoryFilter))
             {
@@ -150,6 +152,8 @@ namespace contoso_web.Pages
                 transcription.HTML = transcription.TranscribedText; 
                 transcription.AudioFileUrl = $"https://{audioRecordingsSasUri.Host}{audioRecordingsSasUri.AbsolutePath}/{transcription.FileName}{audioRecordingsSasUri.Query}";
 
+                //On the Search Result page, all Healthcare Keywords will be highlighted.
+                //If not on the Search page but a Category page, only keywords for the particular category will be highlighted.
                 if (!string.IsNullOrEmpty(SearchString))
                 {
                     var uniqueKeywords = (from inc in transcription.HealthcareEntities select inc.Text).Distinct();

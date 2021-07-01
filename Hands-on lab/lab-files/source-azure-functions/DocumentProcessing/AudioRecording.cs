@@ -26,10 +26,12 @@ namespace DocumentProcessing
         [FunctionName("AudioProcessing")]
         public static async Task RunAsync([EventGridTrigger] EventGridEvent eventGridEvent, ILogger log)
         {
+            //Extracting content type and url of the blob triggering the function
             var jsondata = JsonConvert.SerializeObject(eventGridEvent.Data);
             var tmp = new { contentType = "", url = "" };
             var data = JsonConvert.DeserializeAnonymousType(jsondata, tmp);
 
+            //Checking if the trigger was iniatiated for a WAV File.
             if (data.contentType == "audio/wav")
             {
                 var audioUrl = data.url;
@@ -131,7 +133,7 @@ namespace DocumentProcessing
                     }
                 }
 
-                //Azure Text Analytics
+                //Azure Text Analytics for Healthcare
                 List<string> healthDocuments = new List<string>
                 {
                     transcribedText
