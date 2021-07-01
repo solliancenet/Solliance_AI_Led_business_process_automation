@@ -41,7 +41,8 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Exercise 2: Extract Health Analytics from visit audio records](#exercise-2-extract-health-analytics-from-visit-audio-records)
     - [Task 1: Configuring Azure Functions and Event Grid for audio uploads](#task-1-configuring-azure-functions-and-event-grid-for-audio-uploads)
     - [Task 2: Connecting Cognitive Services to Azure Functions](#task-2-connecting-cognitive-services-to-azure-functions)
-    - [Task 3: Running audio record processing automation](#task-3-running-audio-record-processing-automation)
+    - [Task 3: Implementing Cognitive Services for audio processing](#task-3-implementing-cognitive-services-for-audio-processing)
+    - [Task 4: Running audio record processing automation](#task-4-running-audio-record-processing-automation)
   - [Exercise 3: Using Azure Cognitive Search to index and serve data](#exercise-3-using-azure-cognitive-search-to-index-and-serve-data)
     - [Task 1: Setting up indexer for forms documents](#task-1-setting-up-indexer-for-forms-documents)
     - [Task 2: Setting up indexer for audio transcriptions and health analytics](#task-2-setting-up-indexer-for-audio-transcriptions-and-health-analytics)
@@ -98,7 +99,7 @@ Refer to the Before the hands-on lab setup guide manual before continuing to the
 
 ## Exercise 1: Extract text and structure from documents with Forms Recognizer
 
-Duration: 45 minutes
+Duration: 1 hour
 
 Azure Form Recognizer is a part of [Azure Applied AI Services](https://docs.microsoft.com/en-us/azure/applied-ai-services/) that lets you build automated data processing software using machine learning technology. You can identify and extract text, key/value pairs, selection marks, tables, and structure from your documents. The service outputs structured data that includes the relationships in the original file, bounding boxes, confidence, and more. You can quickly get accurate results tailored to your specific content without heavy manual intervention or extensive data science expertise. Form Recognizer comprises custom document processing models, prebuilt models for invoices, receipts, IDs and business cards, and the layout model.
 
@@ -237,7 +238,7 @@ To process documents, the Azure Function code has to find the latest model train
 
 7. Once logged into the LabVM VM, a script will execute to install the various items needed for the remaining lab steps.
 
-8. Once the script completes, open **File Explorer** and navigate to the `C:\MCW\MCW-main\Hands-on lab\lab-files\source-azure-functions\Lab-DocumentProcessing` folder. When asked, select **Visual Studio 2019** as the Visual Studio version to use.
+8. Once the script completes, open **File Explorer** and navigate to the `C:\MCW\MCW-main\Hands-on lab\lab-files\source-azure-functions\Lab-DocumentProcessing` folder. Open **DocumentProcessing** solution file. When asked, select **Visual Studio 2019** as the Visual Studio version to use.
 
     ![File Explorer shows the DocumentProcessing folder in C:\MCW\MCW-main\Hands-on lab\lab-files\source-azure-functions\Lab-DocumentProcessing. DocumentProcessing solution file is highlighted.](media/visualstudio-open-documentprocessing.png "DocumentProcessing Solution")
 
@@ -482,7 +483,98 @@ For audio recording processing, the AudioProcessing function will use multiple C
 
     ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save-step2.png "Save new application settings")
 
-### Task 3: Running audio record processing automation
+### Task 3: Implementing Cognitive Services for audio processing
+
+In this task, we will look into the implementation of various Cognitive Services used to process patient audio recordings to detect the spoken language, transcribe, translate, and finally extract healthcare analytics.
+
+1. Connect to your LABVM. Open **File Explorer** and navigate to the `C:\MCW\MCW-main\Hands-on lab\lab-files\source-azure-functions\Lab-DocumentProcessing` folder. Open **DocumentProcessing** solution file.
+
+    ![File Explorer shows the DocumentProcessing folder in C:\MCW\MCW-main\Hands-on lab\lab-files\source-azure-functions\Lab-DocumentProcessing. DocumentProcessing solution file is highlighted.](media/visualstudio-open-documentprocessing.png "DocumentProcessing Solution")
+
+2. Once the solution is open, select the **AudioRecording.cs (1)** file from the Solution Explorer. Analyze the code that starts with **Audio Language Identification** comment. The WAV file for the recording is downloaded to a temporary local storage and passed to **SourceLanguageRecognizer**. The result is the detected language from the set of languages passed in the **autoDetectSourceLanguageConfig** object.
+
+   ![DocumentProcessing solution is open in Visual Studio. AudioRecording.cs is shown. Audio Language Identification code is highlighted.](media/visualstudio-audiorecording.png "AudioRecording CS File")
+
+3. Scrolling down the **AudioRecording.cs (1)** file, you can find the **Audio Transcription** comment line where the transcription code starts. In this case, **SpeechRecognizer** is used to transcribe the audio file. The recognizer returns results as it goes. The code combines the **RecognizedSpeech** using a StringBuilder.
+
+   ```cs
+   // Audio Transcription
+   StringBuilder sb = new StringBuilder();
+   using var audioConfig = AudioConfig.FromWavFileInput(tempPath);
+   {
+       using var recognizer = new SpeechRecognizer(speechConfig, audioConfig);
+       {
+           var stopRecognition = new TaskCompletionSource<int>();
+           recognizer.SessionStopped += (s, e) =>
+           {
+               stopRecognition.TrySetResult(0);
+           };
+           recognizer.Canceled += (s, e) =>
+           {
+               stopRecognition.TrySetResult(0);
+           };
+           recognizer.Recognized += (s, e) =>
+           {
+               if (e.Result.Reason == ResultReason.RecognizedSpeech)
+               {
+                   sb.Append(e.Result.Text);
+               }
+               else if (e.Result.Reason == ResultReason.NoMatch)
+               {
+                   log.LogInformation($"NOMATCH: Speech could not be recognized.");
+               }
+           };
+           await recognizer.StartContinuousRecognitionAsync();
+           Task.WaitAny(new[] { stopRecognition.Task });
+       }
+   }
+   string transcribedText = sb.ToString();
+   ```
+
+4. Once the transcription process is complete, it is time to translate Spanish transcriptions into English. In this case, we are sending an HTTP request with the proper headers to the Translator endpoint and get back the translated document. 
+
+   ```cs
+   // If transcription is in Spanish we will translate it to English
+   if (!languageDetected.Contains("en"))
+   {
+       string route = $"/translate?api-version=3.0&to=en";
+       string textToTranslate = sb.ToString();
+       object[] body = new object[] { new { Text = textToTranslate } };
+       var requestBody = JsonConvert.SerializeObject(bo
+       using (var client = new HttpClient())
+       using (var request = new HttpRequestMessage())
+       {
+           request.Method = HttpMethod.Post;
+           request.RequestUri = new Uri(translatorEndpoint + route);
+           request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+           request.Headers.Add("Ocp-Apim-Subscription-Key", translatorKey);
+           request.Headers.Add("Ocp-Apim-Subscription-Region", translatorLocati
+           HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
+           var responseBody = await response.Content.ReadAsStringAsync();
+           List<Model.TranslatorService.Root> translatedDocuments = JsonConvert.DeserializeObject<List<Model.TranslatorService.Root>>(responseBody);
+           transcribedText = translatedDocuments.FirstOrDefault().Translations.FirstOrDefault().Text;
+       }
+   }
+   ```
+
+5. Scrolling down, you will find a TODO comment line that says **//TODO:Azure Text Analytics for Healthcare**. Now it is your turn to implement Text Analytics for Healthcare. Copy and paste the code below to complete the implementation.
+
+   ```cs
+   List<string> healthDocuments = new List<string>
+   {
+       transcribedText
+   };
+   var textAnalyticsClient = new TextAnalyticsClient(new Uri(textAnalyticsEndpoint), new AzureKeyCredential(textAnalyticsKey));
+   AnalyzeHealthcareEntitiesOperation healthOperation = textAnalyticsClient.StartAnalyzeHealthcareEntities(healthDocuments, "en", new AnalyzeHealthcareEntitiesOptions { });
+   await healthOperation.WaitForCompletionAsync();
+   AnalyzeHealthcareEntitiesResult healthcareResult = healthOperation.GetValues().FirstOrDefault().FirstOrDefault();
+   ```
+
+   Here you can see that a TextAnalyticsClient is being created out of the service endpoint and credentials. **StartAnalyzeHealthcareEntities** method starts the processing for the set of documents provided. As we are passing only a single document at a time we pull out the first document out of the result set.
+
+6. Now you can close Visual Studio. You don't have to worry about the changes you have implemented. A fully functional version of the Function App is already deployed to your Lab environment and will be soon ready to be tested.
+
+### Task 4: Running audio record processing automation
 
 Now that all implementations are completed, we can upload new patient recordings and see the entire process of transcription, translation, and the extraction of medical information from audio files.
 
