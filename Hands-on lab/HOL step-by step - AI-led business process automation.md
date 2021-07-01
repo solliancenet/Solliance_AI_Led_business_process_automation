@@ -35,8 +35,9 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Exercise 1: Extract text and structure from documents with Forms Recognizer](#exercise-1-extract-text-and-structure-from-documents-with-forms-recognizer)
     - [Task 1: Prepare custom model to process documents](#task-1-prepare-custom-model-to-process-documents)
     - [Task 2: Configuring Azure Functions and Event Grid for document uploads](#task-2-configuring-azure-functions-and-event-grid-for-document-uploads)
-    - [Task 3: Connecting CosmosDB and Forms Recognizer to Azure Functions](#task-3-connecting-cosmosdb-and-forms-recognizer-to-azure-functions)
-    - [Task 4: Running document processing automation](#task-4-running-document-processing-automation)
+    - [Task 3: Implementing Forms Recognizer for document processing](#task-3-implementing-forms-recognizer-for-document-processing)
+    - [Task 4: Connecting CosmosDB and Forms Recognizer to Azure Functions](#task-4-connecting-cosmosdb-and-forms-recognizer-to-azure-functions)
+    - [Task 5: Running document processing automation](#task-5-running-document-processing-automation)
   - [Exercise 2: Extract Health Analytics from visit audio records](#exercise-2-extract-health-analytics-from-visit-audio-records)
     - [Task 1: Configuring Azure Functions and Event Grid for audio uploads](#task-1-configuring-azure-functions-and-event-grid-for-audio-uploads)
     - [Task 2: Connecting Cognitive Services to Azure Functions](#task-2-connecting-cognitive-services-to-azure-functions)
@@ -199,7 +200,82 @@ As part of its automation process, Contoso will upload claims documents in the f
 
     Select **Create (6)** to continue.
 
-### Task 3: Connecting CosmosDB and Forms Recognizer to Azure Functions
+### Task 3: Implementing Forms Recognizer for document processing
+
+To process documents, the Azure Function code has to find the latest model trained in the Forms Recognizer and use it to extract text and structure from a document at hand. In this task, you will be adding a couple of lines of code into an Azure Function App to find the model and use it for document processing.
+
+1. In the [Azure portal](https://portal.azure.com), navigate to your **LabVM** Virtual Machine in the lab resource group.
+
+    ![The WebVM virtual machine is highlighted in the list of resources.](media/select-labvm.png "WebVM Selection")
+
+2. On the LabVM Virtual Machine's **Overview** blade, select **Connect (1)** and **RDP (2)** on the top menu.
+
+   ![The LabVM VM blade is displayed, with the Connect button highlighted in the top menu.](media/connect-rdp-labvm.png "LabVM RDP Connect")
+
+3. Select **Download RDP File** on the next page, and open the downloaded file.
+
+    > **Note**: The first time you connect to the LabVM Virtual Machine, you will see a blue pop-up terminal dialog taking you through a couple of software installs. Don't be alarmed, and wait until the installs are complete.
+
+    ![RDP Window is open. Download RDP File button is highlighted.](media/rdp-download.png "LabVM RDP File Download")
+
+4. Select **Connect** on the Remote Desktop Connection dialog.
+
+    ![In the Remote Desktop Connection Dialog Box, the Connect button is highlighted.](media/remote-desktop-connection-labvm.png "Remote Desktop Connection dialog")
+
+5. Enter the following credentials with your password when prompted, and then select **OK**:
+
+   - **Username**: demo
+   - **Password**: {YOUR-ADMIN-PASSWORD}
+  
+    > **Note**: default password is `Password.1!!`
+
+    ![The credentials specified above are entered into the Enter your credentials dialog.](media/rdp-credentials-labvm.png "Enter your credentials")
+
+6. Select **Yes** to connect if prompted that the remote computer's identity cannot be verified.
+
+    ![In the Remote Desktop Connection dialog box, a warning states that the remote computer's identity cannot be verified and asks if you want to continue anyway. At the bottom, the Yes button is circled.](media/remote-desktop-connection-identity-verification-labvm.png "Remote Desktop Connection dialog")
+
+7. Once logged into the LabVM VM, a script will execute to install the various items needed for the remaining lab steps.
+
+8. Once the script completes, open **File Explorer** and navigate to the `C:\MCW\MCW-main\Hands-on lab\lab-files\source-azure-functions\Lab-DocumentProcessing` folder. When asked, select **Visual Studio 2019** as the Visual Studio version to use.
+
+    ![File Explorer shows the DocumentProcessing folder in C:\MCW\MCW-main\Hands-on lab\lab-files\source-azure-functions\Lab-DocumentProcessing. DocumentProcessing solution file is highlighted.](media/visualstudio-open-documentprocessing.png "DocumentProcessing Solution")
+
+9. In the Visual Studio sign in page select **Not now, maybe later.** to continue.
+
+   ![Visual Studio Sign In dialog is presented. "Not now, maybe later" link is highlighted.](media/visualstudio-sign-in.png "Visual Studio Sign In")
+
+10. On the Visual Studio Licensing page select **Close** to continue with the Community version.
+
+    ![Visual Studio License page is open. Close button is highlighted.](media/visual-studio-license.png "Visual Studio License")
+
+11. Once the solution is open, select the **ClaimsProcessing.cs (1)** file from the Solution Explorer. This file already has most of the plumbing implemented. Check out the section that gets the latest trained model from Forms Recognizer (2). The only missing piece is the code that runs the document through Forms Recognizer to get the key/value pairs and structure.
+
+    ![DocumentProcessing solution is open. ClaimsProcessing.cs file content is shown. The code that gets the latest trained model from Forms Recognizer is highlighted. A Todo comment about coding the document processing with Forms Recognizer is highlighted.](media/DocumentProcessing-FormsRecognizer.png "DocumentProcessing Solution")
+
+12. Copy and paste the code below to create a Client object to connect to Forms Recognizer. The endpoint and credential objects are already defined at the start of the ClaimsProcessing.cs code. **IncludeFieldElements** parameter will ensure that all lines per page and field elements such as lines, words, and selection marks for each form field are included.
+
+    ```cs
+    var formRecognizerClient = new FormRecognizerClient(new Uri(endpoint), credential);
+    var options = new RecognizeCustomFormsOptions() { IncludeFieldElements = true };
+    ```
+
+13. Now that the **FormRecognizerClient** is ready, it is time to call **StartRecognizeCustomFormsFromUri** to start the actual recognition work. You are passing in the previously found ModelId, sasUri, a direct HTTP access link to the PDF file to be processed, and the options object we created in the previous step. Copy and paste the code below to continue your implementation.
+
+    ```cs
+    RecognizeCustomFormsOperation operation = formRecognizerClient.StartRecognizeCustomFormsFromUri(latestModel.ModelId, sasUri, options);
+    ```
+
+14. Once we start the process, we can either check its status or actively wait for completion. In our case, we will actively wait for the completion of the process by calling **WaitForCompletionAsync**. Once we got the response, we can access its value in the form of **RecognizedFormCollection**. Copy and paste the code below to complete the implementation.
+
+    ```cs
+    Azure.Response<RecognizedFormCollection> operationResponse = await operation.WaitForCompletionAsync();
+    RecognizedFormCollection forms = operationResponse.Value;
+    ```
+
+15. Close Visual Studio. You don't have to worry about the changes you have implemented. A fully functional version of the Function App is already deployed to your Lab environment and will be soon ready to be tested.
+
+### Task 4: Connecting CosmosDB and Forms Recognizer to Azure Functions
 
 For the document processing automation, our Azure Function must read the documents from Azure Storage, connect to Azure Forms Recognizer and use the trained model, and finally connect to CosmosDB to save the final results. In this task, we will connect all the required services to the **ClaimsProcessing** function.
 
@@ -244,7 +320,7 @@ For the document processing automation, our Azure Function must read the documen
 
    ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save.png "Save new application settings")
 
-### Task 4: Running document processing automation
+### Task 5: Running document processing automation
 
 Now that all implementations are completed, we can upload a new document to the storage and see the entire process extracting values from claims submissions.
 
@@ -279,37 +355,35 @@ Now that all implementations are completed, we can upload a new document to the 
 
     ![In the Remote Desktop Connection dialog box, a warning states that the remote computer's identity cannot be verified and asks if you want to continue anyway. At the bottom, the Yes button is circled.](media/remote-desktop-connection-identity-verification-labvm.png "Remote Desktop Connection dialog")
 
-7. Once logged into the LabVM VM, a script will execute to install the various items needed for the remaining lab steps.
-
-8. Once the script completes, open **Edge** and navigate to the [Azure portal](https://portal.azure.com). Enter your credentials to access your subscriptions. Navigate to **contosoSUFFIX** storage account in your lab resource group.
+7. Open **Edge** and navigate to the [Azure portal](https://portal.azure.com). Enter your credentials to access your subscriptions. Navigate to **contosoSUFFIX** storage account in your lab resource group.
 
     ![Edge is highlighted on the desktop. Browser is open and navigated to portal.azure.com. Storage account overview page is open.](media/azure-portal-labvm.png "Storage Account on Lab VM")
 
-9. From the left menu, select **Containers (1)**, then select the **claims (2)** container.
+8. From the left menu, select **Containers (1)**, then select the **claims (2)** container.
 
    ![Contoso storage containers are listed. Claims container is highlighted.](media/storage-claims-container.png "Claims Storage Container")
 
-10. Select **Upload (1)** and **Browse (2)**. Navigate to `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` **(3)**. Pick **20210621-test-form (4)** and select **Open (5)**. This PDF file was not used during model training.
+9. Select **Upload (1)** and **Browse (2)**. Navigate to `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` **(3)**. Pick **20210621-test-form (4)** and select **Open (5)**. This PDF file was not used during model training.
 
     ![Container page is open. The upload button is selected. File open dialog shows the claims-forms folder with PDF files listed. 20210621-test-form PDF file and Open button are highlighted.](media/upload-test-claims-form.png "Local file selection for upload.")
 
-11. Select **Upload** to start the upload process.
+10. Select **Upload** to start the upload process.
 
     ![Upload blob dialog is open. 20210621-test-form.pdf is selected. Upload button is highlighted.](media/storage-upload-claims-form.png "File Upload")
 
-12. Our Azure Function for claims form processing has triggered with the addition of this file in storage. You should see the result in the Cosmos DB service. Go back to your resource group and select your Cosmos DB Account named `contoso-cdb-SUFFIX` from your lab resource group.
+11. Our Azure Function for claims form processing has triggered with the addition of this file in storage. You should see the result in the Cosmos DB service. Go back to your resource group and select your Cosmos DB Account named `contoso-cdb-SUFFIX` from your lab resource group.
 
     ![Resource group page is open. CosmosDB service is highlighted.](media/select-cosmosdb-service.png "Select Cosmos DB service.")
 
-13. Select **Data Explorer**.
+12. Select **Data Explorer**.
 
     ![Cosmos DB Overview page is open. Data explorer button is highlighted.](media/cosmosdb-data-explorer.png "Cosmos DB Data Explorer")
 
-14. Select the **Items (1)** list under the **Contoso** database's **Claims** collection. Select the first document **(2)** to see its content. Take a look at the values extracted by Forms Recognizer, such as **PatientName** and **Diagnosis (3)**.
+13. Select the **Items (1)** list under the **Contoso** database's **Claims** collection. Select the first document **(2)** to see its content. Take a look at the values extracted by Forms Recognizer, such as **PatientName** and **Diagnosis (3)**.
 
     ![Cosmos DB Data Explorer is open. Claims Document values are shown as a document in Claims collection in the Contoso database.](media/cosmosdb-data-explorer-claims-document.png "Claims Document in Cosmos DB")
 
-15. Repeat steps 10 to 14 to upload the remaining PDF files in the `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` folder. You can upload multiple files at one time.
+14. Repeat steps 10 to 14 to upload the remaining PDF files in the `C:\MCW\MCW-main\Hands-on lab\lab-files\claims-forms` folder. You can upload multiple files at one time.
 
     ![All PDF files are selected. Open button is highlighted.](media/storage-upload-claims-forms.png "File Upload")
 
