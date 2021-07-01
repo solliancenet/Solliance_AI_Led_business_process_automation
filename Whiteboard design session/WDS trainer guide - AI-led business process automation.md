@@ -20,7 +20,7 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 © 2021 Microsoft Corporation. All rights reserved.
 
-Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
+Microsoft and the trademarks listed at <https://www.microsoft.com/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
 **Contents**
 
@@ -348,20 +348,20 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Additional references
 
-| Description                               | Links                                                                                                        |
-|-------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| Azure Storage Account                     | <https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview>                             |
-| Azure Files                               | <https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction>                            |
-| Azure Event Grid                          | <https://docs.microsoft.com/en-us/azure/event-grid/overview>                                                 |
-| ADLS Gen 2 Best Practices                 | <https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-best-practices>                      |
-| Azure Data Store Models                   | <https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/data-store-overview>           |
-| Azure Form Recognizer                     | <https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/overview?tabs=v2-1>               |
-| Speech Service                            | <https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/overview>                          |
-| Azure Cognitive Search                    | <https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search>                                  |
-| Text Analytics for Health                 | <https://docs.microsoft.com/en-us/azure/cognitive-services/Text-Analytics/how-tos/text-analytics-for-health> |
-| Semantic search in Azure Cognitive Search | <https://docs.microsoft.com/en-us/azure/search/semantic-search-overview>                                     |
-| Power BI                                  | <https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview>                                   |
-| Azure Functions                           | <https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview>                                  |
+| Description                               | Links                                                                                                  |
+|-------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| Azure Storage Account                     | <https://docs.microsoft.com/azure/storage/common/storage-account-overview>                             |
+| Azure Files                               | <https://docs.microsoft.com/azure/storage/files/storage-files-introduction>                            |
+| Azure Event Grid                          | <https://docs.microsoft.com/azure/event-grid/overview>                                                 |
+| ADLS Gen 2 Best Practices                 | <https://docs.microsoft.com/azure/storage/blobs/data-lake-storage-best-practices>                      |
+| Azure Data Store Models                   | <https://docs.microsoft.com/azure/architecture/guide/technology-choices/data-store-overview>           |
+| Azure Form Recognizer                     | <https://docs.microsoft.com/azure/cognitive-services/form-recognizer/overview?tabs=v2-1>               |
+| Speech Service                            | <https://docs.microsoft.com/azure/cognitive-services/speech-service/overview>                          |
+| Azure Cognitive Search                    | <https://docs.microsoft.com/azure/search/search-what-is-azure-search>                                  |
+| Text Analytics for Health                 | <https://docs.microsoft.com/azure/cognitive-services/Text-Analytics/how-tos/text-analytics-for-health> |
+| Semantic search in Azure Cognitive Search | <https://docs.microsoft.com/azure/search/semantic-search-overview>                                     |
+| Power BI                                  | <https://docs.microsoft.com/power-bi/fundamentals/power-bi-overview>                                   |
+| Azure Functions                           | <https://docs.microsoft.com/azure/azure-functions/functions-overview>                                  |
 
 # AI-led business process automation whiteboard design session trainer guide
 
@@ -445,7 +445,7 @@ The primary audience is the business decision makers and technology decision mak
 
 1. What Azure service do you recommend to extract data from the claims forms? Are there any tools that can be used to simplify this process?
 
-    Azure Form Recognizer can be used to train a custom model to extract information from a form. The [sample labeling tool](https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/label-tool?tabs=v2-1) can be used to provide an intuitive user interface to identify the regions of the form from where data should be extracted, resulting in a supervised learning model that can be used to extract data from subsequent forms. Training should take place with a minimum of 5 samples when using supervised (labeled) learning.
+    Azure Form Recognizer can be used to train a custom model to extract information from a form. The [sample labeling tool](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/label-tool?tabs=v2-1) can be used to provide an intuitive user interface to identify the regions of the form from where data should be extracted, resulting in a supervised learning model that can be used to extract data from subsequent forms. Training should take place with a minimum of 5 samples when using supervised (labeled) learning.
 
 2. How do you recommend storing the data extracted from the claims forms?
 
@@ -465,11 +465,11 @@ The primary audience is the business decision makers and technology decision mak
 
 2. How would you identify the spoken language of the visit?
 
-    Language identification is available using the [Speech Service speech-to-text APIs](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/language-support). Alternatively, language identification is also available for transcribed text using [Azure Text Analytics APIs](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-language-detection).
+    Language identification is available using the [Speech Service speech-to-text APIs](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support). Alternatively, language identification is also available for transcribed text using [Azure Text Analytics APIs](https://docs.microsoft.com/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-language-detection).
 
 3. What Azure service would you use to translate audio transcriptions to English (en-US)?
 
-    The [Azure Speech service](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-translation) provides translation in speech-to-text as well as speech-to-speech. The [Microsoft Translator service](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-info-overview) can also be leveraged to accomplish the same goal. Speech translation, powered by Translator, is also available through the Azure Speech service. It combines functionality from the Translator Speech API and the Custom Speech Service into a unified and fully customizable service. In addition to speech translation, The Microsoft Translator service also offers text and document translation.
+    The [Azure Speech service](https://docs.microsoft.com/azure/cognitive-services/speech-service/speech-translation) provides translation in speech-to-text as well as speech-to-speech. The [Microsoft Translator service](https://docs.microsoft.com/azure/cognitive-services/translator/translator-info-overview) can also be leveraged to accomplish the same goal. Speech translation, powered by Translator, is also available through the Azure Speech service. It combines functionality from the Translator Speech API and the Custom Speech Service into a unified and fully customizable service. In addition to speech translation, The Microsoft Translator service also offers text and document translation.
 
 4. How do you recommend storing the audio transcription?
 
@@ -491,7 +491,7 @@ The primary audience is the business decision makers and technology decision mak
 
 3. What Azure service do you recommend to enrich the search index to extract medical insights?
 
-    Text Analytics for health is a feature of the Text Analytics API service that extracts and labels relevant medical information from unstructured texts such as doctor's notes, discharge summaries, clinical documents, and electronic health records. Use this service as part of the [AI enrichment pipeline](https://docs.microsoft.com/en-us/azure/search/cognitive-search-concept-intro) in Azure Cognitive Search.
+    Text Analytics for health is a feature of the Text Analytics API service that extracts and labels relevant medical information from unstructured texts such as doctor's notes, discharge summaries, clinical documents, and electronic health records. Use this service as part of the [AI enrichment pipeline](https://docs.microsoft.com/azure/search/cognitive-search-concept-intro) in Azure Cognitive Search.
 
 4. What Azure service do you recommend to rank search results based on the search criteria or to identify questions that may be asked and provide direct answers?
 
@@ -499,7 +499,7 @@ The primary audience is the business decision makers and technology decision mak
 
 5. What steps must be taken to implement the audio transcription search to the internal web portal?
 
-    Many [tutorials](https://docs.microsoft.com/en-us/azure/search/tutorial-csharp-overview) are available in the Cognitive Search documentation to implement search in web applications on multiple platforms.
+    Many [tutorials](https://docs.microsoft.com/azure/search/tutorial-csharp-overview) are available in the Cognitive Search documentation to implement search in web applications on multiple platforms.
 
 *High-level architecture*
 

@@ -59,7 +59,7 @@ namespace DocumentProcessing
 
                 // Audio Language Identification
                 // Considering only two languages: English and Spanish
-                // Languages supported for language detection : https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/language-support
+                // Languages supported for language detection : https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support
                 var autoDetectSourceLanguageConfig = AutoDetectSourceLanguageConfig.FromLanguages(new string[] { "en-US", "es-MX" });
                 string languageDetected = "en-US";
                 using (var audioInput = AudioConfig.FromWavFileInput(tempPath))

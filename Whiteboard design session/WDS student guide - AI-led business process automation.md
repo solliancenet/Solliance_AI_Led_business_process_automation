@@ -20,7 +20,7 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 © 2021 Microsoft Corporation. All rights reserved.
 
-Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
+Microsoft and the trademarks listed at <https://www.microsoft.com/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
 **Contents**
 
@@ -218,17 +218,17 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Additional references
 
-| Description                               | Links                                                                                                        |
-|-------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| Azure Storage Account                     | <https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview>                             |
-| Azure Files                               | <https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction>                            |
-| Azure Event Grid                          | <https://docs.microsoft.com/en-us/azure/event-grid/overview>                                                 |
-| ADLS Gen 2 Best Practices                 | <https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-best-practices>                      |
-| Azure Data Store Models                   | <https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/data-store-overview>           |
-| Azure Form Recognizer                     | <https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/overview?tabs=v2-1>               |
-| Speech Service                            | <https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/overview>                          |
-| Azure Cognitive Search                    | <https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search>                                  |
-| Text Analytics for Health                 | <https://docs.microsoft.com/en-us/azure/cognitive-services/Text-Analytics/how-tos/text-analytics-for-health> |
-| Semantic search in Azure Cognitive Search | <https://docs.microsoft.com/en-us/azure/search/semantic-search-overview>                                     |
-| Power BI                                  | <https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview>                                   |
-| Azure Functions                           | <https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview>                                  |
+| Description                               | Links                                                                                                  |
+|-------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| Azure Storage Account                     | <https://docs.microsoft.com/azure/storage/common/storage-account-overview>                             |
+| Azure Files                               | <https://docs.microsoft.com/azure/storage/files/storage-files-introduction>                            |
+| Azure Event Grid                          | <https://docs.microsoft.com/azure/event-grid/overview>                                                 |
+| ADLS Gen 2 Best Practices                 | <https://docs.microsoft.com/azure/storage/blobs/data-lake-storage-best-practices>                      |
+| Azure Data Store Models                   | <https://docs.microsoft.com/azure/architecture/guide/technology-choices/data-store-overview>           |
+| Azure Form Recognizer                     | <https://docs.microsoft.com/azure/cognitive-services/form-recognizer/overview?tabs=v2-1>               |
+| Speech Service                            | <https://docs.microsoft.com/azure/cognitive-services/speech-service/overview>                          |
+| Azure Cognitive Search                    | <https://docs.microsoft.com/azure/search/search-what-is-azure-search>                                  |
+| Text Analytics for Health                 | <https://docs.microsoft.com/azure/cognitive-services/Text-Analytics/how-tos/text-analytics-for-health> |
+| Semantic search in Azure Cognitive Search | <https://docs.microsoft.com/azure/search/semantic-search-overview>                                     |
+| Power BI                                  | <https://docs.microsoft.com/power-bi/fundamentals/power-bi-overview>                                   |
+| Azure Functions                           | <https://docs.microsoft.com/azure/azure-functions/functions-overview>                                  |
