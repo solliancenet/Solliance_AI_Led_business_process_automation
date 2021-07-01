@@ -46,7 +46,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Exercise 3: Using Azure Cognitive Search to index and serve data](#exercise-3-using-azure-cognitive-search-to-index-and-serve-data)
     - [Task 1: Setting up indexer for forms documents](#task-1-setting-up-indexer-for-forms-documents)
     - [Task 2: Setting up indexer for audio transcriptions and health analytics](#task-2-setting-up-indexer-for-audio-transcriptions-and-health-analytics)
-    - [Task 3: Implementing Cognitive Services for audio processing](#task-3-implementing-cognitive-services-for-audio-processing-1)
+    - [Task 3: Implementing Cognitive Search for a unified search experience](#task-3-implementing-cognitive-search-for-a-unified-search-experience)
     - [Task 4: Configuring the hospital portal](#task-4-configuring-the-hospital-portal)
   - [Exercise 4: Building custom PowerBI reports on healthcare data](#exercise-4-building-custom-powerbi-reports-on-healthcare-data)
     - [Task 1: Connecting PowerBI to CosmosDB](#task-1-connecting-powerbi-to-cosmosdb)
@@ -532,7 +532,7 @@ In this task, we will look into the implementation of various Cognitive Services
    string transcribedText = sb.ToString();
    ```
 
-4. Once the transcription process is complete, it is time to translate Spanish transcriptions into English. In this case, we are sending an HTTP request with the proper headers to the Translator endpoint and get back the translated document. 
+4. Once the transcription process is complete, it is time to translate Spanish transcriptions into English. In this case, we are sending an HTTP request with the proper headers to the Translator endpoint and get back the translated document.
 
    ```cs
    // If transcription is in Spanish we will translate it to English
@@ -693,8 +693,7 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
     ![Search explorer is open. The search button is selected. The search result is highlighted.](media/search-audio-result.png "Search Result")
 
-
-### Task 3: Implementing Cognitive Services for audio processing
+### Task 3: Implementing Cognitive Search for a unified search experience
 
 In this task, we will look into the implementation of Cognitive Search used to search data extracted from claims documents, patient audio recording transcriptions, and healthcare analytics.
 
@@ -702,11 +701,11 @@ In this task, we will look into the implementation of Cognitive Search used to s
 
     ![File Explorer shows the DocumentProcessing folder in C:\MCW\MCW-main\Hands-on lab\lab-files\source-hospital-portal\contoso-web. contoso-web solution file is highlighted.](media/visual-studio-open-contoso-web.png "contoso-web Solution")
 
-2. Once the solution is open, select the **Index.cshtml.cs (1)** file from the Solution Explorer. Analyze the code that starts with the **Searching for Claims Document** comment. 
+2. Once the solution is open, select the **Index.cshtml.cs (1)** file from the Solution Explorer. Analyze the code that starts with the **Searching for Claims Document** comment.
 
    ![contoso-web solution is open in Visual Studio. Index.cshtml.cs is shown. Searching for Claims Document code is highlighted.](media/hospital-portal-claims-search.png "Searching for Claims Document Code")
 
-3. Analyzing the first section of the code, you can see the **claimsSearchclient** created out of the service endpoint, index name, and credential that helps to access Azure Cognitive Search. The fields that we want to select are assigned to the **Select** collection of the **SearchOptions** object. 
+3. Analyzing the first section of the code, you can see the **claimsSearchclient** created out of the service endpoint, index name, and credential that helps to access Azure Cognitive Search. The fields that we want to select are assigned to the **Select** collection of the **SearchOptions** object.
 
    ```cs
    SearchClient claimsSearchclient = new(new Uri(azureSearchUrl), claimsSearchIndexName, credential);
@@ -736,7 +735,7 @@ In this task, we will look into the implementation of Cognitive Search used to s
    }
    ```
 
-5. Now, you can close Visual Studio. A fully functional version of the Web App is already deployed to your Lab environment and will be soon ready to be tested.
+5. Now, you can close Visual Studio. A fully functional version of the Web App that searches multiple indexes is already deployed to your Lab environment and will be soon ready to be tested.
 
 ### Task 4: Configuring the hospital portal
 
