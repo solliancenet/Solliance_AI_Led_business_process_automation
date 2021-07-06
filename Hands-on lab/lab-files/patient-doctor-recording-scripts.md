@@ -15,7 +15,7 @@
 
 ### Dialog 3
 
-**Patient:** Hi, I am Tanya, and I'm 27 years old. I like to swim every morning. Does COVID-19 spread through water? What precautions should I take to avoid infection?  
+**Patient:** Hi, I am Roger, and I'm 27 years old. I like to swim every morning. Does COVID-19 spread through water? What precautions should I take to avoid infection?  
 **Doctor:** Human to human spread of COVID-19 is mainly from air droplets. Therefore, I would suggest you refrain from swimming for now, even though the virus will get killed in the swimming pool if it does not find a host after a few minutes. Other precautions include avoiding social gatherings, washing hands frequently with soap and water, covering your mouth and nose with a mask, staying home when ill, and avoiding travel. I hope this helps. Let me know if I can assist you further.  
 **Patient**: Thanks Doctor.
 
