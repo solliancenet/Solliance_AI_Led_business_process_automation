@@ -247,9 +247,9 @@ To process documents, the Azure Function code has to find the latest model train
 
    ![Visual Studio Sign In dialog is presented. "Not now, maybe later" link is highlighted.](media/visualstudio-sign-in.png "Visual Studio Sign In")
 
-10. On the Visual Studio Licensing page select **Close** to continue with the Community version.
+10. On the Visual Studio Licensing page select **Sign-In** and use Microsoft Account credentials. This will register a Visual Studio 2019 Community Edition license for your account for free.
 
-    ![Visual Studio License page is open. Close button is highlighted.](media/visual-studio-license.png "Visual Studio License")
+    ![Visual Studio License page is open. Sign-In button is highlighted.](media/visual-studio-license.png "Visual Studio License")
 
 11. Once the solution is open, select the **ClaimsProcessing.cs (1)** file from the Solution Explorer. This file already has most of the plumbing implemented. Check out the section that gets the latest trained model from Forms Recognizer (2). The only missing piece is the code that runs the document through Forms Recognizer to get the key/value pairs and structure.
 
