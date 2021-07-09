@@ -318,9 +318,13 @@ For the document processing automation, our Azure Function must read the documen
    | CosmosDBEndpointUrl     | Previously copied **URI** for Cosmos DB             |
    | CosmosDBPrimaryKey      | Previously copied **Primary Key** for Cosmos DB     |
 
-9. Once all settings **(1)** are set, select **Save (2)** and **Continue**.
+9. Once all settings **(1)** are set, select **Save (2)** and **Continue**. 
 
    ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save.png "Save new application settings")
+
+10. Restart your Function App by selecting **Overview (1)** and **Restart (2)**.
+
+   ![Restarting the Function App after configuring service integrations.](media/function-app-restart.png "Restarting Function App")
 
 ### Task 5: Running document processing automation
 
@@ -480,7 +484,7 @@ For audio recording processing, the AudioProcessing function will use multiple C
     | TextAnalyticsKey      | Previously copied **Key 1** for Cognitive Services Text Analytics Account                       |
     | TextAnalyticsEndpoint | Previously copied **Endpoint** for Cognitive Services Text Analytics Account                    |
 
-11. Once all settings **(1)** are set, select **Save (2)**.
+11. Once all settings **(1)** are set, select **Save (2)**. You may need to restart the Function App.
 
     ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save-step2.png "Save new application settings")
 
