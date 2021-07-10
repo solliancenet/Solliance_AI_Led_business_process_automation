@@ -773,14 +773,14 @@ In this task, we will connect our Azure Cognitive Search indexes with the hospit
 
    | Name           | Value                                                                 |
    |----------------|-----------------------------------------------------------------------|
-   | AzureSearchKey | Previously copied Endpoint **URL** for Cognitive Search               |
-   | AzureSearchUrl | Previously copied Endpoint **Primary Admin Key** for Cognitive Search |
+   | AzureSearchUrl | Previously copied Endpoint **URL** for Cognitive Search               |
+   | AzureSearchKey | Previously copied Endpoint **Primary Admin Key** for Cognitive Search |
 
 8. Once all settings **(1)** are set, select **Save (2)** and **Continue**.
 
     ![New application settings are highlighted. Save button is pointed.](media/app-service-settings-save-step.png "Save new application settings")
 
-9. Go back to the **Overview (1)** page and select the **URL (2)** to navigate to the hospital portal.
+9. Go back to the **Overview (1)** page and select the **URL (2)** to navigate to the hospital portal. You may need to restart the app first.
 
     ![Overview page for the App Service is shown. URL for the App Service is highlighted.](media/app-service-navigate-to-portal.png "Hospital Portal URL")
 
@@ -876,11 +876,19 @@ In this exercise, you will create Power BI reports surfacing the data extracted 
 
    ![Treemap visualization is selected. The count is set for Values and HealthcareEntities.Text is set for Group.](media/powerbi-treemap.png "Treemap")
 
-2. Select **Stacked Bar Chart (1)** and check **Claims.Diagnosis (2)** as Axis, **Claims.TotalCharges (3)** as Values.
+2. Select **Stacked Bar Chart (1)** and check **Document.Diagnosis (2)** as Axis, **Document.TotalCharges (3)** as Values.
 
    ![Stacked Bar Chart visualization is selected. Claims.Diagnosis is set for Axis and Claims.TotalCharges is set for Values.](media/powerbi-bar-chart.png "Stacked Bar Chart")
 
-3. Feel free to resize the charts. Here is an example view fetching data from visit audio recordings and claim submission forms.
+3. Select the treemap visualization you created (1). Select the paint roller icon and expand the **Title** dropdown (2). Change the title text to **Diagnosis Popularity** (3).
+
+   ![Renaming the treemap visualization in Power BI.](./media/rename-treemap-viz.png "Visualization rename")
+
+4. Select the bar chart visualization (1). Again, expand the paint roller icon and select the **Title** dropdown (2). Change the title to **Total Charges per Diagnosis** (3).
+
+   ![Renaming the bar chart visualization in Power BI.](./media/rename-barchart-viz.png "Bar chart title rename")
+
+5. Feel free to resize the charts. Here is an example view fetching data from visit audio recordings and claim submission forms. Can you change the axis names for the bar chart visualization?
 
    ![Report showing data from visit audio recordings and claim submission forms.](media/powerbi-sample-report.png "Sample Report")
 
