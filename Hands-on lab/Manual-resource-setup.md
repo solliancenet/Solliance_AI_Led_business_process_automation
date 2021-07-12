@@ -13,12 +13,12 @@ June 2021
   - [Task 2: Setting up the Lab VM](#task-2-setting-up-the-lab-vm)
   - [Task 3: Create an Azure Storage Account](#task-3-create-an-azure-storage-account)
   - [Task 4: Setting up the Azure Storage Account](#task-4-setting-up-the-azure-storage-account)
-  - [Task 5: Create a Translator Account](#task-5-create-a-translator-account)
-  - [Task 6: Create a Text Analytics Account](#task-6-create-a-text-analytics-account)
-  - [Task 6: Create a Speech Account](#task-6-create-a-speech-account)
-  - [Task 7: Create a Cognitive Search Account](#task-7-create-a-cognitive-search-account)
-  - [Task 8: Create a Forms Recognizer Account](#task-8-create-a-forms-recognizer-account)
-  - [Task 9: Create a Cosmos DB Account](#task-9-create-a-cosmos-db-account)
+  - [Task 5: Create a Translator resource](#task-5-create-a-translator-resource)
+  - [Task 6: Create a Text Analytics resource](#task-6-create-a-text-analytics-resource)
+  - [Task 6: Create a Speech resource](#task-6-create-a-speech-resource)
+  - [Task 7: Create a Cognitive Search resource](#task-7-create-a-cognitive-search-resource)
+  - [Task 8: Create a Forms Recognizer resource](#task-8-create-a-forms-recognizer-resource)
+  - [Task 9: Create a Cosmos DB resource](#task-9-create-a-cosmos-db-resource)
   - [Task 10: Create a Function App](#task-10-create-a-function-app)
   - [Task 11: Create a Web App](#task-11-create-a-web-app)
   - [Task 12: Deploy Web and Functions Apps](#task-12-deploy-web-and-functions-apps)
@@ -225,9 +225,9 @@ In this task, you provision an Azure Storage account used to store and serve Cla
 
 13. Select **Upload** to start the upload process.
 
-## Task 5: Create a Translator Account
+## Task 5: Create a Translator resource
 
-In this task, you provision a Translator account used to translate transcriptions to English.
+In this task, you provision a Translator resource used to translate transcriptions to English.
 
 1. In the [Azure portal](https://portal.azure.com/), go to your hands-on-lab-SUFFIX resource group and select **+Add (1)** from the menu.
 
@@ -235,9 +235,9 @@ In this task, you provision a Translator account used to translate transcription
 
 2. Enter "Translator **(1)**" into the Search the Marketplace box, and select **Translator** from the results, and then select **Create (2)**.
 
-   !["Translator" is entered into the Search the Marketplace box. A Translator account is selected in the results.](media/create-resource-translator-account.png "Create Translator account")
+   !["Translator" is entered into the Search the Marketplace box. A Translator resource is selected in the results.](media/create-resource-translator-resource.png "Create Translator resource")
 
-3. On the Create Translator account **Basics** tab, enter the following:
+3. On the Create Translator resource **Basics** tab, enter the following:
 
    - Project Details:
 
@@ -250,15 +250,15 @@ In this task, you provision a Translator account used to translate transcription
      - **Name (4)**: Enter contoso-translate-SUFFIX.
      - **Pricing Tier (5)**: Choose **Standard S1**.
 
-   ![On the Create Translator account blade, the values specified above are entered into the appropriate fields.](media/translator-create-account.png "Create translator account")
+   ![On the Create Translator resource blade, the values specified above are entered into the appropriate fields.](media/translator-create-resource.png "Create translator resource")
 
 4. Select **Review + create (6)**.
 
 5. On the **Review + create** blade, ensure the Validation passed message is displayed and then select **Create**.
 
-## Task 6: Create a Text Analytics Account
+## Task 6: Create a Text Analytics resource
 
-In this task, you provision a Text Analytics account used to extract medical information from claims documents.
+In this task, you provision a Text Analytics resource used to extract medical information from claims documents.
 
 1. In the [Azure portal](https://portal.azure.com/), go to your hands-on-lab-SUFFIX resource group and select **+Add (1)** from the menu.
 
@@ -266,11 +266,11 @@ In this task, you provision a Text Analytics account used to extract medical inf
 
 2. Enter "Text Analytics **(1)**" into the Search the Marketplace box, and select **Text Analytics** from the results, and then select **Create (2)**.
 
-   !["Text Analytics" is entered into the Search the Marketplace box. A Text Analytics account is selected in the results.](media/create-resource-text-analytics-account.png "Create Text Analytics account")
+   !["Text Analytics" is entered into the Search the Marketplace box. A Text Analytics resource is selected in the results.](media/create-resource-text-analytics-resource.png "Create Text Analytics resource")
 
 3. Select **Continue to create your resource** when asked for additional features.
 
-4. On the Create Text Analytics account **Basics** tab, enter the following:
+4. On the Create Text Analytics resource **Basics** tab, enter the following:
 
    - Project Details:
 
@@ -284,15 +284,15 @@ In this task, you provision a Text Analytics account used to extract medical inf
      - **Pricing Tier (5)**: Choose **Standard S**.
      - Check the Responsible AI Notice **(6)**
 
-   ![On the Create Text Analytics account blade, the values specified above are entered into the appropriate fields.](media/text-analytics-create-account.png "Create Text Analytics account")
+   ![On the Create Text Analytics resource blade, the values specified above are entered into the appropriate fields.](media/text-analytics-create-resource.png "Create Text Analytics resource")
 
 5. Select **Review + create (7)**.
 
 6. On the **Review + create** blade, ensure the Validation passed message is displayed and then select **Create**.
 
-## Task 6: Create a Speech Account
+## Task 6: Create a Speech resource
 
-In this task, you provision a Speech account used to detect the language of voice recordings and do transcriptions.
+In this task, you provision a Speech resource used to detect the language of voice recordings and do transcriptions.
 
 1. In the [Azure portal](https://portal.azure.com/), go to your hands-on-lab-SUFFIX resource group and select **+Add (1)** from the menu.
 
@@ -300,9 +300,9 @@ In this task, you provision a Speech account used to detect the language of voic
 
 2. Enter "Speech **(1)**" into the Search the Marketplace box, and select **Speech** from the results, and then select **Create (2)**.
 
-   !["Speech" is entered into the Search the Marketplace box. A Speech account is selected in the results.](media/create-resource-speech-account.png "Create Speech account")
+   !["Speech" is entered into the Search the Marketplace box. A Speech resource is selected in the results.](media/create-resource-speech-resource.png "Create Speech resource")
 
-3. On the create Speech account page, enter the following:
+3. On the create Speech resource page, enter the following:
 
    - **Name (1)**: Enter contoso-speech-SUFFIX.
    - **Subscription (2)**: Select the subscription you are using for this hands-on lab.
@@ -310,15 +310,15 @@ In this task, you provision a Speech account used to detect the language of voic
    - **Pricing Tier (4)**: Choose **Standard S0**.
    - **Resource Group (5)**: Select the hands-on-lab-SUFFIX resource group from the list of existing resource groups.
 
-   ![On the Create Speech account blade, the values specified above are entered into the appropriate fields.](media/speech-create-account.png "Create Speech account")
+   ![On the Create Speech resource blade, the values specified above are entered into the appropriate fields.](media/speech-create-resource.png "Create Speech resource")
 
 4. Select **Review + create (6)**.
 
 5. On the **Review + create** blade, ensure the Validation passed message is displayed and then select **Create**.
 
-## Task 7: Create a Cognitive Search Account
+## Task 7: Create a Cognitive Search resource
 
-In this task, you provision a Cognitive Search account used to search for claims and audio transcriptions data through the hospital portal.
+In this task, you provision a Cognitive Search resource used to search for claims and audio transcriptions data through the hospital portal.
 
 1. In the [Azure portal](https://portal.azure.com/), go to your hands-on-lab-SUFFIX resource group and select **+Add (1)** from the menu.
 
@@ -326,7 +326,7 @@ In this task, you provision a Cognitive Search account used to search for claims
 
 2. Enter "Search **(1)**" into the Search the Marketplace box and select **Azure Cognitive Search** from the results, and then select **Create (2)**.
 
-   !["Search" is entered into the Search the Marketplace box. A Cognitive Search account is selected in the results.](media/create-resource-cognitive-search-account.png "Create Cognitive Search account")
+   !["Search" is entered into the Search the Marketplace box. A Cognitive Search resource is selected in the results.](media/create-resource-cognitive-search-resource.png "Create Cognitive Search resource")
 
 3. On the New Search Service page **Basics** tab, enter the following:
 
@@ -341,15 +341,15 @@ In this task, you provision a Cognitive Search account used to search for claims
      - **Region (4)**: Select the location you are using for resources in this hands-on lab.
      - **Pricing Tier (5)**: Choose **Standard**.
 
-   ![On the New Search Service account blade, the values specified above are entered into the appropriate fields.](media/search-create-account.png "Create new Search Service account")
+   ![On the New Search Service resource blade, the values specified above are entered into the appropriate fields.](media/search-create-resource.png "Create new Search Service resource")
 
 4. Select **Review + create (6)**.
 
 5. On the **Review + create** blade, ensure the Validation passed message is displayed and then select **Create**.
 
-## Task 8: Create a Forms Recognizer Account
+## Task 8: Create a Forms Recognizer resource
 
-In this task, you provision a Forms Recognizer account used to search extract structured information from claims forms.
+In this task, you provision a Forms Recognizer resource used to search extract structured information from claims forms.
 
 1. In the [Azure portal](https://portal.azure.com/), go to your hands-on-lab-SUFFIX resource group and select **+Add (1)** from the menu.
 
@@ -357,7 +357,7 @@ In this task, you provision a Forms Recognizer account used to search extract st
 
 2. Enter "Forms Recognizer **(1)**" into the Search the Marketplace box, and select **Forms Recognizer** from the results, and then select **Create (2)**.
 
-   !["Forms Recognizer" is entered into the Search the Marketplace box. A Forms Recognizer account is selected in the results.](media/create-resource-forms-recognizer-account.png "Create Forms Recognizer account")
+   !["Forms Recognizer" is entered into the Search the Marketplace box. A Forms Recognizer resource is selected in the results.](media/create-resource-forms-recognizer-resource.png "Create Forms Recognizer resource")
 
 3. On the Create Forms Recognizer page **Basics** tab, enter the following:
 
@@ -372,15 +372,15 @@ In this task, you provision a Forms Recognizer account used to search extract st
      - **Name (4)**: Enter contoso-fr-SUFFIX.
      - **Pricing Tier (5)**: Choose **Standard S0**.
 
-   ![On the New Forms Recognizer Service account blade, the values specified above are entered into the appropriate fields.](media/forms-recognizer-create-account.png "Create new Forms Recognizer Service account")
+   ![On the New Forms Recognizer Service resource blade, the values specified above are entered into the appropriate fields.](media/forms-recognizer-create-resource.png "Create new Forms Recognizer Service resource")
 
 4. Select **Review + create (6)**.
 
 5. On the **Review + create** blade, ensure the Validation passed message is displayed and then select **Create**.
 
-## Task 9: Create a Cosmos DB Account
+## Task 9: Create a Cosmos DB resource
 
-In this task, you provision a Cosmos DB account to store claims and audio transcription data sets accessed by custom Power BI reports.
+In this task, you provision a Cosmos DB resource to store claims and audio transcription data sets accessed by custom Power BI reports.
 
 1. In the [Azure portal](https://portal.azure.com/), go to your hands-on-lab-SUFFIX resource group and select **+Add (1)** from the menu.
 
@@ -388,13 +388,13 @@ In this task, you provision a Cosmos DB account to store claims and audio transc
 
 2. Enter "Cosmos DB **(1)**" into the Search the Marketplace box, and select **Azure Cosmos DB** from the results, and then select **Create (2)**.
 
-   !["Cosmos DB" is entered into the Search the Marketplace box. An Azure Cosmos DB account is selected in the results.](media/create-resource-cosmos-db-account.png "Create Azure Cosmos DB account")
+   !["Cosmos DB" is entered into the Search the Marketplace box. An Azure Cosmos DB resource is selected in the results.](media/create-resource-cosmos-db.png "Create Azure Cosmos DB resource")
 
 3. On the Select API Option page select **Create** for **Core (SQL) - Recommended** option.
 
    !["Cosmos DB API Option selection page is open. Create button for Core SQL is highlighted.](media/select-cosmosdb-api.png "Select Core SQL for Cosmos DB")
 
-4. On the Create Forms Recognizer page **Basics** tab, enter the following:
+4. On the Create Azure Cosmos DB Account page **Basics** tab, enter the following:
 
    - Project Details:
 
@@ -407,7 +407,7 @@ In this task, you provision a Cosmos DB account to store claims and audio transc
      - **Location (4)**: Select the location you are using for resources in this hands-on lab.
      - **Capacity Mode (5)**: Choose **Serverless**.
 
-   ![On the Create Azure Cosmos DB account blade, the values specified above are entered into the appropriate fields.](media/cosmos-db-create-account.png "Create new Azure Cosmos DB account")
+   ![On the Create Azure Cosmos DB Account blade, the values specified above are entered into the appropriate fields.](media/cosmos-db-create-resource.png "Create new Azure Cosmos DB Account")
 
 5. Select **Review + create (6)**.
 
@@ -440,7 +440,7 @@ In this task, you provision a Function App service used to host the functions pr
      - **Version (6)**: Select **3.1**.
      - **Region (7)**: Select the location you are using for resources in this hands-on lab.
 
-   ![On the Create Function App blade, the values specified above are entered into the appropriate fields.](media/function-app-create-account.png "Create new Function App")
+   ![On the Create Function App blade, the values specified above are entered into the appropriate fields.](media/function-app-create-resource.png "Create new Function App")
 
 4. Select **Review + create (8)**.
 
@@ -477,7 +477,7 @@ In this task, you provision a Web App service used to host the hospital portal.
 
      - **Sku and size (8)**: Select **Basic B1**.
 
-   ![On the Create Web App blade, the values specified above are entered into the appropriate fields.](media/web-app-create-account.png "Create new Web App")
+   ![On the Create Web App blade, the values specified above are entered into the appropriate fields.](media/web-app-create-resource.png "Create new Web App")
 
 4. Select **Review + create (9)**.
 

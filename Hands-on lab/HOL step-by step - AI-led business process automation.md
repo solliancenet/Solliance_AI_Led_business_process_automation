@@ -122,7 +122,7 @@ Contoso has its own document template for claims processing. In this exercise, y
 
 4. Go back to your resource group and select **contoso-fr-SUFFIX (1)** Azure Forms Recognizer service where SUFFIX represents a unique string specific to your resource group.
 
-   ![Lab resource group is open. Azure Forms Recognizer account is highlighted.](media/select-forms-recognizer.png "Select Forms Recognizer Service")
+   ![Lab resource group is open. Azure Forms Recognizer resource is highlighted.](media/select-forms-recognizer.png "Select Forms Recognizer Service")
 
 5. From the left menu, select **Keys and Endpoint (1)**, then copy **Key 1 (2)** and **Endpoint (3)** to a text editor of your choice to be used in upcoming steps during the lab.
 
@@ -289,13 +289,13 @@ For the document processing automation, our Azure Function must read the documen
 
    ![Storage Account Access keys page is shown. The show Keys button is selected. The copy button for the first connection string is highlighted.](media/get-storage-connection-string.png "Copy Storage Connection String")
 
-3. Go back to your resource group and find your Cosmos DB account in your lab resource group. Select it to navigate to its Overview page.
+3. Go back to your resource group and find your Cosmos DB resource in your lab resource group. Select it to navigate to its Overview page.
 
    ![Resource group page is open. CosmosDB service is highlighted.](media/select-cosmosdb-service.png "Select Cosmos DB service.")
 
 4. From the left menu, select **Keys (1)**. Copy the values for **URI (2)** and **PRIMARY KEY (3)** to a text editor of your choice. These values will be used later in the lab.
 
-   ![Keys panel of the Cosmos DB account is open. The copy buttons for URI and Primary Key are highlighted.](media/get-cosmosdb-keys.png "Cosmos DB Key and URI")
+   ![Keys panel of the Cosmos DB resource is open. The copy buttons for URI and Primary Key are highlighted.](media/get-cosmosdb-keys.png "Cosmos DB Key and URI")
 
 5. Return to the lab resource group and select the Function App named **contoso-func-SUFFIX**.
 
@@ -373,7 +373,7 @@ Now that all implementations are completed, we can upload a new document to the 
 
     ![Upload blob dialog is open. 20210621-test-form.pdf is selected. Upload button is highlighted.](media/storage-upload-claims-form.png "File Upload")
 
-11. Our Azure Function for claims form processing has triggered with the addition of this file in storage. You should see the result in the Cosmos DB service. Go back to your resource group and select your Cosmos DB Account named `contoso-cdb-SUFFIX` from your lab resource group.
+11. Our Azure Function for claims form processing has triggered with the addition of this file in storage. You should see the result in the Cosmos DB service. Go back to your resource group and select your Cosmos DB resource named `contoso-cdb-SUFFIX` from your lab resource group.
 
     ![Resource group page is open. CosmosDB service is highlighted.](media/select-cosmosdb-service.png "Select Cosmos DB service.")
 
@@ -431,11 +431,11 @@ As part of its automation process, Contoso will upload audio recordings of patie
 
 ### Task 2: Connecting Cognitive Services to Azure Functions
 
-For audio recording processing, the AudioProcessing function will use multiple Cognitive Service accounts. Cognitive Services Speech will be used to detect the language of the recording and to transcribe the audio file. Cognitive Services Translator will be used to translate Spanish transcriptions to English. Finally, Cognitive Services Text Analytics will be used to extract and label relevant medical information from transcriptions. In this task, you will be connecting all the required Cognitive Services to the AudioProcessing Azure Function.
+For audio recording processing, the AudioProcessing function will use multiple Cognitive Service resources. Cognitive Services Speech will be used to detect the language of the recording and to transcribe the audio file. Cognitive Services Translator will be used to translate Spanish transcriptions to English. Finally, Cognitive Services Text Analytics will be used to extract and label relevant medical information from transcriptions. In this task, you will be connecting all the required Cognitive Services to the AudioProcessing Azure Function.
 
 1. In the [Azure portal](https://portal.azure.com), select the **contoso-speech-SUFFIX** Cognitive Service from the lab resource group.
 
-   ![Lab resource group is open. The Cognitive Service Speech account is highlighted.](media/select-speech-account.png "Cognitive Service Speech Account Selection")
+   ![Lab resource group is open. The Cognitive Service Speech resource is highlighted.](media/select-speech-resource.png "Cognitive Service Speech Resource Selection")
 
 2. From the left menu, select **Keys and Endpoint (1)**. Copy **Key 1 (2)** and **Location (3)** to a text editor of your choice to be used later in the lab.
 
@@ -443,7 +443,7 @@ For audio recording processing, the AudioProcessing function will use multiple C
 
 3. Return to the lab resource group and select the Cognitive Service named **contoso-translate-SUFFIX** in your lab resource group.
 
-   ![Lab resource group is open. The Cognitive Service Translate account is highlighted.](media/select-translate-account.png "Cognitive Service Translate Account Selection")
+   ![Lab resource group is open. The Cognitive Service Translate resource is highlighted.](media/select-translate-resource.png "Cognitive Service Translate Resource Selection")
 
 4. From the left menu, select **Keys and Endpoint (1)**. Copy **Key 1 (2)**, **Location (3)** and **Text Translation Endpoint (4)** to a text editor of your choice to be used later in the lab.
 
@@ -451,7 +451,7 @@ For audio recording processing, the AudioProcessing function will use multiple C
 
 5. Return to the lab resource group and select the Cognitive Service named **contoso-textanalytics-SUFFIX** in your lab resource group.
 
-   ![Lab resource group is open. The Cognitive Service Text Analytics account is highlighted.](media/select-textanalytics-account.png "Cognitive Service Text Analytics Account Selection")
+   ![Lab resource group is open. The Cognitive Service Text Analytics resource is highlighted.](media/select-textanalytics-resource.png "Cognitive Service Text Analytics Resource Selection")
 
 6. From the left menu, select **Keys and Endpoint (1)**. Copy **Key 1 (2)** and **Endpoint (3)** to a text editor of your choice to be used later in the lab.
 
@@ -471,14 +471,14 @@ For audio recording processing, the AudioProcessing function will use multiple C
 
 10. Repeat the same steps to add the **Application Settings** listed below.
 
-    | Name                  | Value                                                                                           |
-    |-----------------------|-------------------------------------------------------------------------------------------------|
-    | SpeechKey             | Previously copied **Key 1** for Cognitive Services Speech Account                               |
-    | TranslatorKey         | Previously copied **Key 1** for Cognitive Services Text Translation Account                     |
-    | TranslatorEndpoint    | Previously copied **Text Translation Endpoint** for Cognitive Services Text Translation Account |
-    | TranslatorLocation    | Previously copied **Location** for Cognitive Services Text Translation Account                  |
-    | TextAnalyticsKey      | Previously copied **Key 1** for Cognitive Services Text Analytics Account                       |
-    | TextAnalyticsEndpoint | Previously copied **Endpoint** for Cognitive Services Text Analytics Account                    |
+    | Name                  | Value                                                                                            |
+    |-----------------------|--------------------------------------------------------------------------------------------------|
+    | SpeechKey             | Previously copied **Key 1** for Cognitive Services Speech resource                               |
+    | TranslatorKey         | Previously copied **Key 1** for Cognitive Services Text Translation resource                     |
+    | TranslatorEndpoint    | Previously copied **Text Translation Endpoint** for Cognitive Services Text Translation resource |
+    | TranslatorLocation    | Previously copied **Location** for Cognitive Services Text Translation resource                  |
+    | TextAnalyticsKey      | Previously copied **Key 1** for Cognitive Services Text Analytics resource                       |
+    | TextAnalyticsEndpoint | Previously copied **Endpoint** for Cognitive Services Text Analytics resource                    |
 
 11. Once all settings **(1)** are set, select **Save (2)**.
 
@@ -593,7 +593,7 @@ Now that all implementations are completed, we can upload new patient recordings
 
 4. Select **Upload** to start the upload process.
 
-5. The Azure Function for audio file processing will trigger for the files added. We should see the results of the audio transcription in Cosmos DB. Go back to your resource group and select your Cosmos DB Account named `contoso-cdb-SUFFIX`.
+5. The Azure Function for audio file processing will trigger for the files added. We should see the results of the audio transcription in Cosmos DB. Go back to your resource group and select your Cosmos DB resource named `contoso-cdb-SUFFIX`.
 
     ![Resource group page is open. CosmosDB service is highlighted.](media/select-cosmosdb-service.png "Select Cosmos DB service.")
 
@@ -627,9 +627,9 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
    ![Connect to your data page is open. The data source is set to Azure Cosmos DB. The data source name is set to claimssource. Choose an existing connection link is highlighted.](media/search-import-data-claims.png "Connecting to Cosmos DB")
 
-4. Select **contoso-cdb-SUFFIX** Cosmos DB account as the source.
+4. Select **contoso-cdb-SUFFIX** Cosmos DB resource as the source.
 
-   ![Azure Cosmos DB account selection screen is open. contoso-cdb-SUFFIX is highlighted.](media/search-import-data-pick-cosmosdb.png "Cosmos DB Account Selection")
+   ![Azure Cosmos DB resource selection screen is open. contoso-cdb-SUFFIX is highlighted.](media/search-import-data-pick-cosmosdb.png "Cosmos DB Resource Selection")
 
 5. Set **Database (1)** to **Contoso** and **Collection (2)** to **Claims**. Select **Next: Add cognitive skills (Optional)** to Continue.
 
@@ -667,9 +667,9 @@ Contoso has an internal web portal hosted in an Azure App Service where staff ca
 
    ![Connect to your data page is open. The data source is set to Azure Cosmos DB. The data source name is set to audiosource. Choose an existing connection link is highlighted.](media/search-import-data-audio.png "Connecting to Cosmos DB")
 
-4. Select **contoso-cdb-SUFFIX** Cosmos DB account as the source.
+4. Select **contoso-cdb-SUFFIX** Cosmos DB resource as the source.
 
-   ![Azure Cosmos DB account selection screen is open. contoso-cdb-SUFFIX is highlighted.](media/search-import-data-pick-cosmosdb.png "Cosmos DB Account Selection")
+   ![Azure Cosmos DB resource selection screen is open. contoso-cdb-SUFFIX is highlighted.](media/search-import-data-pick-cosmosdb.png "Cosmos DB Resource Selection")
 
 5. Set **Database (1)** to **Contoso** and **Collection (2)** to **Transcriptions**. Select **Next: Add cognitive skills (Optional)** to Continue.
 
