@@ -780,9 +780,17 @@ In this task, we will connect our Azure Cognitive Search indexes with the hospit
 
     ![Overview page for the App Service is shown. URL for the App Service is highlighted.](media/app-service-navigate-to-portal.png "Hospital Portal URL")
 
-10. Search for **covid** on the portal and observe results that include both claims documents and visit transcriptions. Feel free to use the filters based on medical information extracted by Cognitive Text Analytics for Health.
+10. Search for **covid (1)** on the portal and observe results that include both claims documents and visit transcriptions. Feel free to use the filters **(4)** based on medical information extracted by Cognitive Text Analytics for Health.
 
     ![Hospital Portal is shown. The search box is filled with COVID. Claims document and transcription results are highlighted. Filtering options based on medical information are highlighted.](media/hospital-portal.png "Hospital Portal")
+
+    In the screenshot above, on the left **(4)**, you can find a list of categories of medical information extracted by Cognitive Services Text Analytics for Healthcare. Currently, the category list is filtered based on your search. It shows you the number of documents per category where medical information is found in the matching categories in the entire search result set. 
+
+    On the top of the search result, the first record is a claims form **(2)**. In this case, thanks to Forms Recognizer, the data in the actual form is digitized and used to present a unified search experience across both claims forms and audio transcriptions. If you select the PDF link in the search result, you can see the original file and notice the diagnosis field extracted as COVID. 
+
+    The second item in the search result **(3)** is an audio transcription. All the green highlighted sections are medical information that Text Analytics for Health identified. These keywords and their primary categories are used for further investigation either by keyword search **(1)** or faceted filtering **(4)**. You can always click the play button in the result view to listen to the actual patient-doctor dialog. 
+
+    In the case of Contoso, the hospital wanted to prioritize claims forms in the search result. Therefore the implementation includes two search queries to the claims index and audio index and combines the top-scoring items based on the business rule within the portal. 
 
 ## Exercise 4: Building custom PowerBI reports on healthcare data
 
