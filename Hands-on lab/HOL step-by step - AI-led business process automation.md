@@ -769,8 +769,8 @@ In this task, we will connect our Azure Cognitive Search indexes with the hospit
 
    | Name           | Value                                                                 |
    |----------------|-----------------------------------------------------------------------|
-   | AzureSearchKey | Previously copied Endpoint **URL** for Cognitive Search               |
-   | AzureSearchUrl | Previously copied Endpoint **Primary Admin Key** for Cognitive Search |
+   | AzureSearchUrl | Previously copied Endpoint **URL** for Cognitive Search               |
+   | AzureSearchKey | Previously copied Endpoint **Primary Admin Key** for Cognitive Search |
 
 8. Once all settings **(1)** are set, select **Save (2)** and **Continue**.
 
