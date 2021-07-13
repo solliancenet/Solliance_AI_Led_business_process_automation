@@ -35,6 +35,7 @@ At the end of this hands-on lab, you will be better able to implement a business
 ## Azure services and related products
 
 - App Service
+- Application Insights
 - Cognitive Services Forms Recognizer
 - Cognitive Services Speech to Text
 - Cognitive Services Text Analytics
