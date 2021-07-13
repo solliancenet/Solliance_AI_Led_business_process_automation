@@ -322,6 +322,10 @@ For the document processing automation, our Azure Function must read the documen
 
    ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save.png "Save new application settings")
 
+10. Restart your Function App by selecting **Overview (1)** and **Restart (2)**.
+
+   ![Restarting the Function App after configuring service integrations.](media/function-app-restart.png "Restarting Function App")
+
 ### Task 5: Running document processing automation
 
 Now that all implementations are completed, we can upload a new document to the storage and see the entire process extracting values from claims submissions.
@@ -483,6 +487,10 @@ For audio recording processing, the AudioProcessing function will use multiple C
 11. Once all settings **(1)** are set, select **Save (2)**.
 
     ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save-step2.png "Save new application settings")
+
+12. Restart your Function App by selecting **Overview (1)** and **Restart (2)**.
+
+   ![Restarting the Function App after configuring service integrations.](media/function-app-restart.png "Restarting Function App")
 
 ### Task 3: Implementing Cognitive Services for audio processing
 
@@ -776,7 +784,7 @@ In this task, we will connect our Azure Cognitive Search indexes with the hospit
 
     ![New application settings are highlighted. Save button is pointed.](media/app-service-settings-save-step.png "Save new application settings")
 
-9. Go back to the **Overview (1)** page and select the **URL (2)** to navigate to the hospital portal.
+9. Go back to the **Overview (1)** page. Restart the web app **(2)** and select the **URL (3)** to navigate to the hospital portal. 
 
     ![Overview page for the App Service is shown. URL for the App Service is highlighted.](media/app-service-navigate-to-portal.png "Hospital Portal URL")
 
@@ -880,11 +888,19 @@ In this exercise, you will create Power BI reports surfacing the data extracted 
 
    ![Treemap visualization is selected. The count is set for Values and HealthcareEntities.Text is set for Group.](media/powerbi-treemap.png "Treemap")
 
-2. Select **Stacked Bar Chart (1)** and check **Claims.Diagnosis (2)** as Axis, **Claims.TotalCharges (3)** as Values.
+2. Select **Stacked Bar Chart (1)** and check **Document.Diagnosis (2)** as Axis, **Document.TotalCharges (3)** as Values.
 
    ![Stacked Bar Chart visualization is selected. Claims.Diagnosis is set for Axis and Claims.TotalCharges is set for Values.](media/powerbi-bar-chart.png "Stacked Bar Chart")
 
-3. Feel free to resize the charts. Here is an example view fetching data from visit audio recordings and claim submission forms.
+3. Select the treemap visualization you created (1). Select the paint roller icon and expand the **Title** dropdown (2). Change the title text to **Diagnosis Popularity** (3).
+
+   ![Renaming the treemap visualization in Power BI.](media/rename-treemap-viz.png "Visualization rename")
+
+4. Select the bar chart visualization (1). Again, expand the paint roller icon and select the **Title** dropdown (2). Change the title to **Total Charges per Diagnosis** (3).
+
+   ![Renaming the bar chart visualization in Power BI.](media/rename-barchart-viz.png "Bar chart title rename")
+
+5. Feel free to resize the charts. Here is an example view fetching data from visit audio recordings and claim submission forms. Can you change the axis names for the bar chart visualization?
 
    ![Report showing data from visit audio recordings and claim submission forms.](media/powerbi-sample-report.png "Sample Report")
 
