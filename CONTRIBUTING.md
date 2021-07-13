@@ -8,7 +8,7 @@ There are many ways that you can contribute, beyond writing or coding. The goal 
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.microsoft.com.
+the rights to use your contribution. For details, visit <https://cla.microsoft.com>.
 
 When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions
@@ -47,7 +47,6 @@ If you find your issue already exists, make relevant comments and add your [reac
 * 👍 - upvote
 * 👎 - downvote
 
-
 If you cannot find an existing issue that describes your bug or feature, create a new issue using the guidelines below.
 
 ### Writing Good Bug Reports and Feature Requests
@@ -79,6 +78,6 @@ Once submitted, your report will go into the [issue tracking](https://github.com
 If you are interested in writing code to fix issues,
 please see [How to Contribute](https://github.com/Microsoft/MSW/wiki/How-to-Contribute) in the wiki.
 
-# Thank You!
+# Thank You
 
 Your contributions to open source, large or small, make great projects like this possible. Thank you for taking the time to contribute.
