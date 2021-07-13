@@ -47,7 +47,7 @@ $branchName = "main"
 New-Item -ItemType directory -Path C:\MCW
 while((Get-ChildItem -Directory C:\MCW | Measure-Object).Count -eq 0 )
 {
-    (New-Object System.Net.WebClient).DownloadFile("https://github.com/solliancenet/Solliance_AI_Led_business_process_automation/zipball/$branchName", 'C:\MCW.zip')
+    (New-Object System.Net.WebClient).DownloadFile("https://github.com/microsoft/MCW-AI-led-business-process-automation/zipball/$branchName", 'C:\MCW.zip')
     Expand-Archive -LiteralPath 'C:\MCW.zip' -DestinationPath 'C:\MCW' -Force
 }
 

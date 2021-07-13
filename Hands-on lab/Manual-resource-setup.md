@@ -117,7 +117,7 @@ In this task, you provision a virtual machine (VM) in Azure. The VM is used as a
     New-Item -ItemType directory -Path C:\MCW
     while((Get-ChildItem -Directory C:\MCW | Measure-Object).Count -eq 0 )
     {
-        (New-Object System.Net.WebClient).DownloadFile("https://github.com/solliancenet/Solliance_AI_Led_business_process_automation/zipball/$branchName", 'C:\MCW.zip')
+        (New-Object System.Net.WebClient).DownloadFile("https://github.com/microsoft/MCW-AI-led-business-process-automation/zipball/$branchName", 'C:\MCW.zip')
         Expand-Archive -LiteralPath 'C:\MCW.zip' -DestinationPath 'C:\MCW' -Force
     }
     $item = get-item "c:\mcw\*"
@@ -496,13 +496,13 @@ In this task, you will deploy the web and functions app into the web app and fun
 2. In the Cloud Shell window, enter the following command to download and deploy the function app.
 
     ```PowerShell
-    (New-Object System.Net.WebClient).DownloadFile('https://github.com/solliancenet/Solliance_AI_Led_business_process_automation/raw/main/Hands-on%20lab/lab-files/source-azure-functions/DocumentProcessing.zip', 'Document.Zip')
+    (New-Object System.Net.WebClient).DownloadFile('https://github.com/microsoft/MCW-AI-led-business-process-automation/raw/main/Hands-on%20lab/lab-files/source-azure-functions/DocumentProcessing.zip', 'Document.Zip')
     az functionapp deployment source config-zip -g "hands-on-lab-SUFFIX" -n "contoso-func-SUFFIX" --src "Document.Zip" --subscription "YOUR-SUBSCRIPTION-ID-COMES-HERE"   
     ```
 
 3. In the Cloud Shell window, enter the following command to download and deploy the web app.
 
     ```PowerShell
-    (New-Object System.Net.WebClient).DownloadFile('https://github.com/solliancenet/Solliance_AI_Led_business_process_automation/raw/main/Hands-on%20lab/lab-files/source-hospital-portal/contoso-web.zip', 'contoso-web.zip')
+    (New-Object System.Net.WebClient).DownloadFile('https://github.com/microsoft/MCW-AI-led-business-process-automation/raw/main/Hands-on%20lab/lab-files/source-hospital-portal/contoso-web.zip', 'contoso-web.zip')
     az webapp deployment source config-zip -g "hands-on-lab-SUFFIX" -n "contoso-portal-SUFFIX" --src "contoso-web.zip" --subscription "YOUR-SUBSCRIPTION-ID"  
     ```

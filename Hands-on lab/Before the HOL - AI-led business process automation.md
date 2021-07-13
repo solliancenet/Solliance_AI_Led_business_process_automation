@@ -82,7 +82,7 @@ In this task, you create an Azure resource group to serve as a container for the
 
 1. To run the ARM template deployment, select the **Deploy to Azure** button below, which opens a custom deployment screen in the Azure portal.
 
-   <a href ="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsolliancenet%2FSolliance_AI_Led_business_process_automation%2Fmain%2FHands-on%2520lab%2Flab-files%2FARM-template%2Fazure-deploy.json" target="_blank" title="Deploy to Azure">
+   <a href ="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-AI-led-business-process-automation%2Fmain%2FHands-on%2520lab%2Flab-files%2FARM-template%2Fazure-deploy.json" target="_blank" title="Deploy to Azure">
       <img src="https://aka.ms/deploytoazurebutton"/>
    </a>
 
@@ -113,7 +113,7 @@ In this task, you create an Azure resource group to serve as a container for the
 2. In the Cloud Shell window, enter the following command to clone the repository files.
 
     ```PowerShell
-    git clone https://github.com/solliancenet/Solliance_AI_Led_business_process_automation.git MCW
+    git clone https://github.com/microsoft/MCW-AI-led-business-process-automation.git MCW
     ```
 
 3. Keep the Cloud Shell open.

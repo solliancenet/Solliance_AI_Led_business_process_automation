@@ -36,7 +36,7 @@
         "subnetPrefix": "176.16.0.0/24",
 
         "labCustomScriptFileName": "configure-labvm.ps1",
-        "labCustomScriptUri": "[concat('https://raw.githubusercontent.com/solliancenet/Solliance_AI_Led_business_process_automation/', variables('githubBranchName'),'/Hands-on%20lab/lab-files/ARM-template/', variables('labCustomScriptFileName'))]",
+        "labCustomScriptUri": "[concat('https://raw.githubusercontent.com/microsoft/MCW-AI-led-business-process-automation/', variables('githubBranchName'),'/Hands-on%20lab/lab-files/ARM-template/', variables('labCustomScriptFileName'))]",
 
         "hostingPlanName": "[concat(resourceGroup().name, '-asp-fn')]",
 		"functionAppName": "[concat('contoso-func-', uniqueString(resourceGroup().id))]",
