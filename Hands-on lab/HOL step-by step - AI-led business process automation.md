@@ -318,7 +318,7 @@ For the document processing automation, our Azure Function must read the documen
    | CosmosDBEndpointUrl     | Previously copied **URI** for Cosmos DB             |
    | CosmosDBPrimaryKey      | Previously copied **Primary Key** for Cosmos DB     |
 
-9. Once all settings **(1)** are set, select **Save (2)** and **Continue**. 
+9. Once all settings **(1)** are set, select **Save (2)** and **Continue**.
 
    ![New application settings are highlighted. Save button is pointed.](media/function-app-settings-save.png "Save new application settings")
 
