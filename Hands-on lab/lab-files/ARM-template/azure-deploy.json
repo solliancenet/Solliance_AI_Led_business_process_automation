@@ -40,6 +40,7 @@
 
         "hostingPlanName": "[concat(resourceGroup().name, '-asp-fn')]",
 		"functionAppName": "[concat('contoso-func-', uniqueString(resourceGroup().id))]",
+        "functionAppInsights": "[concat('contoso-func-insights-', uniqueString(resourceGroup().id))]",
 
         "appServiceHostingPlanName": "[concat(resourceGroup().name, '-asp-portal')]",
         "webAppName": "[concat('contoso-portal-', uniqueString(resourceGroup().id))]"
@@ -81,9 +82,31 @@
                         {
                             "name": "FUNCTIONS_EXTENSION_VERSION",
                             "value": "~3"
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components', variables('functionAppInsights')), '2020-02-02-preview').InstrumentationKey]"
+                        },
+                        {
+                            "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                            "value": "[reference(resourceId('microsoft.insights/components', variables('functionAppInsights')), '2020-02-02-preview').ConnectionString]"
                         }
                     ]
                 }
+            }
+        },
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2020-02-02-preview",
+            "name": "[variables('functionAppInsights')]",
+            "location": "[variables('location')]",
+            "tags": {
+                "[concat('hidden-link:', resourceId('Microsoft.Web/sites', variables('functionAppInsights')))]": "Resource"
+            },
+            "properties": {
+                "ApplicationId": "[variables('functionAppName')]",
+                "Application_Type": "web",
+                "Flow_Type": "Bluefield"
             }
         },
         {
