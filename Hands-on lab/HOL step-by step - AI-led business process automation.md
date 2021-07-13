@@ -886,11 +886,11 @@ In this exercise, you will create Power BI reports surfacing the data extracted 
 
 3. Select the treemap visualization you created (1). Select the paint roller icon and expand the **Title** dropdown (2). Change the title text to **Diagnosis Popularity** (3).
 
-   ![Renaming the treemap visualization in Power BI.](./media/rename-treemap-viz.png "Visualization rename")
+   ![Renaming the treemap visualization in Power BI.](media/rename-treemap-viz.png "Visualization rename")
 
 4. Select the bar chart visualization (1). Again, expand the paint roller icon and select the **Title** dropdown (2). Change the title to **Total Charges per Diagnosis** (3).
 
-   ![Renaming the bar chart visualization in Power BI.](./media/rename-barchart-viz.png "Bar chart title rename")
+   ![Renaming the bar chart visualization in Power BI.](media/rename-barchart-viz.png "Bar chart title rename")
 
 5. Feel free to resize the charts. Here is an example view fetching data from visit audio recordings and claim submission forms. Can you change the axis names for the bar chart visualization?
 
